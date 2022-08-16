@@ -67,7 +67,6 @@ public class OSMDataExtractor implements IDataExtractor {
             station.setName("Test");
             station.setAddress1("Stasse");
             station.setAddress2("PLZ");
-            //station.setDistance(json.getDouble("dist"));
             station.setLatitude(json.getDouble("lat"));
             station.setLongitude(json.getDouble("lon"));
             Location toiletLocation = new Location(LocationManager.PASSIVE_PROVIDER);

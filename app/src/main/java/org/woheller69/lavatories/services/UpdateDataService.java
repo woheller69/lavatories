@@ -12,7 +12,7 @@ import org.woheller69.lavatories.activities.NavigationActivity;
 import org.woheller69.lavatories.database.CityToWatch;
 import org.woheller69.lavatories.database.Station;
 import org.woheller69.lavatories.database.SQLiteHelper;
-import org.woheller69.lavatories.api.IHttpRequestForToilets;
+import org.woheller69.lavatories.api.IHttpRequest;
 import org.woheller69.lavatories.api.openstreetmap.OSMHttpRequestForToilets;
 
 import java.io.IOException;
@@ -94,7 +94,7 @@ public class UpdateDataService extends JobIntentService {
         if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
 
 
-                IHttpRequestForToilets stationsRequest = new OSMHttpRequestForToilets(getApplicationContext());
+                IHttpRequest stationsRequest = new OSMHttpRequestForToilets(getApplicationContext());
                 stationsRequest.perform(lat, lon, cityId);
 
         }

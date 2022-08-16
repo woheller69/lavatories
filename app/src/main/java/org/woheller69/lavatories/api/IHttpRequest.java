@@ -4,7 +4,7 @@ package org.woheller69.lavatories.api;
  * This generic interface is for making an HTTP request to some API, process the data and
  * finally trigger some mechanism to update the UI.
  */
-public interface IHttpRequestForToilets {
+public interface IHttpRequest {
 
     /**
      * @param lat The latitude of the city to get the data for.
