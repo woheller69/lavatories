@@ -22,6 +22,7 @@ import org.woheller69.lavatories.api.IProcessHttpRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class processes the HTTP requests that are made to the Tankerkönig API requesting the
@@ -80,6 +81,7 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
                 Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
         }
         Collections.sort(stations,(o1,o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
+        stations=stations.stream().limit(49).collect(Collectors.toList());  //limit to 49 stations. Max for Nominatim API call
         ViewUpdater.updateStations(stations,cityId);
         OSMHttpRequestForAddress addressRequest = new OSMHttpRequestForAddress(context);
         addressRequest.perform(cityId,stations);

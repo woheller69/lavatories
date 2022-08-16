@@ -69,27 +69,13 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
                 }
             }
         }
-        if (stationList.get(position).getDiesel()>0){
-            holder.diesel.setText(StringFormatUtils.formatPrice(context, "D: ",stationList.get(position).getDiesel()," €"));
-        }   else holder.diesel.setVisibility(View.GONE);
-        if (stationList.get(position).getE5()>0){
-            holder.e5.setText( StringFormatUtils.formatPrice(context, "E5: ",stationList.get(position).getE5()," €"));
-        }   else holder.e5.setVisibility(View.GONE);
-        if (stationList.get(position).getE10()>0){
-            holder.e10.setText(StringFormatUtils.formatPrice(context, "E10: ",stationList.get(position).getE10()," €"));
-        }   else holder.e10.setVisibility(View.GONE);
+
         holder.dist.setText(stationList.get(position).getDistance()+" km");
         holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
-        if (stationList.get(position).isOpen()) {
-            holder.isOpen.setText(R.string.open);
-            holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_green,null));
-        }
-        else  {
-            holder.isOpen.setText(R.string.closed);
-            holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_lightred,null));
-        }
 
-        holder.name.setText(stationList.get(position).getBrand());
+        if (!stationList.get(position).getBrand().trim().equals("")) holder.name.setText(stationList.get(position).getBrand());
+        else holder.name.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -98,24 +84,18 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     }
 
     class StationViewHolder extends RecyclerView.ViewHolder {
-        TextView e5;
-        TextView diesel;
-        TextView e10;
+
         TextView name;
         TextView dist;
-        TextView isOpen;
         TextView address;
         ImageView fav;
 
         StationViewHolder(View itemView) {
             super(itemView);
 
-            e5 = itemView.findViewById(R.id.station_e5);
-            diesel = itemView.findViewById(R.id.station_diesel);
-            e10 = itemView.findViewById(R.id.station_e10);
+
             name = itemView.findViewById(R.id.station_brand);
             dist = itemView.findViewById(R.id.station_dist);
-            isOpen = itemView.findViewById(R.id.station_isOpen);
             address = itemView.findViewById(R.id.station_address);
             fav = itemView.findViewById(R.id.station_fav);
 

@@ -42,29 +42,10 @@ public class OSMDataExtractor implements IDataExtractor {
 
             JSONObject json = new JSONObject(data);
 
-            if (json.has("diesel") && !json.isNull("diesel")) station.setDiesel(json.getDouble("diesel"));
-            if (json.has("e5") && !json.isNull("e5")) station.setE5( json.getDouble("e5"));
-            if (json.has("e10") && !json.isNull("e10")) station.setE10( json.getDouble("e10"));
-
-            if (json.has("price")) {
-                if (!json.isNull("price")) {
-                    switch (sharedPreferences.getString("pref_type", "all")) {
-                        case "diesel":
-                            station.setDiesel(json.getDouble("price"));
-                            break;
-                        case "e5":
-                            station.setE5(json.getDouble("price"));
-                            break;
-                        case "e10":
-                            station.setE10(json.getDouble("price"));
-                            break;
-                    }
-                } else return null;
-            }
             station.setOpen(true);
-            station.setBrand("Brand");
+            station.setBrand(" ");
             //if (json.getString("brand").equals("")) station.setBrand(json.getString("name"));
-            station.setName("Test");
+            station.setName(" ");
             station.setAddress1("Stasse");
             station.setAddress2("PLZ");
             station.setLatitude(json.getDouble("lat"));
@@ -74,7 +55,9 @@ public class OSMDataExtractor implements IDataExtractor {
             toiletLocation.setLongitude(station.getLongitude());
             station.setDistance(Math.round(cityLocation.distanceTo(toiletLocation)/10)/100.0);
             station.setUuid(json.getString("id"));
-
+            JSONObject tags = json.getJSONObject("tags");
+            if (tags.has("operator")) station.setBrand(tags.getString("operator"));
+            if (tags.has("opening_hours")) station.setName(tags.getString("opening_hours"));
             return station;
         } catch (JSONException e) {
             e.printStackTrace();

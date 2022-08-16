@@ -72,6 +72,8 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                     if (address.has("house_number")) address1 = address1 + " "+ address.getString("house_number");
                     if (address.has("postcode")) address2 = address.getString("postcode");
                     if (address.has("village")) address2 = address2 + " " + address.getString("village");
+                    if (address.has("town")) address2 = address2 + " " + address.getString("town");
+                    if (address.has("city")) address2 = address2 + " " + address.getString("city");
 
                     for (Station station:stations){
                         if (station.getUuid().equals(uuid)){
