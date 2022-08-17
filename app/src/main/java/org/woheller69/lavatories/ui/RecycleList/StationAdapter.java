@@ -76,6 +76,9 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         if (!stationList.get(position).getBrand().trim().equals("")) holder.name.setText(stationList.get(position).getBrand());
         else holder.name.setVisibility(View.GONE);
 
+        if (!stationList.get(position).getName().trim().equals("")) holder.hours.setText(stationList.get(position).getName());
+        else holder.hours.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -86,6 +89,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     class StationViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
+        TextView hours;
         TextView dist;
         TextView address;
         ImageView fav;
@@ -93,7 +97,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         StationViewHolder(View itemView) {
             super(itemView);
 
-
+            hours = itemView.findViewById(R.id.station_hours);
             name = itemView.findViewById(R.id.station_brand);
             dist = itemView.findViewById(R.id.station_dist);
             address = itemView.findViewById(R.id.station_address);

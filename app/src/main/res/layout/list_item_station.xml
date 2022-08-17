@@ -17,7 +17,21 @@
         android:layout_column="0"
         android:layout_row="0"
         android:layout_columnSpan="3"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/station_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="3dp"
+        android:text="24/7"
+        android:textStyle="bold"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:layout_columnSpan="3"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
