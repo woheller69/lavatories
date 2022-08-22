@@ -43,7 +43,7 @@ public class TutorialActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnNext, btnRegister;
+    private Button btnNext;
     private AppPreferencesManager prefManager;
 
 
@@ -59,7 +59,6 @@ public class TutorialActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnNext = (Button) findViewById(R.id.btn_next);
-        btnRegister = (Button) findViewById(R.id.btn_register);
 
 
         // layouts of all welcome sliders
@@ -92,16 +91,8 @@ public class TutorialActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchSettings();
+                    launchHomeScreen();
                 }
-            }
-        });
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://www.openstreetmap.org/copyright")));
             }
         });
 
@@ -160,11 +151,9 @@ public class TutorialActivity extends AppCompatActivity {
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 btnNext.setText(getString(R.string.okay));
-                btnRegister.setVisibility(View.VISIBLE);
             } else {
                 // still pages are left
                 btnNext.setText(getString(R.string.next));
-                btnRegister.setVisibility((View.INVISIBLE));
             }
         }
 
