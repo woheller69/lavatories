@@ -99,7 +99,7 @@ public class Station {
         isOpen = open;
     }
 
-    public String getBrand() {
+    public String getOperator() {
         return brand;
     }
 

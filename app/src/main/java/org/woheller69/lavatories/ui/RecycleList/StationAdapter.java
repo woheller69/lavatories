@@ -2,11 +2,8 @@ package org.woheller69.lavatories.ui.RecycleList;
 
 import android.content.Context;
 
-import androidx.core.content.res.ResourcesCompat;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +48,6 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
 
     @Override
     public void onBindViewHolder(StationViewHolder holder, int position) {
-        SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         if (stationList !=null && stationList.size()!=0 && stationList.get(0)!=null) {
             long time = stationList.get(0).getTimestamp();
@@ -60,21 +56,11 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
             recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_stations_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
         }
 
-        if (prefManager.getBoolean("prefBrands", false)) {  //if preferred brands are defined
-            String[] brands = prefManager.getString("prefBrandsString", "").split(","); //read comma separated list
-            for (String brand : brands) {
-                if (stationList.get(position).getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {
-                    holder.fav.setVisibility(View.VISIBLE);
-                    break;
-                }
-            }
-        }
-
         holder.dist.setText(stationList.get(position).getDistance()+" km");
         holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
 
-        if (!stationList.get(position).getBrand().trim().equals("")) holder.name.setText(stationList.get(position).getBrand().toUpperCase());
-        else holder.name.setVisibility(View.GONE);
+        if (!stationList.get(position).getOperator().trim().equals("")) holder.operator.setText(stationList.get(position).getOperator().toUpperCase());
+        else holder.operator.setVisibility(View.GONE);
 
         if (!stationList.get(position).getName().trim().equals("")) holder.hours.setText(stationList.get(position).getName());
         else holder.hours.setVisibility(View.GONE);
@@ -87,21 +73,18 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
 
     class StationViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name;
+        TextView operator;
         TextView hours;
         TextView dist;
         TextView address;
-        ImageView fav;
 
         StationViewHolder(View itemView) {
             super(itemView);
 
             hours = itemView.findViewById(R.id.station_hours);
-            name = itemView.findViewById(R.id.station_brand);
+            operator = itemView.findViewById(R.id.station_brand);
             dist = itemView.findViewById(R.id.station_dist);
             address = itemView.findViewById(R.id.station_address);
-            fav = itemView.findViewById(R.id.station_fav);
-
         }
     }
 }

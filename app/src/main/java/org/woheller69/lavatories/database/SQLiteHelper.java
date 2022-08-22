@@ -252,7 +252,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(STATION_E5, station.getE5());
         values.put(STATION_E10, station.getE10());
         values.put(STATION_ISOPEN, station.isOpen());
-        values.put(STATION_BRAND, station.getBrand());
+        values.put(STATION_BRAND, station.getOperator());
         values.put(STATION_NAME, station.getName());
         values.put(STATION_ADDRESS1, station.getAddress1());
         values.put(STATION_ADDRESS2, station.getAddress2());

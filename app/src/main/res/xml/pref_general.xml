@@ -1,16 +1,5 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <PreferenceCategory android:title="@string/settings_title_API">
-        <PreferenceScreen android:summary="@string/settings_description_API" />
-        <Preference
-            android:key="register"
-            android:title="@string/registerTKbutton"
-            />
-        <EditTextPreference
-            android:key="API_key_value"
-            android:title="@string/settings_title_API_key"
-            android:defaultValue="@string/settings__API_key_default" />
-    </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_title_display_options">
 
@@ -21,28 +10,6 @@
             android:key="pref_searchRadius"
             android:title="@string/settings_search_radius" />
 
-        <ListPreference
-            android:defaultValue="all"
-            android:entries="@array/types"
-            android:entryValues="@array/typesValues"
-            android:key="pref_type"
-            android:title="@string/settings_type"
-            />
-
-        <SwitchPreference
-            android:key="pref_sort"
-            android:summary="@string/settings_sort_summary"
-            android:title="@string/settings_sort"
-            android:defaultValue="false"
-            />
-
-        <org.woheller69.preferences.EditTextSwitchPreference
-            android:selectable="true"
-            app:useSimpleSummaryProvider="true"
-            android:key="prefBrandsString"
-            app:SwitchKey="prefBrands"
-            app:SwitchKeyDefaultValue="false"
-            android:title="@string/preferred_brands"/>
 
         <ListPreference
             android:defaultValue="15"
@@ -73,11 +40,7 @@
             android:summary="@string/settings_GPS_summary"
             android:defaultValue="false"
             />
-        <SwitchPreference
-            android:key="pref_GPS_manual"
-            android:title="@string/settings_GPS_manual"
-            android:defaultValue="false"
-            />
+
     </PreferenceCategory>
 
 
