@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
@@ -31,7 +32,7 @@ public class OSMDataExtractor implements IDataExtractor {
     @Override
     public Station extractStation(String data, int cityId, Context context) {
         try {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             Station station = new Station();
             station.setTimestamp((long) ((System.currentTimeMillis())/ 1000));
             SQLiteHelper db = SQLiteHelper.getInstance(context);

@@ -1,23 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:rowCount="5"
-    android:columnCount="4"
+    android:orientation="vertical"
     android:padding="4dp">
 
-    <TextView
-        android:id="@+id/station_brand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginBottom="3dp"
-        android:text="Aral"
-        android:layout_column="0"
-        android:layout_row="0"
-        android:layout_columnSpan="3"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/colorPrimaryDark" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/station_brand"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="3dp"
+            android:text="Aral"
+
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorPrimaryDark" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_wc_black_24dp">
+        </ImageView>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_accessible_black_24dp">
+        </ImageView>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baby_changing_station_black_24dp">
+        </ImageView>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_paid_black_24dp">
+        </ImageView>
+        <TextView
+            android:id="@+id/station_dist"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginBottom="3dp"
+            android:text="1.0 km"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/station_hours"
@@ -26,34 +69,9 @@
         android:layout_gravity="left"
         android:layout_marginBottom="3dp"
         android:text="24/7"
-        android:layout_column="0"
-        android:layout_row="1"
-        android:layout_columnSpan="3"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/colorPrimaryDark" />
 
-    <TextView
-        android:id="@+id/station_dist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginBottom="3dp"
-        android:text="1.0 km"
-        android:layout_column="3"
-        android:layout_row="1"
-        android:layout_columnSpan="1"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_row="1"
-        android:layout_rowSpan="3"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:orientation="vertical"/>
 
     <TextView
         android:id="@+id/station_address"
@@ -62,9 +80,6 @@
         android:layout_gravity="left"
         android:layout_marginTop="5dp"
         android:text="Musterstraße 27, 12345 Musterstadt"
-        android:layout_column="0"
-        android:layout_columnSpan="4"
-        android:layout_row="4"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/colorPrimaryDark" />
 
@@ -74,12 +89,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginBottom="3dp"
-        android:layout_column="3"
-        android:layout_row="0"
-        android:layout_columnSpan="1"
         android:src="@drawable/star_yellow_24"
         android:visibility="gone"
         />
 
 
-</GridLayout>
+</LinearLayout>

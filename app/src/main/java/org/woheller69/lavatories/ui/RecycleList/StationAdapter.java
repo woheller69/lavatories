@@ -73,12 +73,11 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         holder.dist.setText(stationList.get(position).getDistance()+" km");
         holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
 
-        if (!stationList.get(position).getBrand().trim().equals("")) holder.name.setText(stationList.get(position).getBrand());
+        if (!stationList.get(position).getBrand().trim().equals("")) holder.name.setText(stationList.get(position).getBrand().toUpperCase());
         else holder.name.setVisibility(View.GONE);
 
         if (!stationList.get(position).getName().trim().equals("")) holder.hours.setText(stationList.get(position).getName());
         else holder.hours.setVisibility(View.GONE);
-
     }
 
     @Override
