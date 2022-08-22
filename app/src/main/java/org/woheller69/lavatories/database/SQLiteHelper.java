@@ -312,8 +312,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 station.setE5(Double.parseDouble(cursor.getString(4)));
                 station.setE10(Double.parseDouble(cursor.getString(5)));
                 station.setOpen(cursor.getString(6).equals("1"));
-                station.setBrand(cursor.getString(7));
-                station.setName(cursor.getString(8));
+                station.setOperator(cursor.getString(7));
+                station.setOpeningHours(cursor.getString(8));
                 station.setAddress1(cursor.getString(9));
                 station.setAddress2(cursor.getString(10));
                 station.setDistance(Double.parseDouble(cursor.getString(11)));

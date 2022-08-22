@@ -103,7 +103,7 @@ public class Station {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setOperator(String brand) {
         this.brand = brand;
     }
 
@@ -111,7 +111,7 @@ public class Station {
         return name;
     }
 
-    public void setName(String name) {
+    public void setOpeningHours(String name) {
         this.name = name;
     }
 

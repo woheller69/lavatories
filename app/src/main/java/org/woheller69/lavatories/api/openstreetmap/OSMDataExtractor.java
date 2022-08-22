@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
@@ -43,10 +42,8 @@ public class OSMDataExtractor implements IDataExtractor {
 
             JSONObject json = new JSONObject(data);
 
-            station.setOpen(true);
-            station.setBrand(" ");
-            //if (json.getString("brand").equals("")) station.setBrand(json.getString("name"));
-            station.setName(" ");
+            station.setOperator(" ");
+            station.setOpeningHours(" ");
             station.setAddress1(" ");
             station.setAddress2(" ");
             station.setLatitude(json.getDouble("lat"));
@@ -57,8 +54,8 @@ public class OSMDataExtractor implements IDataExtractor {
             station.setDistance(Math.round(cityLocation.distanceTo(toiletLocation)/10)/100.0);
             station.setUuid(json.getString("id"));
             JSONObject tags = json.getJSONObject("tags");
-            if (tags.has("operator")) station.setBrand(tags.getString("operator"));
-            if (tags.has("opening_hours")) station.setName(tags.getString("opening_hours"));
+            if (tags.has("operator")) station.setOperator(tags.getString("operator"));
+            if (tags.has("opening_hours")) station.setOpeningHours(tags.getString("opening_hours"));
             if (tags.has("access") && tags.getString(("access")).equals("private"))  return null;
             return station;
         } catch (JSONException e) {

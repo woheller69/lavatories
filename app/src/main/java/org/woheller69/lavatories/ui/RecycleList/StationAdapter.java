@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.woheller69.lavatories.R;
@@ -28,15 +27,12 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     private List<Station> stationList;
     private Context context;
     private TextView recyclerViewHeader;
-    private RecyclerView recyclerView;
-    private ImageView fav;
 
 //Adapter for Stations recycler view
     StationAdapter(List<Station> stationList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
         this.context = context;
         this.stationList = stationList;
         this.recyclerViewHeader=recyclerViewHeader;
-        this.recyclerView=recyclerView;
     }
 
 
@@ -62,8 +58,8 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         if (!stationList.get(position).getOperator().trim().equals("")) holder.operator.setText(stationList.get(position).getOperator().toUpperCase());
         else holder.operator.setVisibility(View.GONE);
 
-        if (!stationList.get(position).getName().trim().equals("")) holder.hours.setText(stationList.get(position).getName());
-        else holder.hours.setVisibility(View.GONE);
+        if (!stationList.get(position).getName().trim().equals("")) holder.openingHours.setText(stationList.get(position).getName());
+        else holder.openingHours.setVisibility(View.GONE);
     }
 
     @Override
@@ -74,14 +70,14 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     class StationViewHolder extends RecyclerView.ViewHolder {
 
         TextView operator;
-        TextView hours;
+        TextView openingHours;
         TextView dist;
         TextView address;
 
         StationViewHolder(View itemView) {
             super(itemView);
 
-            hours = itemView.findViewById(R.id.station_hours);
+            openingHours = itemView.findViewById(R.id.station_hours);
             operator = itemView.findViewById(R.id.station_brand);
             dist = itemView.findViewById(R.id.station_dist);
             address = itemView.findViewById(R.id.station_address);
