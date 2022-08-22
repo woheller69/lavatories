@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/station_brand"
+            android:id="@+id/station_operator"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -33,18 +33,21 @@
             android:src="@drawable/ic_wc_black_24dp">
         </ImageView>
         <ImageView
+            android:id="@+id/station_wheelchair"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_accessible_black_24dp">
         </ImageView>
         <ImageView
+            android:id="@+id/station_baby_changing"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baby_changing_station_black_24dp">
         </ImageView>
         <ImageView
+            android:id="@+id/station_paid"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

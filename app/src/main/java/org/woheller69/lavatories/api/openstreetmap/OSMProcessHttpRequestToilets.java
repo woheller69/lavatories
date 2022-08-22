@@ -67,8 +67,6 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
                     Station station = extractor.extractStation(currentItem,cityId,context);
                     if (station != null) { // Could retrieve all data, so add it to the list
                         station.setCity_id(cityId);
-                        // add it to the database
-                        dbHelper.addStation(station);
                         stations.add(station);
                     }
                 }
@@ -82,6 +80,11 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
         }
         Collections.sort(stations,(o1,o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
         stations=stations.stream().limit(49).collect(Collectors.toList());  //limit to 49 stations. Max for Nominatim API call
+        for (Station station:stations) {
+            // add stations to the database (after sorting and limiting)
+            dbHelper.addStation(station);
+        }
+
         OSMHttpRequestForAddress addressRequest = new OSMHttpRequestForAddress(context);
         addressRequest.perform(cityId,stations);
     }

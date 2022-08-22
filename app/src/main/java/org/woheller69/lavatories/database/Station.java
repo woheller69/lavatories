@@ -8,12 +8,11 @@ public class Station {
     private int id;
     private int city_id;
     private long timestamp;
-    private double diesel;
-    private double e5;
-    private double e10;
-    private boolean isOpen;
-    private String brand;
-    private String name;
+    private boolean wheelchair;
+    private boolean babyChanging;
+    private boolean paid;
+    private String operator;
+    private String openingHours;
     private String address1;
     private String address2;
     private double distance;
@@ -25,16 +24,15 @@ public class Station {
     public Station() {
     }
 
-    public Station(int id, int city_id, long timestamp, double diesel, double e5, double e10, boolean isOpen, String brand, String name, String address1, String address2, double distance, double latitude, double longitude, String uuid) {
+    public Station(int id, int city_id, long timestamp, boolean wheelchair, boolean babyChanging, boolean paid, String operator, String openingHours, String address1, String address2, double distance, double latitude, double longitude, String uuid) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
-        this.diesel = diesel;
-        this.e5 = e5;
-        this.e10 = e10;
-        this.isOpen = isOpen;
-        this.brand = brand;
-        this.name = name;
+        this.wheelchair = wheelchair;
+        this.babyChanging = babyChanging;
+        this.paid = paid;
+        this.operator = operator;
+        this.openingHours = openingHours;
         this.address1 = address1;
         this.address2 = address2;
         this.distance = distance;
@@ -67,52 +65,44 @@ public class Station {
         this.timestamp = timestamp;
     }
 
-    public double getDiesel() {
-        return diesel;
+    public boolean isWheelchair() {
+        return wheelchair;
     }
 
-    public void setDiesel(double diesel) {
-        this.diesel = diesel;
+    public void setWheelchair(boolean wheelchair) {
+        this.wheelchair = wheelchair;
     }
 
-    public double getE5() {
-        return e5;
+    public boolean isBabyChanging() {
+        return babyChanging;
     }
 
-    public void setE5(double e5) {
-        this.e5 = e5;
+    public void setBabyChanging(boolean babyChanging) {
+        this.babyChanging = babyChanging;
     }
 
-    public double getE10() {
-        return e10;
+    public boolean isPaid() {
+        return paid;
     }
 
-    public void setE10(double e10) {
-        this.e10 = e10;
-    }
-
-    public boolean isOpen() {
-        return isOpen;
-    }
-
-    public void setOpen(boolean open) {
-        isOpen = open;
+    public void setPaid(boolean open) {
+        paid = open;
     }
 
     public String getOperator() {
-        return brand;
+        return operator;
     }
 
     public void setOperator(String brand) {
-        this.brand = brand;
+        this.operator = brand;
     }
 
-    public String getName() {
-        return name;
+    public String getOpeningHours() {
+        return openingHours;
     }
 
     public void setOpeningHours(String name) {
-        this.name = name;
+        this.openingHours = name;
     }
 
     public String getAddress1() {
@@ -162,4 +152,5 @@ public class Station {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
 }

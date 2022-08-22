@@ -37,12 +37,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String STATION_ID = "station_id";
     private static final String STATION_CITY_ID = "city_id";
     private static final String STATION_TIMESTAMP = "timestamp";
-    private static final String STATION_DIESEL = "diesel";
-    private static final String STATION_E5 = "e5";
-    private static final String STATION_E10 = "e10";
-    private static final String STATION_ISOPEN = "is_open";
-    private static final String STATION_BRAND = "brand";
-    private static final String STATION_NAME = "name";
+    private static final String STATION_WHEELCHAIR = "wheelchair";
+    private static final String STATION_BABY_CHANGING = "baby_changing";
+    private static final String STATION_PAID = "paid";
+    private static final String STATION_OPERATOR = "brand";
+    private static final String STATION_OPENING_HOURS = "name";
     private static final String STATION_ADDRESS1 = "address1";
     private static final String STATION_ADDRESS2 = "address2";
     private static final String STATION_DISTANCE = "distance";
@@ -58,12 +57,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             STATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             STATION_CITY_ID + " INTEGER," +
             STATION_TIMESTAMP + " LONG NOT NULL," +
-            STATION_DIESEL + " REAL," +
-            STATION_E5 + " REAL," +
-            STATION_E10 + " REAL," +
-            STATION_ISOPEN + " BIT," +
-            STATION_BRAND + " VARCHAR(200) NOT NULL," +
-            STATION_NAME + " VARCHAR(200) NOT NULL," +
+            STATION_WHEELCHAIR + " BIT," +
+            STATION_BABY_CHANGING + " BIT," +
+            STATION_PAID + " BIT," +
+            STATION_OPERATOR + " VARCHAR(200) NOT NULL," +
+            STATION_OPENING_HOURS + " VARCHAR(200) NOT NULL," +
             STATION_ADDRESS1 + " VARCHAR(200) NOT NULL," +
             STATION_ADDRESS2 + " VARCHAR(200) NOT NULL," +
             STATION_DISTANCE + " REAL," +
@@ -248,12 +246,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(STATION_CITY_ID, station.getCity_id());
         values.put(STATION_TIMESTAMP, station.getTimestamp());
-        values.put(STATION_DIESEL, station.getDiesel());
-        values.put(STATION_E5, station.getE5());
-        values.put(STATION_E10, station.getE10());
-        values.put(STATION_ISOPEN, station.isOpen());
-        values.put(STATION_BRAND, station.getOperator());
-        values.put(STATION_NAME, station.getName());
+        values.put(STATION_WHEELCHAIR, station.isWheelchair());
+        values.put(STATION_BABY_CHANGING, station.isBabyChanging());
+        values.put(STATION_PAID, station.isPaid());
+        values.put(STATION_OPERATOR, station.getOperator());
+        values.put(STATION_OPENING_HOURS, station.getOpeningHours());
         values.put(STATION_ADDRESS1, station.getAddress1());
         values.put(STATION_ADDRESS2, station.getAddress2());
         values.put(STATION_DISTANCE, station.getDistance());
@@ -284,12 +281,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 new String[]{STATION_ID,
                         STATION_CITY_ID,
                         STATION_TIMESTAMP,
-                        STATION_DIESEL,
-                        STATION_E5,
-                        STATION_E10,
-                        STATION_ISOPEN,
-                        STATION_BRAND,
-                        STATION_NAME,
+                        STATION_WHEELCHAIR,
+                        STATION_BABY_CHANGING,
+                        STATION_PAID,
+                        STATION_OPERATOR,
+                        STATION_OPENING_HOURS,
                         STATION_ADDRESS1,
                         STATION_ADDRESS2,
                         STATION_DISTANCE,
@@ -308,18 +304,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 station.setId(Integer.parseInt(cursor.getString(0)));
                 station.setCity_id(Integer.parseInt(cursor.getString(1)));
                 station.setTimestamp(Long.parseLong(cursor.getString(2)));
-                station.setDiesel(Double.parseDouble(cursor.getString(3)));
-                station.setE5(Double.parseDouble(cursor.getString(4)));
-                station.setE10(Double.parseDouble(cursor.getString(5)));
-                station.setOpen(cursor.getString(6).equals("1"));
-                station.setOperator(cursor.getString(7));
-                station.setOpeningHours(cursor.getString(8));
-                station.setAddress1(cursor.getString(9));
-                station.setAddress2(cursor.getString(10));
-                station.setDistance(Double.parseDouble(cursor.getString(11)));
-                station.setLatitude(Double.parseDouble(cursor.getString(12)));
-                station.setLongitude(Double.parseDouble(cursor.getString(13)));
-                station.setUuid(cursor.getString(14));
+                station.setWheelchair(cursor.getString(3).equals("1"));
+                station.setBabyChanging(cursor.getString(4).equals("1"));
+                station.setPaid(cursor.getString(5).equals("1"));
+                station.setOperator(cursor.getString(6));
+                station.setOpeningHours(cursor.getString(7));
+                station.setAddress1(cursor.getString(8));
+                station.setAddress2(cursor.getString(9));
+                station.setDistance(Double.parseDouble(cursor.getString(10)));
+                station.setLatitude(Double.parseDouble(cursor.getString(11)));
+                station.setLongitude(Double.parseDouble(cursor.getString(12)));
+                station.setUuid(cursor.getString(13));
                 list.add(station);
             } while (cursor.moveToNext());
 
