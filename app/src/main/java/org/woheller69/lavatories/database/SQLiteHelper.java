@@ -343,4 +343,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         }
         return cityID;
     }
+
+    public void updateStationAddress(Station station) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(STATION_ADDRESS1, station.getAddress1());
+        values.put(STATION_ADDRESS2, station.getAddress2());
+
+        database.update(TABLE_STATIONS, values, STATION_UUID + " = ?",
+                new String[]{String.valueOf(station.getUuid())});
+
+    }
 }

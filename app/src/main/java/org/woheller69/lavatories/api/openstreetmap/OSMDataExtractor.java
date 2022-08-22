@@ -46,8 +46,8 @@ public class OSMDataExtractor implements IDataExtractor {
             station.setBrand(" ");
             //if (json.getString("brand").equals("")) station.setBrand(json.getString("name"));
             station.setName(" ");
-            station.setAddress1("Stasse");
-            station.setAddress2("PLZ");
+            station.setAddress1(" ");
+            station.setAddress2(" ");
             station.setLatitude(json.getDouble("lat"));
             station.setLongitude(json.getDouble("lon"));
             Location toiletLocation = new Location(LocationManager.PASSIVE_PROVIDER);
@@ -58,6 +58,7 @@ public class OSMDataExtractor implements IDataExtractor {
             JSONObject tags = json.getJSONObject("tags");
             if (tags.has("operator")) station.setBrand(tags.getString("operator"));
             if (tags.has("opening_hours")) station.setName(tags.getString("opening_hours"));
+            if (tags.has("access") && tags.getString(("access")).equals("private"))  return null;
             return station;
         } catch (JSONException e) {
             e.printStackTrace();

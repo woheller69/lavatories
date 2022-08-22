@@ -101,7 +101,7 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://creativecommons.tankerkoenig.de")));
+                        Uri.parse("https://www.openstreetmap.org/copyright")));
             }
         });
 

@@ -56,7 +56,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     @Override
     public void processSuccessScenario(String response, int cityId) {
-        Log.d("Request",response);
+        //Log.d("Request",response);
         this.dbHelper = SQLiteHelper.getInstance(context);
             try {
                 JSONArray list = new JSONArray(response);
@@ -77,10 +77,10 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
 
                     for (Station station:stations){
                         if (station.getUuid().equals(uuid)){
-                            Log.d("Extract",uuid+" "+address1+" "+address2);
+                            //Log.d("Extract",uuid+" "+address1+" "+address2);
                             station.setAddress1(address1);
                             station.setAddress2(address2);
-                            dbHelper.addStation(station);
+                            dbHelper.updateStationAddress(station);
                         }
                     }
                 }
