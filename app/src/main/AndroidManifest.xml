@@ -31,9 +31,9 @@
             android:launchMode="singleTop"
             android:label="@string/activity_manage"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="org.woheller69.lavatories.activities.CityGasPricesActivity" />
+            android:parentActivityName="org.woheller69.lavatories.activities.LavSeekerActivity" />
         <activity
-            android:name="org.woheller69.lavatories.activities.CityGasPricesActivity"
+            android:name="org.woheller69.lavatories.activities.LavSeekerActivity"
             android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -41,21 +41,21 @@
         <activity
             android:name="org.woheller69.lavatories.activities.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName="org.woheller69.lavatories.activities.CityGasPricesActivity"
+            android:parentActivityName="org.woheller69.lavatories.activities.LavSeekerActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.lavatories.activities.CityGasPricesActivity" />
+                android:value="org.woheller69.lavatories.activities.LavSeekerActivity" />
         </activity>
 
         <activity
             android:name="org.woheller69.lavatories.activities.SettingsActivity"
             android:label="@string/activity_settings_title"
-            android:parentActivityName="org.woheller69.lavatories.activities.CityGasPricesActivity"
+            android:parentActivityName="org.woheller69.lavatories.activities.LavSeekerActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.lavatories.activities.CityGasPricesActivity" />
+                android:value="org.woheller69.lavatories.activities.LavSeekerActivity" />
 
         </activity>
         <activity

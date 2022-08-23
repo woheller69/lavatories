@@ -1,6 +1,6 @@
 package org.woheller69.lavatories.ui;
 
-import static org.woheller69.lavatories.ui.RecycleList.CityAdapter.STATIONS;
+import static org.woheller69.lavatories.ui.RecycleList.CityAdapter.LAVATORIES;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.woheller69.lavatories.R;
-import org.woheller69.lavatories.activities.CityGasPricesActivity;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.activities.LavSeekerActivity;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.ui.RecycleList.CityAdapter;
 import org.woheller69.lavatories.ui.RecycleList.OnSwipeDownListener;
 import org.woheller69.lavatories.ui.updater.IUpdateableCityUI;
@@ -32,7 +32,7 @@ import java.util.List;
 public class CityFragment extends Fragment implements IUpdateableCityUI {
 
     private int mCityId = -1;
-    private static final int[] mDataSetTypes = {STATIONS}; //Before: {OVERVIEW, DETAILS, STATIONS} OVERVIEW and DETAILS unused at the moment.
+    private static final int[] mDataSetTypes = {LAVATORIES};
 
     private CityAdapter mAdapter;
 
@@ -82,7 +82,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
         recyclerView = v.findViewById(R.id.CityRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()){
-            public boolean canScrollVertically() {    //Make parent recyclerview not scrollable (not needed in this app) and scroll stations instead
+            public boolean canScrollVertically() {    //Make parent recyclerview not scrollable (not needed in this app) and scroll lavatories instead
                 return false;
             }
         });
@@ -95,7 +95,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
                     recyclerView.setOnTouchListener(new OnSwipeDownListener(getContext()) {
                         public void onSwipeDown() {
                                 CityPagerAdapter.refreshSingleData(getContext(),true,mCityId);
-                                CityGasPricesActivity.startRefreshAnimation();
+                                LavSeekerActivity.startRefreshAnimation();
                         }
                     });
                 }else recyclerView.setOnTouchListener(null);
@@ -111,10 +111,10 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
     }
 
     @Override
-    public void processUpdateStations(List<Station> stations, int cityID) {
+    public void processUpdateLavatories(List<Lavatory> lavatories, int cityID) {
 
             if (mAdapter != null && mCityId==cityID) {
-                mAdapter.updateStationsData(stations);
+                mAdapter.updateLavatoriesData(lavatories);
             }
     }
 

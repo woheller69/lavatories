@@ -12,13 +12,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.NavigationActivity;
-import org.woheller69.lavatories.api.IDataExtractor;
 import org.woheller69.lavatories.api.IProcessHttpRequest;
 import org.woheller69.lavatories.database.SQLiteHelper;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.ui.updater.ViewUpdater;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,18 +31,18 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     private Context context;
     private SQLiteHelper dbHelper;
-    private List<Station> stations;
+    private List<Lavatory> lavatories;
 
     /**
      * Constructor.
      *
      * @param context The context of the HTTP request.
-     * @param stations
+     * @param lavatories
      */
-    public OSMProcessHttpRequestAddress(Context context, List<Station> stations) {
+    public OSMProcessHttpRequestAddress(Context context, List<Lavatory> lavatories) {
         this.context = context;
         this.dbHelper = SQLiteHelper.getInstance(context);
-        this.stations = stations;
+        this.lavatories = lavatories;
 
     }
 
@@ -75,12 +73,12 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                     if (address.has("town")) address2 = address2 + " " + address.getString("town");
                     if (address.has("city")) address2 = address2 + " " + address.getString("city");
 
-                    for (Station station:stations){
-                        if (station.getUuid().equals(uuid)){
+                    for (Lavatory lavatory : lavatories){
+                        if (lavatory.getUuid().equals(uuid)){
                             //Log.d("Extract",uuid+" "+address1+" "+address2);
-                            station.setAddress1(address1);
-                            station.setAddress2(address2);
-                            dbHelper.updateStationAddress(station);
+                            lavatory.setAddress1(address1);
+                            lavatory.setAddress2(address2);
+                            dbHelper.updateLavatoryAddress(lavatory);
                         }
                     }
                 }
@@ -88,8 +86,8 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                 e.printStackTrace();
             }
 
-        Collections.sort(stations,(o1,o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
-        ViewUpdater.updateStations(stations,cityId);
+        Collections.sort(lavatories,(o1, o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
+        ViewUpdater.updateLavatories(lavatories,cityId);
     }
 
     /**
@@ -104,7 +102,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
         h.post(new Runnable() {
             @Override
             public void run() {
-                if (NavigationActivity.isVisible) Toast.makeText(context, context.getResources().getString(R.string.error_fetch_stations), Toast.LENGTH_LONG).show();
+                if (NavigationActivity.isVisible) Toast.makeText(context, context.getResources().getString(R.string.error_fetch_lavatories), Toast.LENGTH_LONG).show();
             }
         });
     }

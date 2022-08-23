@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="@string/error_no_station_found"
+            android:text="@string/error_no_lavatory_found"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
@@ -28,7 +28,7 @@
             android:background="@color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_stations"
+            android:id="@+id/recycler_view_lavatories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

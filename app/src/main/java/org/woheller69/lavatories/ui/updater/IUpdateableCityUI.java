@@ -1,6 +1,6 @@
 package org.woheller69.lavatories.ui.updater;
 
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface IUpdateableCityUI {
 
-    void processUpdateStations(List<Station> stations, int cityID);
+    void processUpdateLavatories(List<Lavatory> lavatories, int cityID);
 
 }

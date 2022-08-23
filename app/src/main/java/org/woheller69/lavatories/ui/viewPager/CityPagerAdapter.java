@@ -10,7 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.database.CityToWatch;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.services.UpdateDataService;
 import org.woheller69.lavatories.ui.CityFragment;
@@ -75,7 +75,7 @@ public class CityPagerAdapter extends FragmentStateAdapter implements IUpdateabl
 
 
     @Override
-    public void processUpdateStations(List<Station> stations, int cityID) {
+    public void processUpdateLavatories(List<Lavatory> lavatories, int cityID) {
 
     }
 

@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.database.CityToWatch;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.ui.updater.IUpdateableCityUI;
 import org.woheller69.lavatories.ui.updater.ViewUpdater;
@@ -38,7 +38,7 @@ import static org.woheller69.lavatories.database.SQLiteHelper.getWidgetCityID;
 import java.util.List;
 import java.util.Locale;
 
-public class CityGasPricesActivity extends NavigationActivity implements IUpdateableCityUI {
+public class LavSeekerActivity extends NavigationActivity implements IUpdateableCityUI {
     private CityPagerAdapter pagerAdapter;
     private static LocationListener locationListenerGPS;
     private LocationManager locationManager;
@@ -83,11 +83,11 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         if (pagerAdapter.getItemCount()>0) {  //only if at least one city is watched
              //if pagerAdapter has item with current cityId go there, otherwise use cityId from current item
             if (pagerAdapter.getPosForCityID(cityId)==-1) cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());
-            List <Station> stations = db.getStationsByCityId(cityId);
+            List <Lavatory> lavatories = db.getLavatoriesByCityId(cityId);
 
-            if (stations.size() == 0) {
+            if (lavatories.size() == 0) {
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
-                CityGasPricesActivity.startRefreshAnimation();
+                LavSeekerActivity.startRefreshAnimation();
             }
             if (viewPager2.getCurrentItem()!=pagerAdapter.getPosForCityID(cityId)) viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId),false);
         }
@@ -97,7 +97,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=this;
-        setContentView(R.layout.activity_city_gas_prices);
+        setContentView(R.layout.activity_lav_seeker);
         overridePendingTransition(0, 0);
 
         initResources();
@@ -108,13 +108,12 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 //Update current tab if outside update interval, show animation
-                SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SQLiteHelper database = SQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
-                List <Station> stations = database.getStationsByCityId(pagerAdapter.getCityIDForPos(position));
+                List <Lavatory> lavatories = database.getLavatoriesByCityId(pagerAdapter.getCityIDForPos(position));
 
-                if (stations.size()==0) {
+                if (lavatories.size()==0) {
                     CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
-                    CityGasPricesActivity.startRefreshAnimation();
+                    LavSeekerActivity.startRefreshAnimation();
                 }
 
                 cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());  //save current cityId for next resume
@@ -193,7 +192,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         if (id==R.id.menu_refresh){
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
-                CityGasPricesActivity.startRefreshAnimation();
+                LavSeekerActivity.startRefreshAnimation();
             }
         }else if (id==R.id.menu_update_location) {
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
@@ -212,7 +211,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                                     city.setLongitude((float) location.getLongitude());
                                     city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                                     db.updateCityToWatch(city);
-                                    db.deleteStationsByCityId(getWidgetCityID(context));
+                                    db.deleteLavatoriesByCityId(getWidgetCityID(context));
                                     pagerAdapter.loadCities();
                                     viewPager2.setAdapter(pagerAdapter);
                                     tabLayout.getTabAt(0).setText(city.getCityName());
@@ -237,7 +236,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                             }
                         };
                         Log.d("GPS", "Request Updates");
-                        CityGasPricesActivity.startUpdateLocatationAnimation();
+                        LavSeekerActivity.startUpdateLocatationAnimation();
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListenerGPS);
                     }
                 }
@@ -254,7 +253,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     }
 
     @Override
-    public void processUpdateStations(List<Station> stations, int cityID) {
+    public void processUpdateLavatories(List<Lavatory> lavatories, int cityID) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }

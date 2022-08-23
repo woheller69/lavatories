@@ -216,10 +216,9 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
                         city.setCountryCode(countrycode);
                         city.setLatitude((float) jsonCoordinates.getDouble(1));
                         city.setLongitude((float) jsonCoordinates.getDouble(0));
-                        if (countrycode.equals("DE")) {
-                            cityList.add(city);
-                            stringList.add(citystring);
-                        }
+                        cityList.add(city);
+                        stringList.add(citystring);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -1,18 +1,13 @@
 package org.woheller69.lavatories.api.openstreetmap;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-
-import androidx.preference.PreferenceManager;
 
 import org.woheller69.lavatories.BuildConfig;
 import org.woheller69.lavatories.api.IHttpRequest;
-import org.woheller69.lavatories.database.SQLiteHelper;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.http.HttpRequestType;
 import org.woheller69.lavatories.http.VolleyHttpRequest;
-import org.woheller69.lavatories.preferences.AppPreferencesManager;
 
 import java.util.List;
 
@@ -38,16 +33,16 @@ public class OSMHttpRequestForAddress  {
      * @see IHttpRequest#perform(float, float,int)
      */
 
-    public void perform(int cityId, List<Station> stations) {
+    public void perform(int cityId, List<Lavatory> lavatories) {
         org.woheller69.lavatories.http.IHttpRequest httpRequest = new VolleyHttpRequest(context, cityId);
-        final String URL = getUrlForQueryingAddress(stations);
-        httpRequest.make(URL, HttpRequestType.GET, new OSMProcessHttpRequestAddress(context,stations));
+        final String URL = getUrlForQueryingAddress(lavatories);
+        httpRequest.make(URL, HttpRequestType.GET, new OSMProcessHttpRequestAddress(context, lavatories));
     }
 
-    protected String getUrlForQueryingAddress(List<Station> stations) {
+    protected String getUrlForQueryingAddress(List<Lavatory> lavatories) {
         String idString="";
-        for (Station station:stations){
-            idString=idString+"N"+station.getUuid()+",";
+        for (Lavatory lavatory : lavatories){
+            idString=idString+"N"+ lavatory.getUuid()+",";
         }
         Log.d("Request",String.format(
                 "%slookup?format=json&osm_ids=%s",

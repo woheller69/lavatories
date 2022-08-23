@@ -1,6 +1,6 @@
 package org.woheller69.lavatories.ui.updater;
 
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,10 @@ public class ViewUpdater {
         subscribers.remove(sub);
     }
 
-    public static void updateStations(List<Station> stations, int cityID) {
+    public static void updateLavatories(List<Lavatory> lavatories, int cityID) {
         ArrayList<IUpdateableCityUI> subcopy = new ArrayList<>(subscribers);
         for (IUpdateableCityUI sub : subcopy) {
-            sub.processUpdateStations(stations,cityID);
+            sub.processUpdateLavatories(lavatories,cityID);
         }
     }
 }

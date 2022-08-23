@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.woheller69.lavatories.R;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.List;
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     private int[] dataSetTypes;
-    private List<Station> stationList;
+    private List<Lavatory> lavatoryList;
 
     private Context context;
 
@@ -33,7 +33,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
-    public static final int STATIONS = 2;
+    public static final int LAVATORIES = 2;
 
 //Adapter for CityFragment
     public CityAdapter(int cityID, int[] dataSetTypes, Context context) {
@@ -43,16 +43,16 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
 
-        List<Station> stations = database.getStationsByCityId(cityID);
+        List<Lavatory> lavatories = database.getLavatoriesByCityId(cityID);
 
-        updateStationsData(stations);
+        updateLavatoriesData(lavatories);
 
     }
 
-    public void updateStationsData(List<Station> stations) {
+    public void updateLavatoriesData(List<Lavatory> lavatories) {
 
-        stationList = new ArrayList<>();
-        stationList.addAll(stations);
+        lavatoryList = new ArrayList<>();
+        lavatoryList.addAll(lavatories);
 
             notifyDataSetChanged();
     }
@@ -82,13 +82,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
 
 
-    public class StationViewHolder extends ViewHolder {
+    public class LavatoryViewHolder extends ViewHolder {
         RecyclerView recyclerView;
         TextView recyclerViewHeader;
 
-        StationViewHolder(View v) {
+        LavatoryViewHolder(View v) {
             super(v);
-            recyclerView = v.findViewById(R.id.recycler_view_stations);
+            recyclerView = v.findViewById(R.id.recycler_view_lavatories);
             recyclerView.setHasFixedSize(false);
             recyclerViewHeader=v.findViewById(R.id.recycler_view_header);
         }
@@ -112,8 +112,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }  else  {
 
             v = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.card_stations, viewGroup, false);
-            return new StationViewHolder(v);
+                    .inflate(R.layout.card_lavatory, viewGroup, false);
+            return new LavatoryViewHolder(v);
 
         }
     }
@@ -130,19 +130,19 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
 
 
-        }  else if (viewHolder.getItemViewType() == STATIONS) {
+        }  else if (viewHolder.getItemViewType() == LAVATORIES) {
 
-            StationViewHolder holder = (StationViewHolder) viewHolder;
+            LavatoryViewHolder holder = (LavatoryViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             holder.recyclerView.addItemDecoration(new DividerItemDecoration(holder.recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-            StationAdapter adapter = new StationAdapter(stationList, context, holder.recyclerViewHeader, holder.recyclerView);
+            LavatoriesAdapter adapter = new LavatoriesAdapter(lavatoryList, context, holder.recyclerViewHeader, holder.recyclerView);
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
             holder.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    String loc = stationList.get(position).getLatitude() + "," + stationList.get(position).getLongitude();
+                    String loc = lavatoryList.get(position).getLatitude() + "," + lavatoryList.get(position).getLongitude();
                     try {
                         context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc)));
                     } catch (ActivityNotFoundException ignored) {

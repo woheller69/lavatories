@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/station_operator"
+            android:id="@+id/lavatory_operator"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -33,28 +33,28 @@
             android:src="@drawable/ic_wc_black_24dp">
         </ImageView>
         <ImageView
-            android:id="@+id/station_wheelchair"
+            android:id="@+id/lavatory_wheelchair"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_accessible_black_24dp">
         </ImageView>
         <ImageView
-            android:id="@+id/station_baby_changing"
+            android:id="@+id/lavatory_baby_changing"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baby_changing_station_black_24dp">
         </ImageView>
         <ImageView
-            android:id="@+id/station_paid"
+            android:id="@+id/lavatory_paid"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_paid_black_24dp">
         </ImageView>
         <TextView
-            android:id="@+id/station_dist"
+            android:id="@+id/lavatory_dist"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/station_hours"
+        android:id="@+id/lavatory_hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -77,7 +77,7 @@
 
 
     <TextView
-        android:id="@+id/station_address"
+        android:id="@+id/lavatory_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -85,16 +85,6 @@
         android:text="Musterstraße 27, 12345 Musterstadt"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/colorPrimaryDark" />
-
-    <ImageView
-        android:id="@+id/station_fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginBottom="3dp"
-        android:src="@drawable/star_yellow_24"
-        android:visibility="gone"
-        />
 
 
 </LinearLayout>

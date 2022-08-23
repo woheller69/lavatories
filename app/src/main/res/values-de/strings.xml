@@ -18,10 +18,10 @@
     <string name="activity_settings">Einstellungen</string>
     <string name="action_refresh">Aktualisieren</string>
     <string name="activity_settings_title">Einstellungen</string>
-    <string name="card_stations_heading">Letzte Abfrage</string>
+    <string name="card_lavatories_heading">Letzte Abfrage</string>
     <string name="error_convert_to_json">Die erhaltenen Daten entsprachen nicht dem erwarteten Format.</string>
     <string name="error_no_internet">Das Gerät ist nicht mit dem Internet verbunden!</string>
-    <string name="error_fetch_stations">Es ist ein Fehler beim Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut! Prüfen Sie Ihren API-Key!</string>
+    <string name="error_fetch_lavatories">Es ist ein Fehler beim Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut! Prüfen Sie Ihren API-Key!</string>
     <string name="error_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
     <string name="error_no_map_app">Keine Kartenanwendung installiert</string>
     <string name="error_no_radius_search_result">Kein Ort gefunden. Suchradius vergrößern</string>
@@ -66,7 +66,7 @@
     <string name="dialog_StarOnGitHub">Mögen Sie diese App? Bitte vergeben Sie einen Stern auf GitHub.</string>
     <string name="closed">Geschlossen</string>
     <string name="open">Geöffnet</string>
-    <string name="error_no_station_found">Keine Toilette gefunden</string>
+    <string name="error_no_lavatory_found">Keine Toilette gefunden</string>
     <string name="preferred_brands">Bevorzugte Marken (Komma getrennt)</string>
     <string name="settings_type">Sorte</string>
     <string name="settings_type_all">Alle</string>

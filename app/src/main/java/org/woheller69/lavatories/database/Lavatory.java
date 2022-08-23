@@ -1,9 +1,9 @@
 package org.woheller69.lavatories.database;
 
 /**
- * This class is the database model for the stations.
+ * This class is the database model for the lavatories.
  */
-public class Station {
+public class Lavatory {
 
     private int id;
     private int city_id;
@@ -21,10 +21,10 @@ public class Station {
     private String uuid;
 
 
-    public Station() {
+    public Lavatory() {
     }
 
-    public Station(int id, int city_id, long timestamp, boolean wheelchair, boolean babyChanging, boolean paid, String operator, String openingHours, String address1, String address2, double distance, double latitude, double longitude, String uuid) {
+    public Lavatory(int id, int city_id, long timestamp, boolean wheelchair, boolean babyChanging, boolean paid, String operator, String openingHours, String address1, String address2, double distance, double latitude, double longitude, String uuid) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;

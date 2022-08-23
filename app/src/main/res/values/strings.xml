@@ -17,7 +17,7 @@
     <string name="slide2_text">You can choose your own locations and get lavatories in their vicinity. Clicking on a lavatory shows the lavatory in a map application.</string>
     <string name="slide3_heading" translatable="false">Github</string>
     <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
-    <string name="card_stations_heading">Last update</string>
+    <string name="card_lavatories_heading">Last update</string>
     <string name="card_error_content">Please try to update!</string>
     <string name="about_privacy_heading">Privacy Info</string>
     <string name="about_permission_internet_description">Connecting to the Network: This permission is needed because data is retrieved by making requests to servers on the Internet. Without this permission, no price information can be received. Optional: authorization for GPS.</string>
@@ -39,7 +39,7 @@
     <string name="dialog_add_add_button">Add</string>
     <string name="error_convert_to_json">The retrieved data was not well-formed. </string>
     <string name="error_no_internet">Your Device is not connected to the Internet</string>
-    <string name="error_fetch_stations">Error retrieving data, please try again! Check your API-key!</string>
+    <string name="error_fetch_lavatories">Error retrieving data, please try again! Check your API-key!</string>
     <string name="error_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
     <string name="error_no_radius_search_result">No city found. Increase search radius</string>
     <string name="error_no_map_app">No map application installed</string>
@@ -76,7 +76,7 @@
     <string name="dialog_StarOnGitHub">Do you like this app? Please star it on GitHub.</string>
     <string name="closed">Closed</string>
     <string name="open">Open</string>
-    <string name="error_no_station_found">No lavatories found</string>
+    <string name="error_no_lavatory_found">No lavatories found</string>
     <string name="preferred_brands">Preferred brands (comma separated)</string>
     <string name="settings_type">Type</string>
     <string name="settings_type_all">All</string>

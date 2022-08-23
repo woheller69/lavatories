@@ -10,7 +10,7 @@ import android.widget.Toast;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.NavigationActivity;
 import org.woheller69.lavatories.database.CityToWatch;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.api.IHttpRequest;
 import org.woheller69.lavatories.api.openstreetmap.OSMHttpRequestForToilets;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class UpdateDataService extends JobIntentService {
 
-    public static final String UPDATE_SINGLE_ACTION = "org.woheller69.spritpreise.services.UpdateDataService.UPDATE_SINGLE_ACTION";
+    public static final String UPDATE_SINGLE_ACTION = "UPDATE_SINGLE_ACTION";
     public static final String SKIP_UPDATE_INTERVAL = "skipUpdateInterval";
     private static final long MIN_UPDATE_INTERVAL=20;
 
@@ -70,23 +70,23 @@ public class UpdateDataService extends JobIntentService {
     private void handleUpdateSingle(Intent intent) {
         int cityId = intent.getIntExtra("cityId",-1);
         CityToWatch city = dbHelper.getCityToWatch(cityId);
-        handleUpdateStationsAction(intent, cityId, city.getLatitude(), city.getLongitude());
+        handleUpdateLavatoriesAction(intent, cityId, city.getLatitude(), city.getLongitude());
     }
 
-    private void handleUpdateStationsAction(Intent intent, int cityId, float lat, float lon) {
+    private void handleUpdateLavatoriesAction(Intent intent, int cityId, float lat, float lon) {
         boolean skipUpdateInterval = intent.getBooleanExtra(SKIP_UPDATE_INTERVAL, false);
 
         long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
         long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
-        List<Station> stations = dbHelper.getStationsByCityId(cityId);
-        if (stations.size() > 0) {             // check timestamp of stations
-            timestamp = stations.get(0).getTimestamp();
+        List<Lavatory> lavatories = dbHelper.getLavatoriesByCityId(cityId);
+        if (lavatories.size() > 0) {             // check timestamp of lavatories
+            timestamp = lavatories.get(0).getTimestamp();
         }
 
         if (skipUpdateInterval) {
-            // check timestamp of the current stations
+            // check timestamp of the current lavatories
                 if ((timestamp+MIN_UPDATE_INTERVAL-systemTime)>0) skipUpdateInterval=false;  //even if skipUpdateInterval is true, never update if less than MIN_UPDATE_INTERVAL s
         }
 
@@ -94,8 +94,8 @@ public class UpdateDataService extends JobIntentService {
         if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
 
 
-                IHttpRequest stationsRequest = new OSMHttpRequestForToilets(getApplicationContext());
-                stationsRequest.perform(lat, lon, cityId);
+                IHttpRequest lavatoriesRequest = new OSMHttpRequestForToilets(getApplicationContext());
+                lavatoriesRequest.perform(lat, lon, cityId);
 
         }
     }

@@ -19,11 +19,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static SQLiteHelper instance = null;
 
-    private static final String DATABASE_NAME = "Spritpreise.db";
+    private static final String DATABASE_NAME = "Lavatories.db";
 
     //Names of tables in the database
     private static final String TABLE_CITIES_TO_WATCH = "CITIES_TO_WATCH";
-    private static final String TABLE_STATIONS = "STATIONS";
+    private static final String TABLE_LAVATORIES = "LAVATORIES";
 
     //Names of columns in TABLE_CITIES_TO_WATCH
     private static final String CITIES_TO_WATCH_ID = "cities_to_watch_id";
@@ -33,41 +33,41 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String CITIES_TO_WATCH_LONGITUDE = "longitude";
     private static final String CITIES_TO_WATCH_LATITUDE = "latitude";
 
-    //Names of columns in TABLE_STATIONS
-    private static final String STATION_ID = "station_id";
-    private static final String STATION_CITY_ID = "city_id";
-    private static final String STATION_TIMESTAMP = "timestamp";
-    private static final String STATION_WHEELCHAIR = "wheelchair";
-    private static final String STATION_BABY_CHANGING = "baby_changing";
-    private static final String STATION_PAID = "paid";
-    private static final String STATION_OPERATOR = "brand";
-    private static final String STATION_OPENING_HOURS = "name";
-    private static final String STATION_ADDRESS1 = "address1";
-    private static final String STATION_ADDRESS2 = "address2";
-    private static final String STATION_DISTANCE = "distance";
-    private static final String STATION_LATITUDE = "latitude";
-    private static final String STATION_LONGITUDE = "longitude";
-    private static final String STATION_UUID = "uuid";
+    //Names of columns in TABLE_LAVATORIES
+    private static final String LAVATORY_ID = "lavatory_id";
+    private static final String LAVATORY_CITY_ID = "city_id";
+    private static final String LAVATORY_TIMESTAMP = "timestamp";
+    private static final String LAVATORY_WHEELCHAIR = "wheelchair";
+    private static final String LAVATORY_BABY_CHANGING = "baby_changing";
+    private static final String LAVATORY_PAID = "paid";
+    private static final String LAVATORY_OPERATOR = "brand";
+    private static final String LAVATORY_OPENING_HOURS = "name";
+    private static final String LAVATORY_ADDRESS1 = "address1";
+    private static final String LAVATORY_ADDRESS2 = "address2";
+    private static final String LAVATORY_DISTANCE = "distance";
+    private static final String LAVATORY_LATITUDE = "latitude";
+    private static final String LAVATORY_LONGITUDE = "longitude";
+    private static final String LAVATORY_UUID = "uuid";
 
     /**
      * Create Table statements for all tables
      */
-    private static final String CREATE_TABLE_STATIONS = "CREATE TABLE " + TABLE_STATIONS +
+    private static final String CREATE_TABLE_LAVATORIES = "CREATE TABLE " + TABLE_LAVATORIES +
             "(" +
-            STATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            STATION_CITY_ID + " INTEGER," +
-            STATION_TIMESTAMP + " LONG NOT NULL," +
-            STATION_WHEELCHAIR + " BIT," +
-            STATION_BABY_CHANGING + " BIT," +
-            STATION_PAID + " BIT," +
-            STATION_OPERATOR + " VARCHAR(200) NOT NULL," +
-            STATION_OPENING_HOURS + " VARCHAR(200) NOT NULL," +
-            STATION_ADDRESS1 + " VARCHAR(200) NOT NULL," +
-            STATION_ADDRESS2 + " VARCHAR(200) NOT NULL," +
-            STATION_DISTANCE + " REAL," +
-            STATION_LATITUDE + " REAL," +
-            STATION_LONGITUDE + " REAL," +
-            STATION_UUID + " VARCHAR(200) NOT NULL ); ";
+            LAVATORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            LAVATORY_CITY_ID + " INTEGER," +
+            LAVATORY_TIMESTAMP + " LONG NOT NULL," +
+            LAVATORY_WHEELCHAIR + " BIT," +
+            LAVATORY_BABY_CHANGING + " BIT," +
+            LAVATORY_PAID + " BIT," +
+            LAVATORY_OPERATOR + " VARCHAR(200) NOT NULL," +
+            LAVATORY_OPENING_HOURS + " VARCHAR(200) NOT NULL," +
+            LAVATORY_ADDRESS1 + " VARCHAR(200) NOT NULL," +
+            LAVATORY_ADDRESS2 + " VARCHAR(200) NOT NULL," +
+            LAVATORY_DISTANCE + " REAL," +
+            LAVATORY_LATITUDE + " REAL," +
+            LAVATORY_LONGITUDE + " REAL," +
+            LAVATORY_UUID + " VARCHAR(200) NOT NULL ); ";
 
     private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
             "(" +
@@ -93,7 +93,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
-        db.execSQL(CREATE_TABLE_STATIONS);
+        db.execSQL(CREATE_TABLE_LAVATORIES);
 
     }
 
@@ -211,7 +211,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void deleteCityToWatch(CityToWatch cityToWatch) {
 
         //First delete all price data for city which is deleted
-        deleteStationsByCityId(cityToWatch.getCityId());
+        deleteLavatoriesByCityId(cityToWatch.getCityId());
 
         //Now remove city from CITIES_TO_WATCH
         SQLiteDatabase database = this.getWritableDatabase();
@@ -238,84 +238,84 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Methods for TABLE_STATION
+     * Methods for TABLE_LAVATORIES
      */
-    public synchronized void addStation(Station station) {
+    public synchronized void addLavatory(Lavatory lavatory) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(STATION_CITY_ID, station.getCity_id());
-        values.put(STATION_TIMESTAMP, station.getTimestamp());
-        values.put(STATION_WHEELCHAIR, station.isWheelchair());
-        values.put(STATION_BABY_CHANGING, station.isBabyChanging());
-        values.put(STATION_PAID, station.isPaid());
-        values.put(STATION_OPERATOR, station.getOperator());
-        values.put(STATION_OPENING_HOURS, station.getOpeningHours());
-        values.put(STATION_ADDRESS1, station.getAddress1());
-        values.put(STATION_ADDRESS2, station.getAddress2());
-        values.put(STATION_DISTANCE, station.getDistance());
-        values.put(STATION_LATITUDE, station.getLatitude());
-        values.put(STATION_LONGITUDE, station.getLongitude());
-        values.put(STATION_UUID, station.getUuid());
-        database.insert(TABLE_STATIONS, null, values);
+        values.put(LAVATORY_CITY_ID, lavatory.getCity_id());
+        values.put(LAVATORY_TIMESTAMP, lavatory.getTimestamp());
+        values.put(LAVATORY_WHEELCHAIR, lavatory.isWheelchair());
+        values.put(LAVATORY_BABY_CHANGING, lavatory.isBabyChanging());
+        values.put(LAVATORY_PAID, lavatory.isPaid());
+        values.put(LAVATORY_OPERATOR, lavatory.getOperator());
+        values.put(LAVATORY_OPENING_HOURS, lavatory.getOpeningHours());
+        values.put(LAVATORY_ADDRESS1, lavatory.getAddress1());
+        values.put(LAVATORY_ADDRESS2, lavatory.getAddress2());
+        values.put(LAVATORY_DISTANCE, lavatory.getDistance());
+        values.put(LAVATORY_LATITUDE, lavatory.getLatitude());
+        values.put(LAVATORY_LONGITUDE, lavatory.getLongitude());
+        values.put(LAVATORY_UUID, lavatory.getUuid());
+        database.insert(TABLE_LAVATORIES, null, values);
         database.close();
     }
 
-    public synchronized void deleteAllStations() {
+    public synchronized void deleteAllLavatories() {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("delete from " + TABLE_STATIONS);
+        database.execSQL("delete from " + TABLE_LAVATORIES);
         database.close();
     }
 
-    public synchronized void deleteStationsByCityId(int cityId) {
+    public synchronized void deleteLavatoriesByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_STATIONS, STATION_CITY_ID + " = ?",
+        database.delete(TABLE_LAVATORIES, LAVATORY_CITY_ID + " = ?",
                 new String[]{Integer.toString(cityId)});
         database.close();
     }
 
-    public synchronized List<Station> getStationsByCityId(int cityId) {
+    public synchronized List<Lavatory> getLavatoriesByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
 
-        Cursor cursor = database.query(TABLE_STATIONS,
-                new String[]{STATION_ID,
-                        STATION_CITY_ID,
-                        STATION_TIMESTAMP,
-                        STATION_WHEELCHAIR,
-                        STATION_BABY_CHANGING,
-                        STATION_PAID,
-                        STATION_OPERATOR,
-                        STATION_OPENING_HOURS,
-                        STATION_ADDRESS1,
-                        STATION_ADDRESS2,
-                        STATION_DISTANCE,
-                        STATION_LATITUDE,
-                        STATION_LONGITUDE,
-                        STATION_UUID}
-                , STATION_CITY_ID + "=?",
+        Cursor cursor = database.query(TABLE_LAVATORIES,
+                new String[]{LAVATORY_ID,
+                        LAVATORY_CITY_ID,
+                        LAVATORY_TIMESTAMP,
+                        LAVATORY_WHEELCHAIR,
+                        LAVATORY_BABY_CHANGING,
+                        LAVATORY_PAID,
+                        LAVATORY_OPERATOR,
+                        LAVATORY_OPENING_HOURS,
+                        LAVATORY_ADDRESS1,
+                        LAVATORY_ADDRESS2,
+                        LAVATORY_DISTANCE,
+                        LAVATORY_LATITUDE,
+                        LAVATORY_LONGITUDE,
+                        LAVATORY_UUID}
+                , LAVATORY_CITY_ID + "=?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
-        List<Station> list = new ArrayList<>();
-        Station station;
+        List<Lavatory> list = new ArrayList<>();
+        Lavatory lavatory;
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                station = new Station();
-                station.setId(Integer.parseInt(cursor.getString(0)));
-                station.setCity_id(Integer.parseInt(cursor.getString(1)));
-                station.setTimestamp(Long.parseLong(cursor.getString(2)));
-                station.setWheelchair(cursor.getString(3).equals("1"));
-                station.setBabyChanging(cursor.getString(4).equals("1"));
-                station.setPaid(cursor.getString(5).equals("1"));
-                station.setOperator(cursor.getString(6));
-                station.setOpeningHours(cursor.getString(7));
-                station.setAddress1(cursor.getString(8));
-                station.setAddress2(cursor.getString(9));
-                station.setDistance(Double.parseDouble(cursor.getString(10)));
-                station.setLatitude(Double.parseDouble(cursor.getString(11)));
-                station.setLongitude(Double.parseDouble(cursor.getString(12)));
-                station.setUuid(cursor.getString(13));
-                list.add(station);
+                lavatory = new Lavatory();
+                lavatory.setId(Integer.parseInt(cursor.getString(0)));
+                lavatory.setCity_id(Integer.parseInt(cursor.getString(1)));
+                lavatory.setTimestamp(Long.parseLong(cursor.getString(2)));
+                lavatory.setWheelchair(cursor.getString(3).equals("1"));
+                lavatory.setBabyChanging(cursor.getString(4).equals("1"));
+                lavatory.setPaid(cursor.getString(5).equals("1"));
+                lavatory.setOperator(cursor.getString(6));
+                lavatory.setOpeningHours(cursor.getString(7));
+                lavatory.setAddress1(cursor.getString(8));
+                lavatory.setAddress2(cursor.getString(9));
+                lavatory.setDistance(Double.parseDouble(cursor.getString(10)));
+                lavatory.setLatitude(Double.parseDouble(cursor.getString(11)));
+                lavatory.setLongitude(Double.parseDouble(cursor.getString(12)));
+                lavatory.setUuid(cursor.getString(13));
+                list.add(lavatory);
             } while (cursor.moveToNext());
 
             cursor.close();
@@ -339,16 +339,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return cityID;
     }
 
-    public void updateStationAddress(Station station) {
+    public void updateLavatoryAddress(Lavatory lavatory) {
 
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(STATION_ADDRESS1, station.getAddress1());
-        values.put(STATION_ADDRESS2, station.getAddress2());
+        values.put(LAVATORY_ADDRESS1, lavatory.getAddress1());
+        values.put(LAVATORY_ADDRESS2, lavatory.getAddress2());
 
-        database.update(TABLE_STATIONS, values, STATION_UUID + " = ?",
-                new String[]{String.valueOf(station.getUuid())});
+        database.update(TABLE_LAVATORIES, values, LAVATORY_UUID + " = ?",
+                new String[]{String.valueOf(lavatory.getUuid())});
 
     }
 }

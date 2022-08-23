@@ -2,7 +2,7 @@ package org.woheller69.lavatories.api;
 
 import android.content.Context;
 
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 
 /**
  * This interface defines the frame of the functionality to extract information which
@@ -14,7 +14,7 @@ public interface IDataExtractor {
     boolean wasCityFound(String data);
 
 
-    Station extractStation(String data, int cityId, Context context);
+    Lavatory extractLavatory(String data, int cityId, Context context);
 
 
 }

@@ -13,9 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.NavigationActivity;
-import org.woheller69.lavatories.database.Station;
+import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
-import org.woheller69.lavatories.ui.updater.ViewUpdater;
 import org.woheller69.lavatories.api.IDataExtractor;
 import org.woheller69.lavatories.api.IProcessHttpRequest;
 
@@ -56,37 +55,37 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
     public void processSuccessScenario(String response, int cityId) {
         //Log.d("Request",response);
         IDataExtractor extractor = new OSMDataExtractor();
-        dbHelper.deleteStationsByCityId(cityId); //start with empty stations list
-        List<Station> stations = new ArrayList<>();
+        dbHelper.deleteLavatoriesByCityId(cityId); //start with empty list
+        List<Lavatory> lavatories = new ArrayList<>();
         if (extractor.wasCityFound(response)) {
             try {
                 JSONObject json = new JSONObject(response);
                 JSONArray list = json.getJSONArray("elements");
                 for (int i = 0; i < list.length(); i++) {
                     String currentItem = list.get(i).toString();
-                    Station station = extractor.extractStation(currentItem,cityId,context);
-                    if (station != null) { // Could retrieve all data, so add it to the list
-                        station.setCity_id(cityId);
-                        stations.add(station);
+                    Lavatory lavatory = extractor.extractLavatory(currentItem,cityId,context);
+                    if (lavatory != null) { // Could retrieve all data, so add it to the list
+                        lavatory.setCity_id(cityId);
+                        lavatories.add(lavatory);
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
-            final String ERROR_MSG = context.getResources().getString(R.string.error_fetch_stations);
+            final String ERROR_MSG = context.getResources().getString(R.string.error_fetch_lavatories);
             if (NavigationActivity.isVisible)
                 Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
         }
-        Collections.sort(stations,(o1,o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
-        stations=stations.stream().limit(49).collect(Collectors.toList());  //limit to 49 stations. Max for Nominatim API call
-        for (Station station:stations) {
-            // add stations to the database (after sorting and limiting)
-            dbHelper.addStation(station);
+        Collections.sort(lavatories,(o1, o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
+        lavatories = lavatories.stream().limit(49).collect(Collectors.toList());  //limit to 49 lavatories. Max for Nominatim API call
+        for (Lavatory lavatory : lavatories) {
+            // add lavatories to the database (after sorting and limiting)
+            dbHelper.addLavatory(lavatory);
         }
 
         OSMHttpRequestForAddress addressRequest = new OSMHttpRequestForAddress(context);
-        addressRequest.perform(cityId,stations);
+        addressRequest.perform(cityId, lavatories);
     }
 
     /**
@@ -101,7 +100,7 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
         h.post(new Runnable() {
             @Override
             public void run() {
-                if (NavigationActivity.isVisible) Toast.makeText(context, context.getResources().getString(R.string.error_fetch_stations), Toast.LENGTH_LONG).show();
+                if (NavigationActivity.isVisible) Toast.makeText(context, context.getResources().getString(R.string.error_fetch_lavatories), Toast.LENGTH_LONG).show();
             }
         });
     }

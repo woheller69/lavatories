@@ -3,7 +3,6 @@ package org.woheller69.lavatories.firststart;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.woheller69.lavatories.R;
-import org.woheller69.lavatories.activities.CityGasPricesActivity;
+import org.woheller69.lavatories.activities.LavSeekerActivity;
 import org.woheller69.lavatories.activities.SettingsActivity;
 
 import org.woheller69.lavatories.preferences.AppPreferencesManager;
@@ -123,7 +122,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        startActivity(new Intent(TutorialActivity.this, CityGasPricesActivity.class));
+        startActivity(new Intent(TutorialActivity.this, LavSeekerActivity.class));
         finish();
     }
 

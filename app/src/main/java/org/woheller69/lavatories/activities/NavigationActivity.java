@@ -89,7 +89,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         } else {
             if (getNavigationDrawerID()!=R.id.nav_gasprices)
             {
-                Intent intent = new Intent(this, CityGasPricesActivity.class);
+                Intent intent = new Intent(this, LavSeekerActivity.class);
                 startActivity(intent);
             }else{
                 Intent intent = new Intent();
@@ -166,7 +166,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         }
 
         if (itemId==R.id.nav_gasprices) {
-            intent = new Intent(this, CityGasPricesActivity.class);
+            intent = new Intent(this, LavSeekerActivity.class);
             startActivity(intent);
         }else if (itemId==R.id.nav_manage){
             intent = new Intent(this, ManageLocationsActivity.class);
@@ -179,7 +179,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
             createBackStack(intent);
         }else if (itemId==R.id.star_on_github){
             startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/woheller69/spritpreise")));
+                    Uri.parse("https://github.com/woheller69/lavatories")));
             prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
             prefManager.setAskForStar(false);
         }

@@ -35,11 +35,11 @@ public class OSMHttpRequestForToilets implements IHttpRequest {
     @Override
     public void perform(float lat, float lon, int cityId) {
         org.woheller69.lavatories.http.IHttpRequest httpRequest = new VolleyHttpRequest(context, cityId);
-        final String URL = getUrlForQueryingStations(context, lat, lon);
+        final String URL = getUrlForQueryingLavatories(context, lat, lon);
         httpRequest.make(URL, HttpRequestType.GET, new OSMProcessHttpRequestToilets(context));
     }
 
-    protected String getUrlForQueryingStations(Context context, float lat, float lon) {
+    protected String getUrlForQueryingLavatories(Context context, float lat, float lon) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
