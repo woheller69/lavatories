@@ -65,10 +65,9 @@ public class CityPagerAdapter extends FragmentStateAdapter implements IUpdateabl
         return cities.get(position).getCityName();
     }
 
-    public static void refreshSingleData(Context context, Boolean asap, int cityId) {
+    public static void refreshSingleData(Context context, int cityId) {
         Intent intent = new Intent(context, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
-        intent.putExtra(SKIP_UPDATE_INTERVAL, asap);
         intent.putExtra("cityId",cityId);
         enqueueWork(context, UpdateDataService.class, 0, intent);
     }

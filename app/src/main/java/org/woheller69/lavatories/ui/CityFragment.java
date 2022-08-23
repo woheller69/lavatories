@@ -94,7 +94,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
                 if (!recyclerView.canScrollVertically(-1)){
                     recyclerView.setOnTouchListener(new OnSwipeDownListener(getContext()) {
                         public void onSwipeDown() {
-                                CityPagerAdapter.refreshSingleData(getContext(),true,mCityId);
+                                CityPagerAdapter.refreshSingleData(getContext(),mCityId);
                                 LavSeekerActivity.startRefreshAnimation();
                         }
                     });

@@ -86,7 +86,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             List <Lavatory> lavatories = db.getLavatoriesByCityId(cityId);
 
             if (lavatories.size() == 0) {
-                CityPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
+                CityPagerAdapter.refreshSingleData(getApplicationContext(), cityId); //only update current tab at start
                 LavSeekerActivity.startRefreshAnimation();
             }
             if (viewPager2.getCurrentItem()!=pagerAdapter.getPosForCityID(cityId)) viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId),false);
@@ -112,7 +112,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 List <Lavatory> lavatories = database.getLavatoriesByCityId(pagerAdapter.getCityIDForPos(position));
 
                 if (lavatories.size()==0) {
-                    CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
+                    CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(position));
                     LavSeekerActivity.startRefreshAnimation();
                 }
 
@@ -191,7 +191,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         SQLiteHelper db = SQLiteHelper.getInstance(this);
         if (id==R.id.menu_refresh){
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
-                CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
+                CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
                 LavSeekerActivity.startRefreshAnimation();
             }
         }else if (id==R.id.menu_update_location) {

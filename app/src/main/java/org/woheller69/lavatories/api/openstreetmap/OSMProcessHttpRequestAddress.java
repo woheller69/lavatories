@@ -62,7 +62,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                     String address1 = "";
                     String address2 = "";
                     String currentItem = list.get(i).toString();
-                    Log.d("ExtractAddress", currentItem);
+                    //Log.d("ExtractAddress", currentItem);
                     JSONObject json = new JSONObject(currentItem);
                     String uuid = json.getString("osm_id");
                     JSONObject address = json.getJSONObject("address");

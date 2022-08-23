@@ -10,14 +10,6 @@
             android:key="pref_searchRadius"
             android:title="@string/settings_search_radius" />
 
-
-        <ListPreference
-            android:defaultValue="15"
-            android:entries="@array/refreshIntervalArray"
-            android:entryValues="@array/refreshIntervalValues"
-            android:key="pref_updateInterval"
-            android:title="@string/settings_update_interval" />
-
         <SwitchPreference
             android:key="pref_DarkMode"
             android:title="@string/settings_darkmode"

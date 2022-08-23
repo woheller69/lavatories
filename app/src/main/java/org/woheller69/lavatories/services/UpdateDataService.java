@@ -70,33 +70,27 @@ public class UpdateDataService extends JobIntentService {
     private void handleUpdateSingle(Intent intent) {
         int cityId = intent.getIntExtra("cityId",-1);
         CityToWatch city = dbHelper.getCityToWatch(cityId);
-        handleUpdateLavatoriesAction(intent, cityId, city.getLatitude(), city.getLongitude());
+        handleUpdateLavatoriesAction(cityId, city.getLatitude(), city.getLongitude());
     }
 
-    private void handleUpdateLavatoriesAction(Intent intent, int cityId, float lat, float lon) {
-        boolean skipUpdateInterval = intent.getBooleanExtra(SKIP_UPDATE_INTERVAL, false);
+    private void handleUpdateLavatoriesAction(int cityId, float lat, float lon) {
+        boolean updateNow = true;
 
         long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
-        long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
         List<Lavatory> lavatories = dbHelper.getLavatoriesByCityId(cityId);
         if (lavatories.size() > 0) {             // check timestamp of lavatories
             timestamp = lavatories.get(0).getTimestamp();
         }
 
-        if (skipUpdateInterval) {
-            // check timestamp of the current lavatories
-                if ((timestamp+MIN_UPDATE_INTERVAL-systemTime)>0) skipUpdateInterval=false;  //even if skipUpdateInterval is true, never update if less than MIN_UPDATE_INTERVAL s
-        }
+        // check timestamp of the current lavatories
+        if ((timestamp+MIN_UPDATE_INTERVAL-systemTime)>0) updateNow=false;  //even if updateNow is true, never update if less than MIN_UPDATE_INTERVAL s
 
         // Update if update forced or if a certain time has passed
-        if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
-
-
+        if (updateNow) {
                 IHttpRequest lavatoriesRequest = new OSMHttpRequestForToilets(getApplicationContext());
                 lavatoriesRequest.perform(lat, lon, cityId);
-
         }
     }
 
