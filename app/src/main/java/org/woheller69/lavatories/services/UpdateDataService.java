@@ -96,7 +96,7 @@ public class UpdateDataService extends JobIntentService {
 
     private boolean isOnline() {
         try {
-            InetAddress inetAddress = InetAddress.getByName("creativecommons.tankerkoenig.de");
+            InetAddress inetAddress = InetAddress.getByName("openstreetmap.org");
             return inetAddress.isReachable(2000);
         } catch (IOException | IllegalArgumentException e) {
             return false;

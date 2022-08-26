@@ -79,14 +79,6 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
         @Override
             public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
                 setPreferencesFromResource(R.xml.pref_general, rootKey);
-                Preference button = getPreferenceManager().findPreference("register");
-                if (button != null){
-                    button.setOnPreferenceClickListener(preference -> {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://creativecommons.tankerkoenig.de")));
-                        return true;
-                    });
-                }
             }
     }
 }
