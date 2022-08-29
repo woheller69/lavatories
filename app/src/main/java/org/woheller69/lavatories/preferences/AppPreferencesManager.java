@@ -2,13 +2,9 @@ package org.woheller69.lavatories.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 
 import org.woheller69.lavatories.BuildConfig;
-import org.woheller69.lavatories.R;
-import static org.woheller69.preferences.Utils.getKey;
+
 
 import androidx.preference.PreferenceManager;
 
