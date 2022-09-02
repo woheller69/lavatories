@@ -4,6 +4,7 @@
     <PreferenceCategory android:title="@string/settings_title_display_options">
 
         <ListPreference
+            app:useSimpleSummaryProvider="true"
             android:defaultValue="3000"
             android:entries="@array/searchRadiusArray"
             android:entryValues="@array/searchRadiusValues"
