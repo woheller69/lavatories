@@ -2,6 +2,7 @@ package org.woheller69.lavatories.http;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -84,6 +85,9 @@ public class VolleyHttpRequest implements IHttpRequest {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,   //set timeout of 5s
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(stringRequest);
     }
 }
