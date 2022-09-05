@@ -87,21 +87,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (!recyclerView.canScrollVertically(-1)){
-                    recyclerView.setOnTouchListener(new OnSwipeDownListener(getContext()) {
-                        public void onSwipeDown() {
-                                CityPagerAdapter.refreshSingleData(getContext(),mCityId);
-                                LavSeekerActivity.startRefreshAnimation();
-                        }
-                    });
-                }else recyclerView.setOnTouchListener(null);
-            }
-        });
-
         Bundle args = getArguments();
         mCityId = args.getInt("city_id");
 
