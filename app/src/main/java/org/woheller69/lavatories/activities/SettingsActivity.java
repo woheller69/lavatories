@@ -68,6 +68,9 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
                             new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,}, 1);
                 }
             }
+        }else if (s.equals(("pref_searchRadius"))){
+            SQLiteHelper database = SQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
+            database.deleteAllLavatories();
         }
     }
 
