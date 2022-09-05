@@ -30,10 +30,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     private int[] dataSetTypes;
     private List<Lavatory> lavatoryList;
-
+    private int cityID;
     private Context context;
-
-
 
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
@@ -44,7 +42,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         this.dataSetTypes = dataSetTypes;
         this.context = context;
-
+        this.cityID = cityID;
         SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
 
         List<Lavatory> lavatories = database.getLavatoriesByCityId(cityID);
@@ -103,7 +101,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     if (!recyclerView.canScrollVertically(-1)){
                         recyclerView.setOnTouchListener(new OnSwipeDownListener(context) {
                             public void onSwipeDown() {
-                                CityPagerAdapter.refreshSingleData(context,lavatoryList.get(0).getCity_id());
+                                CityPagerAdapter.refreshSingleData(context,cityID);
                                 LavSeekerActivity.startRefreshAnimation();
                             }
                         });
