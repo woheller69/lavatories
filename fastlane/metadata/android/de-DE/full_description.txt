@@ -1,4 +1,4 @@
-LavSeeker zeigt Toiletten die in OpenStreetMap eingetragen sind.
+LavSeeker zeigt Toiletten, die in OpenStreetMap eingetragen sind.
 Durch Klicken auf eine Toilette in der Liste wird die Toilette in einer Kartenanwendung angezeigt.
 Sie können der App auch erlauben, GPS zu verwenden.
 Im ersten Tab in der App werden dann die Toiletten für Ihren aktuellen Standort angezeigt.

@@ -1,1 +1,1 @@
-LavSeeker zeigt Toiletten die in OpenStreetMap eingetragen sind
+LavSeeker zeigt Toiletten, die in OpenStreetMap eingetragen sind
