@@ -1,6 +1,4 @@
-package org.woheller69.lavatories.addressformat;
-
-import android.content.Context;
+package org.woheller69.AndroidAddressFormatter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,8 +14,6 @@ enum Templates {
   COUNTY_CODES("countycodes.json"),
   STATE_CODES("statecodes.json")
 ;
-
-  Context context;
 
   private interface Constants {
     ObjectMapper jsonWriter = new ObjectMapper();

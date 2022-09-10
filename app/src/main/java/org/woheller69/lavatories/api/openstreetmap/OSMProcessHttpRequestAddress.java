@@ -10,9 +10,10 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.woheller69.AndroidAddressFormatter.AndroidAddressFormatter;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.NavigationActivity;
-import org.woheller69.lavatories.addressformat.AndroidAddressFormatter;
+
 import org.woheller69.lavatories.api.IProcessHttpRequest;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.database.Lavatory;
