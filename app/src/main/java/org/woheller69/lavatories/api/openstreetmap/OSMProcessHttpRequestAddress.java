@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.NavigationActivity;
-import org.woheller69.lavatories.addressformat.AddressFormatter;
+import org.woheller69.lavatories.addressformat.AndroidAddressFormatter;
 import org.woheller69.lavatories.api.IProcessHttpRequest;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.database.Lavatory;
@@ -69,7 +69,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                     String uuid = json.getString("osm_id");
                     JSONObject address = json.getJSONObject("address");
 
-                    AddressFormatter formatter = new AddressFormatter(false, true);
+                    AndroidAddressFormatter formatter = new AndroidAddressFormatter(true, false, false);
                     try {
                         address1 = StringFormatUtils.removeNewline(formatter.format(address.toString().trim()));
                     } catch (IOException e) {

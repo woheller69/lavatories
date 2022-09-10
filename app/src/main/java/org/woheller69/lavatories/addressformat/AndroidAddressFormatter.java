@@ -30,10 +30,10 @@ import java.util.stream.StreamSupport;
 import java.util.Optional;
 import java.util.ArrayList;
 
-public class AddressFormatter {
+public class AndroidAddressFormatter {
 
   private static final RegexPatternCache regexPatternCache = new RegexPatternCache();
-  private static final List<String> knownComponents = AddressFormatter.getKnownComponents();
+  private static final List<String> knownComponents = AndroidAddressFormatter.getKnownComponents();
   private static final Map<String, String> replacements = new HashMap<String, String>() {{
     put("[\\},\\s]+$", "");
     put("^[,\\s]+", "");
@@ -52,10 +52,12 @@ public class AddressFormatter {
   private final ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
   private final boolean abbreviate;
   private final boolean appendCountry;
+  private final boolean appendUnknown;
 
-  public AddressFormatter(Boolean abbreviate, Boolean appendCountry) {
+  public AndroidAddressFormatter(Boolean abbreviate, Boolean appendCountry, Boolean appendUnknown) {
     this.abbreviate = abbreviate;
     this.appendCountry = appendCountry;
+    this.appendUnknown = appendUnknown;
   }
 
   public String format(String json) throws IOException {
@@ -83,7 +85,7 @@ public class AddressFormatter {
 
     if (appendCountry && Templates.COUNTRY_NAMES.getData().has(countryCode) && components.get("country") == null) {
       components.put("country", Templates.COUNTRY_NAMES.getData().get(countryCode).asText());
-    }
+    }else components.remove("country");       //if !appendCountry do not show it, even if it is there
 
     components = applyAliases(components);
     JsonNode template = findTemplate(components);
@@ -244,7 +246,7 @@ public class AddressFormatter {
       return !knownComponents.contains(component.getKey());
     }).map(component -> component.getValue().toString()).collect(Collectors.toList());
 
-    if (unknownComponents.size() > 0) {
+    if (appendUnknown && unknownComponents.size() > 0) {
       components.put("attention", String.join(", ", unknownComponents));
     }
 
@@ -282,10 +284,6 @@ public class AddressFormatter {
                       return;
                     }
                     String oldComponent = components.get(key).toString();
-                    String src = replacement.get("src").asText();
-                    if (replacement.get("src").equals("Avenue")) {
-                      System.out.println("here");
-                    }
                     String regex = String.format("\\b%s\\b", replacement.get("src").asText());
                     Pattern p = regexPatternCache.get(regex);
                     Matcher m = p.matcher(oldComponent);
