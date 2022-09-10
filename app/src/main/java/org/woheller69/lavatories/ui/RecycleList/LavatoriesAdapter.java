@@ -54,7 +54,7 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
         }
 
         holder.dist.setText(lavatoryList.get(position).getDistance()+" km");
-        holder.address.setText((lavatoryList.get(position).getAddress1()+", "+ lavatoryList.get(position).getAddress2()).toUpperCase());
+        holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase());
 
         if (!lavatoryList.get(position).getOperator().trim().equals("")) {
             holder.operator.setText(lavatoryList.get(position).getOperator().toUpperCase());

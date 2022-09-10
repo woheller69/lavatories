@@ -74,4 +74,20 @@ public final class StringFormatUtils {
         // https://newbedev.com/negative-sign-in-case-of-zero-in-java
         return string.replaceAll("^-(?=0(\\.0*)?$)", "");
     }
+
+    public static String removeNewline(String str) {
+        int lastIdx = str.length() - 1;
+        if (lastIdx <= 0) {
+            return "";
+        }
+
+        if (str.charAt(lastIdx) == '\n') {
+            if (str.charAt(lastIdx - 1) == '\r') {
+                lastIdx--;
+            }
+        } else {
+            lastIdx++;
+        }
+        return str.substring(0, lastIdx);
+    }
 }

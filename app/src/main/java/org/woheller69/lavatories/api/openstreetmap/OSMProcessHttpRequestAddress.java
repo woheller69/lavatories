@@ -12,11 +12,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.NavigationActivity;
+import org.woheller69.lavatories.addressformat.AddressFormatter;
 import org.woheller69.lavatories.api.IProcessHttpRequest;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.database.Lavatory;
+import org.woheller69.lavatories.ui.Help.StringFormatUtils;
 import org.woheller69.lavatories.ui.updater.ViewUpdater;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,20 +65,19 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                     String address1 = "";
                     String address2 = "";
                     String currentItem = list.get(i).toString();
-                    //Log.d("ExtractAddress", currentItem);
                     JSONObject json = new JSONObject(currentItem);
                     String uuid = json.getString("osm_id");
                     JSONObject address = json.getJSONObject("address");
-                    if (address.has("road")) address1 = address.getString("road");
-                    if (address.has("house_number")) address1 = address1 + " "+ address.getString("house_number");
-                    if (address.has("postcode")) address2 = address.getString("postcode");
-                    if (address.has("village")) address2 = address2 + " " + address.getString("village");
-                    if (address.has("town")) address2 = address2 + " " + address.getString("town");
-                    if (address.has("city")) address2 = address2 + " " + address.getString("city");
+
+                    AddressFormatter formatter = new AddressFormatter(false, true);
+                    try {
+                        address1 = StringFormatUtils.removeNewline(formatter.format(address.toString().trim()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     for (Lavatory lavatory : lavatories){
                         if (lavatory.getUuid().equals(uuid)){
-                            //Log.d("Extract",uuid+" "+address1+" "+address2);
                             lavatory.setAddress1(address1);
                             lavatory.setAddress2(address2);
                             dbHelper.updateLavatoryAddress(lavatory);
