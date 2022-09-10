@@ -38,10 +38,5 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation project(path: ':library')
-    //implementation 'com.fasterxml.jackson.core:jackson-core:2.11.3'
-    //implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.3'
-    //implementation 'com.google.guava:guava:30.0-jre'
-    //implementation 'com.github.spullara.mustache.java:compiler:0.9.7'
-
+    implementation 'com.github.woheller69:AndroidAddressFormatter:-SNAPSHOT'
 }
