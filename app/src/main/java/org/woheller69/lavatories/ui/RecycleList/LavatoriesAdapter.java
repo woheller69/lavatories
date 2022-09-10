@@ -2,8 +2,10 @@ package org.woheller69.lavatories.ui.RecycleList;
 
 import android.content.Context;
 
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +56,13 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
         }
 
         holder.dist.setText(lavatoryList.get(position).getDistance()+" km");
-        holder.address.setText((lavatoryList.get(position).getAddress1()+", "+ lavatoryList.get(position).getAddress2()).toUpperCase());
+        SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
+        if (prefManager.getBoolean("pref_Debug",false)){
+            holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase()+"\nOSM_ID: N"+lavatoryList.get(position).getUuid());
+        }else{
+            holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase());
+        }
+
 
         if (!lavatoryList.get(position).getOperator().trim().equals("")) {
             holder.operator.setText(lavatoryList.get(position).getOperator().toUpperCase());

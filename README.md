@@ -25,6 +25,7 @@ The app also uses:
 - AndroidX libraries (https://github.com/androidx/androidx) which is licensed under <a href='https://github.com/androidx/androidx/blob/androidx-main/LICENSE.txt'>Apache License Version 2.0</a>
 - AutoSuggestTextViewAPICall (https://github.com/Truiton/AutoSuggestTextViewAPICall) which is licensed under <a href='https://github.com/Truiton/AutoSuggestTextViewAPICall/blob/master/LICENSE'>Apache License Version 2.0</a>
 - Search-as-you-type location search is provided by [photon API](https://photon.komoot.io), based on OpenStreetMap. See also (https://github.com/komoot/photon)
+- AndroidAddressFormatter library (https://github.com/woheller69/AndroidAddressFormatter) licensed under <a href='https://github.com/woheller69/AndroidAddressFormatter/blob/master/LICENSE'>MIT License</a>, which is based upon the work of [OpenCage](https://github.com/OpenCageData/address-formatting/) and [Placemarkt](https://github.com/placemarkt/address-formatter-java) 
 
 ## Contributing
 

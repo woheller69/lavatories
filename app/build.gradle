@@ -38,4 +38,5 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.woheller69:AndroidAddressFormatter:cdba8fca24bc5faf9ec8be80cdeb366b75460031'
 }

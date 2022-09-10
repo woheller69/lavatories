@@ -2,7 +2,6 @@ package org.woheller69.lavatories.api.openstreetmap;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -10,13 +9,17 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.woheller69.AndroidAddressFormatter.AndroidAddressFormatter;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.NavigationActivity;
+
 import org.woheller69.lavatories.api.IProcessHttpRequest;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.database.Lavatory;
+import org.woheller69.lavatories.ui.Help.StringFormatUtils;
 import org.woheller69.lavatories.ui.updater.ViewUpdater;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,28 +57,26 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     @Override
     public void processSuccessScenario(String response, int cityId) {
-        //Log.d("Request",response);
         this.dbHelper = SQLiteHelper.getInstance(context);
             try {
                 JSONArray list = new JSONArray(response);
                 for (int i = 0; i < list.length(); i++) {
                     String address1 = "";
                     String address2 = "";
-                    String currentItem = list.get(i).toString();
-                    //Log.d("ExtractAddress", currentItem);
-                    JSONObject json = new JSONObject(currentItem);
+                    JSONObject json=list.getJSONObject(i);
                     String uuid = json.getString("osm_id");
-                    JSONObject address = json.getJSONObject("address");
-                    if (address.has("road")) address1 = address.getString("road");
-                    if (address.has("house_number")) address1 = address1 + " "+ address.getString("house_number");
-                    if (address.has("postcode")) address2 = address.getString("postcode");
-                    if (address.has("village")) address2 = address2 + " " + address.getString("village");
-                    if (address.has("town")) address2 = address2 + " " + address.getString("town");
-                    if (address.has("city")) address2 = address2 + " " + address.getString("city");
+                    String address = json.getString("address");
+
+                    AndroidAddressFormatter formatter = new AndroidAddressFormatter(true, false, false);
+                    try {
+                        //remove backslashes in address fields and spaces at end
+                        address1 = StringFormatUtils.removeNewline(formatter.format(address.replace("\\","").trim()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     for (Lavatory lavatory : lavatories){
                         if (lavatory.getUuid().equals(uuid)){
-                            //Log.d("Extract",uuid+" "+address1+" "+address2);
                             lavatory.setAddress1(address1);
                             lavatory.setAddress2(address2);
                             dbHelper.updateLavatoryAddress(lavatory);
@@ -97,7 +98,6 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     @Override
     public void processFailScenario(final VolleyError error) {
-        Log.d("Error", String.valueOf(error));
         Handler h = new Handler(this.context.getMainLooper());
         h.post(new Runnable() {
             @Override
@@ -106,5 +106,4 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
             }
         });
     }
-
 }
