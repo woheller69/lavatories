@@ -58,21 +58,20 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     @Override
     public void processSuccessScenario(String response, int cityId) {
-        //Log.d("Request",response);
         this.dbHelper = SQLiteHelper.getInstance(context);
             try {
                 JSONArray list = new JSONArray(response);
                 for (int i = 0; i < list.length(); i++) {
                     String address1 = "";
                     String address2 = "";
-                    String currentItem = list.get(i).toString();
-                    JSONObject json = new JSONObject(currentItem);
+                    JSONObject json=list.getJSONObject(i);
                     String uuid = json.getString("osm_id");
-                    JSONObject address = json.getJSONObject("address");
+                    String address = json.getString("address");
 
                     AndroidAddressFormatter formatter = new AndroidAddressFormatter(true, false, false);
                     try {
-                        address1 = StringFormatUtils.removeNewline(formatter.format(address.toString().trim()));
+                        Log.d("AddressString", address.replace("\\","").trim());  //remove backslashes in address fields and spaces at end
+                        address1 = StringFormatUtils.removeNewline(formatter.format(address.replace("\\","").trim()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -24,6 +24,11 @@
             android:defaultValue="true"
             />
 
+        <SwitchPreference
+            android:key="pref_Debug"
+            android:title="Debug"
+            android:defaultValue="false"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_position">
