@@ -2,7 +2,6 @@ package org.woheller69.lavatories.api.openstreetmap;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -70,7 +69,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
 
                     AndroidAddressFormatter formatter = new AndroidAddressFormatter(true, false, false);
                     try {
-                        Log.d("AddressString", address.replace("\\","").trim());  //remove backslashes in address fields and spaces at end
+                        //remove backslashes in address fields and spaces at end
                         address1 = StringFormatUtils.removeNewline(formatter.format(address.replace("\\","").trim()));
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -99,7 +98,6 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     @Override
     public void processFailScenario(final VolleyError error) {
-        Log.d("Error", String.valueOf(error));
         Handler h = new Handler(this.context.getMainLooper());
         h.post(new Runnable() {
             @Override
@@ -108,5 +106,4 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
             }
         });
     }
-
 }
