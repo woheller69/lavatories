@@ -24,7 +24,7 @@
     <string name="about">About</string>
     <string name="version_number" translatable="false">Version</string>
     <string name="about_license">License</string>
-    <string name="about_license_text">This application is derived from Privacy Friendly Weather, developed by the research group SECUSO. Source code licensed under GPLv3. The app uses icons from Google Material Design Icons licensed under Apache License Version 2.0, Android Volley which is licensed under Apache License Version 2.0, AndroidX libraries which is licensed under Apache License Version 2.0, and AutoSuggestTextViewAPICall which is licensed under Apache License Version 2.0</string>
+    <string name="about_license_text">This application is derived from Privacy Friendly Weather, developed by the research group SECUSO. Source code licensed under GPLv3. The app uses icons from Google Material Design Icons licensed under Apache License Version 2.0, Android Volley which is licensed under Apache License Version 2.0, AndroidX libraries which is licensed under Apache License Version 2.0, AutoSuggestTextViewAPICall which is licensed under Apache License Version 2.0, and AndroidAddressFormatter which is licensed under MIT License</string>
     <string name="about_more_info">More information can be found on:</string>
     <string name="about_github" translatable="false"><a href="https://github.com/woheller69/lavatories">Github-Repo</a></string>
     <string name="about_openstreetmap" translatable="false"><a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></string>

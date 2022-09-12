@@ -21,7 +21,7 @@
     <string name="about_permission_internet_description">Accès au réseau: Cette autorisation est nécessaire pour les requêtes de données. Sans elle, aucune information ne peut être reçue. Facultative: Accès à la localisation GPS.</string>
     <string name="about">À propos</string>
     <string name="about_license">Licence</string>
-    <string name="about_license_text">Cette application est dérivée de Privacy Friendly Weather, développée par le groupe de recherche SECUSO. Code source sous licence GPLv3. Cette application utilise des icônes Google Material Design Icons sous licence Apache License Version 2.0, Android Volley sous licence Apache License Version 2.0, des librairies AndroidX sous licence Apache License Version 2.0, et AutoSuggestTextViewAPICall sous licence Apache License Version 2.0</string>
+    <string name="about_license_text">Cette application est dérivée de Privacy Friendly Weather, développée par le groupe de recherche SECUSO. Code source sous licence GPLv3. Cette application utilise des icônes Google Material Design Icons sous licence Apache License Version 2.0, Android Volley sous licence Apache License Version 2.0, des librairies AndroidX sous licence Apache License Version 2.0, AutoSuggestTextViewAPICall sous licence Apache License Version 2.0, et AndroidAddressFormatter sous licence MIT</string>
     <string name="about_more_info">Plus d’informations sont disponibles sur:</string>
     <string name="activity_settings_title">Paramètres</string>
     <string name="settings_title_API">Clé API</string>

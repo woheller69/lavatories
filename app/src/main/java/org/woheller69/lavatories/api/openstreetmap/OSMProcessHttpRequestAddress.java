@@ -70,6 +70,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                     AndroidAddressFormatter formatter = new AndroidAddressFormatter(true, false, false);
                     try {
                         //remove backslashes in address fields and spaces at end
+                        //e.g. for Dublin JSONArray(response) adds \  in Eire \/ Ireland
                         address1 = StringFormatUtils.removeNewline(formatter.format(address.replace("\\","").trim()));
                     } catch (IOException e) {
                         e.printStackTrace();
