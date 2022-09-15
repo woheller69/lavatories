@@ -1,8 +1,11 @@
 package org.woheller69.lavatories.api.openstreetmap;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.widget.Toast;
+
+import androidx.preference.PreferenceManager;
 
 import com.android.volley.VolleyError;
 
@@ -66,8 +69,8 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                     JSONObject json=list.getJSONObject(i);
                     String uuid = json.getString("osm_id");
                     String address = json.getString("address");
-
-                    AndroidAddressFormatter formatter = new AndroidAddressFormatter(true, false, false);
+                    SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
+                    AndroidAddressFormatter formatter = new AndroidAddressFormatter(true, (prefManager.getBoolean("pref_Debug",false)), (prefManager.getBoolean("pref_Debug",false)));
                     try {
                         //remove backslashes in address fields and spaces at end
                         //e.g. for Dublin JSONArray(response) adds \  in Eire \/ Ireland
