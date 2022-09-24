@@ -59,7 +59,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
             alertDialogBuilder.setPositiveButton(getString(R.string.dialog_OK_button), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/woheller69/spritpreise")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/woheller69/lavatories")));
                     prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
                     prefManager.setAskForStar(false);
                 }
