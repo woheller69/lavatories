@@ -114,7 +114,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 List <Lavatory> lavatories = database.getLavatoriesByCityId(pagerAdapter.getCityIDForPos(position));
 
                 if (lavatories.size() == 0)  {
-                    if (cityId!=getWidgetCityID(context)||locationListenerGPS==null) {
+                    if (pagerAdapter.getCityIDForPos(position)!=getWidgetCityID(context)||locationListenerGPS==null) {
                         CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(position));
                         LavSeekerActivity.startRefreshAnimation();
                     }
