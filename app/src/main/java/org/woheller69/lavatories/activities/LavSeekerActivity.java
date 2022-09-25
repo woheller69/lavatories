@@ -162,12 +162,11 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             updateLocationButton.setVisible(true);
             updateLocationButton.setActionView(R.layout.menu_update_location_view);
             updateLocationButton.getActionView().clearAnimation();
-            if (locationListenerGPS!=null) {  //GPS still trying to get new location
-                if (db.getAllCitiesToWatch().isEmpty()) {  //if city has been removed stop location update
-                    locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                    locationManager.removeUpdates(locationListenerGPS);
-                    locationListenerGPS=null;
-                } else {
+            if (locationListenerGPS!=null) {  //GPS still trying to get new location -> stop and restart to get around problem with tablayout not updating
+                removeLocationListener();
+                if (!db.getAllCitiesToWatch().isEmpty()) {  //if city has not been removed continue location update
+                    locationListenerGPS=getNewLocationListener();
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListenerGPS);
                     if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                         startUpdateLocatationAnimation();
                     }
@@ -175,11 +174,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             }
             updateLocationButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(updateLocationButton.getItemId(), 0));
         }else{
-            if (locationListenerGPS!=null) {
-                locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
-            }
-            locationListenerGPS=null;
+            removeLocationListener();
             if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                 updateLocationButton.getActionView().clearAnimation();
             }
@@ -219,42 +214,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             if (prefManager.getBoolean("pref_GPS", true) == TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 if (locationListenerGPS == null) {
-                    Log.d("GPS", "Listener null");
-                    locationListenerGPS = new LocationListener() {
-                        @Override
-                        public void onLocationChanged(android.location.Location location) {
-                            Log.d("GPS", "Location changed");
-                            SQLiteHelper db = SQLiteHelper.getInstance(context);
-                            CityToWatch city = db.getCityToWatch(getWidgetCityID(context));
-                                city.setLatitude((float) location.getLatitude());
-                                city.setLongitude((float) location.getLongitude());
-                                city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
-                                db.updateCityToWatch(city);
-                                db.deleteLavatoriesByCityId(getWidgetCityID(context));
-                                pagerAdapter.loadCities();
-                                viewPager2.setAdapter(pagerAdapter);
-                                tabLayout.getTabAt(0).setText(city.getCityName());
-                                if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
-                                locationListenerGPS=null;
-                            if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
-                                updateLocationButton.getActionView().clearAnimation();
-                            }
-                        }
-
-                        @Deprecated
-                        @Override
-                        public void onStatusChanged(String provider, int status, Bundle extras) {
-                        }
-
-                        @Override
-                        public void onProviderEnabled(String provider) {
-                        }
-
-                        @Override
-                        public void onProviderDisabled(String provider) {
-                        }
-                    };
-                    Log.d("GPS", "Request Updates");
+                    locationListenerGPS = getNewLocationListener();
                     LavSeekerActivity.startUpdateLocatationAnimation();
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListenerGPS);
                 }
@@ -340,5 +300,51 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             }
         }
     }
+
+    private LocationListener getNewLocationListener() {
+        return new LocationListener() {
+            @Override
+            public void onLocationChanged(android.location.Location location) {
+                Log.d("GPS", "Location changed");
+                SQLiteHelper db = SQLiteHelper.getInstance(context);
+                CityToWatch city = db.getCityToWatch(getWidgetCityID(context));
+                city.setLatitude((float) location.getLatitude());
+                city.setLongitude((float) location.getLongitude());
+                city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
+                db.updateCityToWatch(city);
+                db.deleteLavatoriesByCityId(getWidgetCityID(context));
+                pagerAdapter.loadCities();
+                viewPager2.setAdapter(pagerAdapter);
+                tabLayout.getTabAt(0).setText(city.getCityName());
+                if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
+                locationListenerGPS=null;
+                if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
+                    updateLocationButton.getActionView().clearAnimation();
+                }
+            }
+
+            @Deprecated
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+    }
+
+    private void removeLocationListener() {
+        if (locationListenerGPS!=null) {
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
+        }
+        locationListenerGPS=null;
+    }
+
 }
 
