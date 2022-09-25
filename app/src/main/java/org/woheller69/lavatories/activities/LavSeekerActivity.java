@@ -163,8 +163,14 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             updateLocationButton.setActionView(R.layout.menu_update_location_view);
             updateLocationButton.getActionView().clearAnimation();
             if (locationListenerGPS!=null) {  //GPS still trying to get new location
-                if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
-                    startUpdateLocatationAnimation();
+                if (db.getAllCitiesToWatch().isEmpty()) {  //if city has been removed stop location update
+                    locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                    locationManager.removeUpdates(locationListenerGPS);
+                    locationListenerGPS=null;
+                } else {
+                    if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
+                        startUpdateLocatationAnimation();
+                    }
                 }
             }
             updateLocationButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(updateLocationButton.getItemId(), 0));
