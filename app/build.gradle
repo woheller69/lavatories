@@ -20,6 +20,7 @@ android {
 
         buildConfigField "String", "BASE_URL", "\"https://overpass-api.de/api/interpreter\""
         buildConfigField "String", "BASE_URL2","\"https://nominatim.openstreetmap.org/\""
+        buildConfigField "String", "GITHUB_URL","\"https://github.com/woheller69/lavatories/\""
     }
     buildTypes {
         release {
