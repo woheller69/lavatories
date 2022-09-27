@@ -86,7 +86,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             List <Lavatory> lavatories = db.getLavatoriesByCityId(cityId);
 
             if (lavatories.size() == 0) {
-                if (cityId!=getWidgetCityID(context)||locationListenerGPS==null) {
+                if (cityId!=getWidgetCityID(context)||locationListenerGPS==null) { //do not update first TAB while location is updating
                     CityPagerAdapter.refreshSingleData(getApplicationContext(), cityId); //only update current tab at start
                     LavSeekerActivity.startRefreshAnimation();
                 }
@@ -114,7 +114,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 List <Lavatory> lavatories = database.getLavatoriesByCityId(pagerAdapter.getCityIDForPos(position));
 
                 if (lavatories.size() == 0)  {
-                    if (pagerAdapter.getCityIDForPos(position)!=getWidgetCityID(context)||locationListenerGPS==null) {
+                    if (pagerAdapter.getCityIDForPos(position)!=getWidgetCityID(context)||locationListenerGPS==null) { //do not update first TAB while location is updating
                         CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(position));
                         LavSeekerActivity.startRefreshAnimation();
                     }
@@ -316,8 +316,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 pagerAdapter.loadCities();
                 viewPager2.setAdapter(pagerAdapter);
                 tabLayout.getTabAt(0).setText(city.getCityName());
-                if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
-                locationListenerGPS=null;
+                removeLocationListener();
                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                     updateLocationButton.getActionView().clearAnimation();
                 }
