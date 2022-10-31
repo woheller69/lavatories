@@ -5,9 +5,9 @@
         android:id="@+id/nav_group_main"
         android:checkableBehavior="all">
         <item
-            android:id="@+id/nav_gasprices"
+            android:id="@+id/nav_lavatories"
             android:icon="@drawable/ic_wc_black_24dp"
-            android:title="@string/activity_gasprices" />
+            android:title="@string/lavatories" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_edit_location_24px"

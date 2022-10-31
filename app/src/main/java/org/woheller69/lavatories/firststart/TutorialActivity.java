@@ -43,15 +43,12 @@ public class TutorialActivity extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnNext;
-    private AppPreferencesManager prefManager;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Checking for first time launch - before calling setContentView()
-        prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
 
         setContentView(R.layout.activity_tutorial);
 

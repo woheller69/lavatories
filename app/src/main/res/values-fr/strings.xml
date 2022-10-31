@@ -3,7 +3,7 @@
     <string name="app_name_long">LavSeeker</string>
     <string name="activity_about">À propos</string>
     <string name="activity_settings">Paramètres</string>
-    <string name="activity_gasprices">LavSeeker</string>
+    <string name="lavatories">Toilettes</string>
     <string name="activity_manage">Gérer les lieux</string>
     <string name="action_refresh">Rafraîchir</string>
     <string name="navigation_drawer_open">Ouvrir l’onglet de navigation</string>

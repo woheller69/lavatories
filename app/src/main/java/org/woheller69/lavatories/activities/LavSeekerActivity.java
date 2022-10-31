@@ -147,7 +147,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
 
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_gasprices;
+        return R.id.nav_lavatories;
     }
 
     @Override

@@ -88,7 +88,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (getNavigationDrawerID()!=R.id.nav_gasprices)
+            if (getNavigationDrawerID()!=R.id.nav_lavatories)
             {
                 Intent intent = new Intent(this, LavSeekerActivity.class);
                 startActivity(intent);
@@ -166,7 +166,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        if (itemId==R.id.nav_gasprices) {
+        if (itemId==R.id.nav_lavatories) {
             intent = new Intent(this, LavSeekerActivity.class);
             startActivity(intent);
         }else if (itemId==R.id.nav_manage){
