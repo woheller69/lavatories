@@ -17,7 +17,7 @@ The data is provided by OpenStreetMap.
 This app is licensed under the GPLv3.
 
 The app also uses:
-- Data is provided by OpenStreetMap under Open Database Licence, <a href='https://www.openstreetmap.org/copyright'>Open Database Licence</a>
+- Data is provided by OpenStreetMap under Open Database Licence, <a href='https://www.openstreetmap.org/copyright'>Open Database License</a>
 - The code is based on Privacy Friendly Weather (https://github.com/SecUSo/privacy-friendly-weather), which is published under GPLv3
 - Icons from [Google Material Design Icons](https://material.io/resources/icons/) licensed under <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License Version 2.0</a>
 - Material Components for Android (https://github.com/material-components/material-components-android) which is licensed under <a href='https://github.com/material-components/material-components-android/blob/master/LICENSE'>Apache License Version 2.0</a>
