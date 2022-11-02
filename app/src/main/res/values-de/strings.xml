@@ -74,4 +74,5 @@
     <string name="settings_sort_summary">Nur wenn einzelne Sorte gewählt</string>
     <string name="action_position">Position aktualisieren</string>
     <string name="settings_GPS_manual">Nur manuell aktualisieren</string>
+    <string name="error_no_gps">Bitte GPS einschalten</string>
 </resources>

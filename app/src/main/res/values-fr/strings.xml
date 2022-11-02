@@ -73,4 +73,5 @@
     <string name="settings_sort_summary">Seulement pour le type défini</string>
     <string name="action_position">Rafraîchir la position</string>
     <string name="settings_GPS_manual">Mises à jour manuelles uniquement</string>
-</resources>
+     <string name="error_no_gps">Veuillez activer le GPS</string>
+ </resources>
