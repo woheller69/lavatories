@@ -62,7 +62,7 @@
     <string name="dialog_OK_button">Oui</string>
     <string name="dialog_NO_button">Non</string>
     <string name="dialog_Later_button">Plus tard</string>
-    <string name="dialog_StarOnGitHub">Vous aimez cette application? Donnez lui une étoile sur GitHub.</string>
+    <string name="dialog_StarOnGitHub">Aimez-vous cette application? Veuillez donner une étoile sur GitHub ou acheter un café au développeur via PayPal.</string>
     <string name="closed">Fermée</string>
     <string name="open">Ouverte</string>
     <string name="error_no_lavatory_found">Pas de toilettes à proximité</string>

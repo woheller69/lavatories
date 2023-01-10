@@ -13,6 +13,7 @@ import org.woheller69.lavatories.database.CityToWatch;
 import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.api.IDataExtractor;
+import java.nio.charset.StandardCharsets;
 
 
 public class OSMDataExtractor implements IDataExtractor {
@@ -53,7 +54,9 @@ public class OSMDataExtractor implements IDataExtractor {
             lavatory.setDistance(Math.round(cityLocation.distanceTo(toiletLocation)/10)/100.0);
             lavatory.setUuid(json.getString("id"));
             JSONObject tags = json.getJSONObject("tags");
-            if (tags.has("operator")) lavatory.setOperator(tags.getString("operator"));
+            //fix issues with Ã¼ instead of ü, etc. OSM data is UTF-8 encoded
+            //String(byte[] bytes, Charset charset) constructs a new String by decoding the specified array of bytes using the specified charset.
+            if (tags.has("operator")) lavatory.setOperator(new String(tags.getString("operator").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
             if (tags.has("opening_hours")) lavatory.setOpeningHours(tags.getString("opening_hours"));
             if (tags.has("access") && tags.getString(("access")).contains("private"))  return null;
             lavatory.setWheelchair(tags.has("wheelchair") && !tags.getString(("wheelchair")).equals("no"));

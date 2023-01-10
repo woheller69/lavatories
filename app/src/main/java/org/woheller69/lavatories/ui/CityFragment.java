@@ -18,13 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.woheller69.lavatories.R;
-import org.woheller69.lavatories.activities.LavSeekerActivity;
 import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.ui.RecycleList.CityAdapter;
-import org.woheller69.lavatories.ui.RecycleList.OnSwipeDownListener;
 import org.woheller69.lavatories.ui.updater.IUpdateableCityUI;
 import org.woheller69.lavatories.ui.updater.ViewUpdater;
-import org.woheller69.lavatories.ui.viewPager.CityPagerAdapter;
 
 import java.util.List;
 
