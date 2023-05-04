@@ -29,13 +29,11 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
 
     private List<Lavatory> lavatoryList;
     private Context context;
-    private TextView recyclerViewHeader;
 
 //Adapter for Lavatories recycler view
-    LavatoriesAdapter(List<Lavatory> lavatoryList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
+    LavatoriesAdapter(List<Lavatory> lavatoryList, Context context) {
         this.context = context;
         this.lavatoryList = lavatoryList;
-        this.recyclerViewHeader=recyclerViewHeader;
     }
 
 
@@ -47,13 +45,6 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
 
     @Override
     public void onBindViewHolder(LavatoryViewHolder holder, int position) {
-
-        if (lavatoryList !=null && lavatoryList.size()!=0 && lavatoryList.get(0)!=null) {
-            long time = lavatoryList.get(0).getTimestamp();
-            long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
-            long updateTime = ((time + zoneseconds) * 1000);
-            recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_lavatories_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
-        }
 
         holder.dist.setText(lavatoryList.get(position).getDistance()+" km");
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);

@@ -13,8 +13,8 @@ android {
         applicationId "org.woheller69.lavatories"
         minSdkVersion 26
         targetSdkVersion 31
-        versionCode 15
-        versionName "1.5"
+        versionCode 16
+        versionName "1.6"
 
         buildConfigField "String", "BASE_URL", "\"https://overpass-api.de/api/interpreter\""
         buildConfigField "String", "BASE_URL2","\"https://nominatim.openstreetmap.org/\""
@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.github.woheller69:AndroidAddressFormatter:cdba8fca24bc5faf9ec8be80cdeb366b75460031'
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.1" //needed due to duplicate class error
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1" //needed due to duplicate class error
+    implementation 'org.osmdroid:osmdroid-android:6.1.13'
 }

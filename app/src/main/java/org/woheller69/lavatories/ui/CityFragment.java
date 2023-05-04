@@ -57,6 +57,12 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
                 setAdapter(mAdapter);
             }
 
+    @Override
+    public void onResume() {
+        loadData();
+        super.onResume();
+    }
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -86,8 +92,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
         Bundle args = getArguments();
         mCityId = args.getInt("city_id");
-
-        loadData();
 
         return v;
     }

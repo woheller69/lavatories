@@ -21,7 +21,7 @@ import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.database.City;
 import org.woheller69.lavatories.database.CityToWatch;
 import org.woheller69.lavatories.database.SQLiteHelper;
-import org.woheller69.lavatories.dialogs.AddLocationDialogPhotonAPI;
+import org.woheller69.lavatories.dialogs.AddLocationDialogOmGeocodingAPI;
 import org.woheller69.lavatories.ui.RecycleList.RecyclerItemClickListener;
 import org.woheller69.lavatories.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.woheller69.lavatories.ui.RecycleList.SimpleItemTouchHelperCallback;
@@ -117,7 +117,7 @@ public class ManageLocationsActivity extends NavigationActivity {
                     @Override
                     public void onClick(View view) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
-                        AddLocationDialogPhotonAPI addLocationDialog = new AddLocationDialogPhotonAPI();
+                        AddLocationDialogOmGeocodingAPI addLocationDialog = new AddLocationDialogOmGeocodingAPI();
                         addLocationDialog.show(fragmentManager, "AddLocationDialog");
                         getSupportFragmentManager().executePendingTransactions();
                         addLocationDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);

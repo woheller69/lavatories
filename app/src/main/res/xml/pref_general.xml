@@ -25,6 +25,12 @@
             />
 
         <SwitchPreference
+            android:key="pref_map"
+            android:title="@string/settings_map"
+            android:defaultValue="true"
+            />
+
+        <SwitchPreference
             android:key="pref_Debug"
             android:title="Debug"
             android:defaultValue="false"

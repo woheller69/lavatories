@@ -40,8 +40,7 @@ public class OSMHttpRequestForToilets implements IHttpRequest {
     }
 
     protected String getUrlForQueryingLavatories(Context context, float lat, float lon) {
-        AppPreferencesManager prefManager =
-                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         return String.format(

@@ -5,11 +5,14 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +20,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.CopyrightOverlay;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.TilesOverlay;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.LavSeekerActivity;
 import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
+import org.woheller69.lavatories.ui.Help.StringFormatUtils;
 import org.woheller69.lavatories.ui.viewPager.CityPagerAdapter;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
@@ -87,6 +101,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     public class LavatoryViewHolder extends ViewHolder {
         RecyclerView recyclerView;
         TextView recyclerViewHeader;
+        MapView map;
 
         LavatoryViewHolder(View v) {
             super(v);
@@ -108,6 +123,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     }else recyclerView.setOnTouchListener(null);
                 }
             });
+            map = v.findViewById(R.id.map);
         }
     }
 
@@ -150,15 +166,28 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }  else if (viewHolder.getItemViewType() == LAVATORIES) {
 
             LavatoryViewHolder holder = (LavatoryViewHolder) viewHolder;
+            Marker highlightMarker = new Marker(holder.map);
+            highlightMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_highlight_32dp));
+            highlightMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             holder.recyclerView.addItemDecoration(new DividerItemDecoration(holder.recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-            LavatoriesAdapter adapter = new LavatoriesAdapter(lavatoryList, context, holder.recyclerViewHeader, holder.recyclerView);
+            LavatoriesAdapter adapter = new LavatoriesAdapter(lavatoryList, context);
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
             holder.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
+                    if (holder.map.getOverlays().contains(highlightMarker)) holder.map.getOverlays().remove(highlightMarker);
+                    GeoPoint highlightPosition = new GeoPoint(lavatoryList.get(position).getLatitude(), lavatoryList.get(position).getLongitude());
+                    highlightMarker.setPosition(highlightPosition);
+                    highlightMarker.setSnippet(lavatoryList.get(position).getAddress1());
+                    holder.map.getOverlays().add(highlightMarker);
+                    holder.map.invalidate();
+                }
+
+                @Override
+                public void onLongItemClick(View view, int position) {
                     String loc = lavatoryList.get(position).getLatitude() + "," + lavatoryList.get(position).getLongitude();
                     try {
                         context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc)));
@@ -166,12 +195,58 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                         Toast.makeText(context,R.string.error_no_map_app, Toast.LENGTH_LONG).show();
                     }
                 }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
-                }
             }));
+
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+            if (sp.getBoolean("pref_map",true)) {
+                holder.map.setVisibility(View.VISIBLE);
+
+                Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
+                holder.map.setTileSource(TileSourceFactory.MAPNIK);
+                holder.map.setTilesScaledToDpi(true);
+
+                int nightmodeflag = context.getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+                if (nightmodeflag == android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                    holder.map.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
+                else holder.map.getOverlayManager().getTilesOverlay().setColorFilter(null);
+
+                SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
+
+                IMapController mapController = holder.map.getController();
+                mapController.setZoom(12);
+                GeoPoint startPoint = new GeoPoint(database.getCityToWatch(cityID).getLatitude(), database.getCityToWatch(cityID).getLongitude());
+                mapController.setCenter(startPoint);
+
+                CopyrightOverlay copyrightOverlay = new CopyrightOverlay(context);
+                copyrightOverlay.setCopyrightNotice(holder.map.getTileProvider().getTileSource().getCopyrightNotice());
+                copyrightOverlay.setTextColor(context.getColor(R.color.colorPrimaryDark));
+                holder.map.getOverlays().add(copyrightOverlay);
+                List<Lavatory> lavatories = database.getLavatoriesByCityId(cityID);
+
+                for (Lavatory lavatory : lavatories) {
+                        GeoPoint lavatoryPosition = new GeoPoint(lavatory.getLatitude(), lavatory.getLongitude());
+                        String lavatoryName = lavatory.getAddress1();
+                        Marker lavatoryMarker = new Marker(holder.map);
+                        lavatoryMarker.setPosition(lavatoryPosition);
+                        lavatoryMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+                        lavatoryMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_wc_black_24dp));
+                        lavatoryMarker.setSnippet(lavatoryName);
+                        holder.map.getOverlays().add(lavatoryMarker);
+                }
+            } else {
+                holder.map.setVisibility(View.GONE);
+            }
+
+            if (!lavatoryList.isEmpty()){
+                long time = lavatoryList.get(0).getTimestamp();
+                long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
+                long updateTime = ((time + zoneseconds) * 1000);
+
+                holder.recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_lavatories_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
+            }
+
+
         }
         //No update for error needed
     }
