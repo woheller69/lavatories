@@ -181,7 +181,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     if (holder.map.getOverlays().contains(highlightMarker)) holder.map.getOverlays().remove(highlightMarker);
                     GeoPoint highlightPosition = new GeoPoint(lavatoryList.get(position).getLatitude(), lavatoryList.get(position).getLongitude());
                     highlightMarker.setPosition(highlightPosition);
-                    highlightMarker.setSnippet(lavatoryList.get(position).getAddress1());
+                    highlightMarker.setInfoWindow(null);
                     holder.map.getOverlays().add(highlightMarker);
                     holder.map.invalidate();
                 }
@@ -231,7 +231,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                         lavatoryMarker.setPosition(lavatoryPosition);
                         lavatoryMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
                         lavatoryMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_wc_black_24dp));
-                        lavatoryMarker.setSnippet(lavatoryName);
+                        lavatoryMarker.setInfoWindow(null);
                         holder.map.getOverlays().add(lavatoryMarker);
                 }
             } else {
