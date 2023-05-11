@@ -1,0 +1,3 @@
+Kartengröße geändert
+Photon-Geolocation API durch Open-Meteo API ersetzt
+Fehlerbehebung
