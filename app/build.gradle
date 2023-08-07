@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "org.woheller69.lavatories"
         minSdkVersion 26
-        targetSdkVersion 31
-        versionCode 17
-        versionName "1.7"
+        targetSdkVersion 33
+        versionCode 18
+        versionName "1.8"
 
         buildConfigField "String", "BASE_URL", "\"https://overpass-api.de/api/interpreter\""
         buildConfigField "String", "BASE_URL2","\"https://nominatim.openstreetmap.org/\""

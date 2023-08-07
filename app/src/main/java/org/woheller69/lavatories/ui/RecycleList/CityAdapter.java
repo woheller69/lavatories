@@ -6,6 +6,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -176,6 +177,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
             holder.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                View selection = null;
+                View oldSelection = null;
                 @Override
                 public void onItemClick(View view, int position) {
                     if (holder.map.getOverlays().contains(highlightMarker)) holder.map.getOverlays().remove(highlightMarker);
@@ -184,6 +187,14 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     highlightMarker.setInfoWindow(null);
                     holder.map.getOverlays().add(highlightMarker);
                     holder.map.invalidate();
+                    adapter.setSelected(position);
+                    oldSelection = selection;
+                    selection = view;
+                    highlightSelected(selection, oldSelection);
+                }
+                private void highlightSelected(View selection, View oldSelection) {
+                    if (oldSelection != null) oldSelection.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_transparent,null)); //remove highlight from old selection
+                    if (selection != null) selection.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_highlight,null)); //highlight selected item
                 }
 
                 @Override

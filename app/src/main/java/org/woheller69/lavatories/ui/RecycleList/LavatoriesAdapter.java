@@ -2,6 +2,7 @@ package org.woheller69.lavatories.ui.RecycleList;
 
 import android.content.Context;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
 
     private List<Lavatory> lavatoryList;
     private Context context;
+    private int selected = -1;
 
 //Adapter for Lavatories recycler view
     LavatoriesAdapter(List<Lavatory> lavatoryList, Context context) {
@@ -53,7 +55,8 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
         }else{
             holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase());
         }
-
+        if (position == selected) holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_highlight,null));
+        else holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_transparent,null));
 
         if (!lavatoryList.get(position).getOperator().trim().equals("")) {
             holder.operator.setText(lavatoryList.get(position).getOperator().toUpperCase());
@@ -75,6 +78,10 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
     @Override
     public int getItemCount() {
         return lavatoryList.size();
+    }
+
+    public void setSelected(int position) {
+        selected = position;
     }
 
     class LavatoryViewHolder extends RecyclerView.ViewHolder {
