@@ -13,7 +13,7 @@ import org.woheller69.lavatories.api.IHttpRequest;
 
 /**
  * This class provides the functionality for making and processing HTTP requests to
- * Tankerkönig to retrieve the latest gas prices for all stored cities.
+ * OpenStreetMap to retrieve the list of lavatories.
  */
 public class OSMHttpRequestForToilets implements IHttpRequest {
 

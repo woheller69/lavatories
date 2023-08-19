@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * This class provides the functionality for making and processing HTTP requests to
- * Tankerkönig to retrieve the latest gas prices for all stored cities.
+ * Nominatim API to retrieve the address for lavatories.
  */
 public class OSMHttpRequestForAddress  {
 
