@@ -349,7 +349,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
     private void removeLocationListener() {
         if (locationListenerGPS!=null) {
             locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
+            locationManager.removeUpdates(locationListenerGPS);
         }
         locationListenerGPS=null;
     }

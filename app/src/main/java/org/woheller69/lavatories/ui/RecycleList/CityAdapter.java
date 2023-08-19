@@ -1,10 +1,14 @@
 package org.woheller69.lavatories.ui.RecycleList;
 
+import static java.lang.Boolean.TRUE;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
@@ -14,6 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +55,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     private List<Lavatory> lavatoryList;
     private int cityID;
     private Context context;
+    private LocationManager locationManager;
+    private static LocationListener myPositionListenerGPS;
 
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
@@ -168,6 +178,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
             LavatoryViewHolder holder = (LavatoryViewHolder) viewHolder;
             Marker highlightMarker = new Marker(holder.map);
+            Marker positionMarker = new Marker(holder.map);
             highlightMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_highlight_32dp));
             highlightMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -237,7 +248,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
                 for (Lavatory lavatory : lavatories) {
                         GeoPoint lavatoryPosition = new GeoPoint(lavatory.getLatitude(), lavatory.getLongitude());
-                        String lavatoryName = lavatory.getAddress1();
                         Marker lavatoryMarker = new Marker(holder.map);
                         lavatoryMarker.setPosition(lavatoryPosition);
                         lavatoryMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
@@ -245,6 +255,27 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                         lavatoryMarker.setInfoWindow(null);
                         holder.map.getOverlays().add(lavatoryMarker);
                 }
+
+                myPositionListenerGPS = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(@NonNull Location location) {
+                        if (holder.map.getOverlays().contains(positionMarker)) holder.map.getOverlays().remove(positionMarker);
+                        positionMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_location_24dp));
+                        positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                        GeoPoint myPosition = new GeoPoint(location.getLatitude(), location.getLongitude());
+                        positionMarker.setPosition(myPosition);
+                        positionMarker.setInfoWindow(null);
+                        holder.map.getOverlays().add(positionMarker);
+                        holder.map.invalidate();
+                    }
+                };
+                SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
+                if(prefManager.getBoolean("pref_GPS", true)==TRUE && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+                    locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, myPositionListenerGPS);
+                }
+
+
             } else {
                 holder.map.setVisibility(View.GONE);
             }
@@ -270,5 +301,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         return dataSetTypes[position];
+    }
+
+    public void removeMyPositionListenerGPS() {
+        if (myPositionListenerGPS!=null) {
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            locationManager.removeUpdates(myPositionListenerGPS);
+        }
+        myPositionListenerGPS=null;
     }
 }
