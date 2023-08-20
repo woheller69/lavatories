@@ -1,16 +1,9 @@
 package org.woheller69.lavatories.api.openstreetmap;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.location.Location;
-import android.location.LocationManager;
-
-import androidx.preference.PreferenceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.woheller69.lavatories.database.CityToWatch;
-import org.woheller69.lavatories.database.SQLiteHelper;
 import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.api.IDataExtractor;
 import java.nio.charset.StandardCharsets;
@@ -34,11 +27,6 @@ public class OSMDataExtractor implements IDataExtractor {
         try {
             Lavatory lavatory = new Lavatory();
             lavatory.setTimestamp((long) ((System.currentTimeMillis())/ 1000));
-            SQLiteHelper db = SQLiteHelper.getInstance(context);
-            CityToWatch city = db.getCityToWatch(cityId);
-            Location cityLocation = new Location(LocationManager.PASSIVE_PROVIDER);
-            cityLocation.setLatitude(city.getLatitude());
-            cityLocation.setLongitude(city.getLongitude());
 
             JSONObject json = new JSONObject(data);
 
@@ -46,13 +34,7 @@ public class OSMDataExtractor implements IDataExtractor {
             lavatory.setOpeningHours(" ");
             lavatory.setAddress1(" ");
             lavatory.setAddress2(" ");
-            lavatory.setLatitude(json.getDouble("lat"));
-            lavatory.setLongitude(json.getDouble("lon"));
-            Location toiletLocation = new Location(LocationManager.PASSIVE_PROVIDER);
-            toiletLocation.setLatitude(lavatory.getLatitude());
-            toiletLocation.setLongitude(lavatory.getLongitude());
-            lavatory.setDistance(Math.round(cityLocation.distanceTo(toiletLocation)/10)/100.0);
-            lavatory.setUuid(json.getString("id"));
+            lavatory.setUuid(json.getString("type").equals("node") ? "N" + json.getString("id") : "W" + json.getString("id"));
             JSONObject tags = json.getJSONObject("tags");
             if (tags.has("amenity") && tags.getString("amenity").contains("toilets")) {
                 //fix issues with Ã¼ instead of ü, etc. OSM data is UTF-8 encoded

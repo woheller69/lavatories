@@ -20,7 +20,7 @@ public class OSMHttpRequestForAddress  {
     /**
      * Member variables.
      */
-    private Context context;
+    private final Context context;
 
     /**
      * @param context The context to use.
@@ -42,7 +42,7 @@ public class OSMHttpRequestForAddress  {
     protected String getUrlForQueryingAddress(List<Lavatory> lavatories) {
         String idString="";
         for (Lavatory lavatory : lavatories){
-            idString=idString+"N"+ lavatory.getUuid()+",";
+            idString=idString + lavatory.getUuid()+",";
         }
         Log.d("Request",String.format(
                 "%slookup?format=json&osm_ids=%s",

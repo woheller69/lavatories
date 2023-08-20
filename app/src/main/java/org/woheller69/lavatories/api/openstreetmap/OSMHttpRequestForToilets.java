@@ -8,7 +8,6 @@ import androidx.preference.PreferenceManager;
 import org.woheller69.lavatories.BuildConfig;
 import org.woheller69.lavatories.http.HttpRequestType;
 import org.woheller69.lavatories.http.VolleyHttpRequest;
-import org.woheller69.lavatories.preferences.AppPreferencesManager;
 import org.woheller69.lavatories.api.IHttpRequest;
 
 /**
@@ -20,7 +19,7 @@ public class OSMHttpRequestForToilets implements IHttpRequest {
     /**
      * Member variables.
      */
-    private Context context;
+    private final Context context;
 
     /**
      * @param context The context to use.
@@ -44,8 +43,14 @@ public class OSMHttpRequestForToilets implements IHttpRequest {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         return String.format(
-                "%s?data=[out:json][timeout:5];(node[\"amenity\"=\"toilets\"](around:%s,%s,%s);node[\"toilets\"=\"yes\"](around:%s,%s,%s););out;>;out skel qt;",
+                "%s?data=[out:json][timeout:5];(node[\"amenity\"=\"toilets\"](around:%s,%s,%s);node[\"toilets\"=\"yes\"](around:%s,%s,%s);way[\"amenity\"=\"toilets\"](around:%s,%s,%s);way[\"toilets\"=\"yes\"](around:%s,%s,%s););out;>;out skel qt;",
                 BuildConfig.BASE_URL,
+                sharedPreferences.getString("pref_searchRadius","3000"),
+                lat,
+                lon,
+                sharedPreferences.getString("pref_searchRadius","3000"),
+                lat,
+                lon,
                 sharedPreferences.getString("pref_searchRadius","3000"),
                 lat,
                 lon,
