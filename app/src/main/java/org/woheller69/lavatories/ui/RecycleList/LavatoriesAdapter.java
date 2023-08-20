@@ -15,11 +15,7 @@ import android.widget.TextView;
 
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.database.Lavatory;
-import org.woheller69.lavatories.ui.Help.StringFormatUtils;
-
-import java.time.Instant;
 import java.util.List;
-import java.util.TimeZone;
 
 //**
 // * Created by yonjuni on 02.01.17.
@@ -81,7 +77,18 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
     }
 
     public void setSelected(int position) {
+        int oldSelected = selected;
         selected = position;
+        notifyItemChanged(oldSelected);
+        notifyItemChanged(selected);
+    }
+
+    public int getPosUUID(String id) {
+
+        for (int i=0;i<lavatoryList.size();i++){
+            if (lavatoryList.get(i).getUuid().equals(id)) return i;
+        }
+        return 0;
     }
 
     class LavatoryViewHolder extends RecyclerView.ViewHolder {

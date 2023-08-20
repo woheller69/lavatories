@@ -188,24 +188,10 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
             holder.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                View selection = null;
-                View oldSelection = null;
                 @Override
                 public void onItemClick(View view, int position) {
-                    if (holder.map.getOverlays().contains(highlightMarker)) holder.map.getOverlays().remove(highlightMarker);
-                    GeoPoint highlightPosition = new GeoPoint(lavatoryList.get(position).getLatitude(), lavatoryList.get(position).getLongitude());
-                    highlightMarker.setPosition(highlightPosition);
-                    highlightMarker.setInfoWindow(null);
-                    holder.map.getOverlays().add(highlightMarker);
-                    holder.map.invalidate();
+                    setHighlightMarker(position, holder, highlightMarker);
                     adapter.setSelected(position);
-                    oldSelection = selection;
-                    selection = view;
-                    highlightSelected(selection, oldSelection);
-                }
-                private void highlightSelected(View selection, View oldSelection) {
-                    if (oldSelection != null) oldSelection.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_transparent,null)); //remove highlight from old selection
-                    if (selection != null) selection.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_highlight,null)); //highlight selected item
                 }
 
                 @Override
@@ -253,6 +239,17 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                         lavatoryMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
                         lavatoryMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_wc_black_24dp));
                         lavatoryMarker.setInfoWindow(null);
+                        lavatoryMarker.setId(lavatory.getUuid());
+                        lavatoryMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                int pos = adapter.getPosUUID(marker.getId());
+                                holder.recyclerView.getLayoutManager().scrollToPosition(pos);
+                                setHighlightMarker(pos, holder, highlightMarker);
+                                adapter.setSelected(pos);
+                                return false;
+                            }
+                        });
                         holder.map.getOverlays().add(lavatoryMarker);
                 }
 
@@ -288,9 +285,17 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                 holder.recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_lavatories_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
             }
 
-
         }
         //No update for error needed
+    }
+
+    private void setHighlightMarker(int position, LavatoryViewHolder holder, Marker highlightMarker) {
+        if (holder.map.getOverlays().contains(highlightMarker)) holder.map.getOverlays().remove(highlightMarker);
+        GeoPoint highlightPosition = new GeoPoint(lavatoryList.get(position).getLatitude(), lavatoryList.get(position).getLongitude());
+        highlightMarker.setPosition(highlightPosition);
+        highlightMarker.setInfoWindow(null);
+        holder.map.getOverlays().add(highlightMarker);
+        holder.map.invalidate();
     }
 
     @Override
