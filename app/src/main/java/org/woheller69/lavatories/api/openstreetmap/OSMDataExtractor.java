@@ -54,15 +54,30 @@ public class OSMDataExtractor implements IDataExtractor {
             lavatory.setDistance(Math.round(cityLocation.distanceTo(toiletLocation)/10)/100.0);
             lavatory.setUuid(json.getString("id"));
             JSONObject tags = json.getJSONObject("tags");
-            //fix issues with Ã¼ instead of ü, etc. OSM data is UTF-8 encoded
-            //String(byte[] bytes, Charset charset) constructs a new String by decoding the specified array of bytes using the specified charset.
-            if (tags.has("operator")) lavatory.setOperator(new String(tags.getString("operator").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-            if (tags.has("opening_hours")) lavatory.setOpeningHours(tags.getString("opening_hours"));
-            if (tags.has("access") && tags.getString(("access")).contains("private"))  return null;
-            lavatory.setWheelchair(tags.has("wheelchair") && !tags.getString(("wheelchair")).equals("no"));
-            lavatory.setBabyChanging(tags.has("changing_table") && !tags.getString(("changing_table")).equals("no"));
-            lavatory.setPaid(tags.has("fee") && !tags.getString(("fee")).equals("no"));
-            return lavatory;
+            if (tags.has("amenity") && tags.getString("amenity").contains("toilets")) {
+                //fix issues with Ã¼ instead of ü, etc. OSM data is UTF-8 encoded
+                //String(byte[] bytes, Charset charset) constructs a new String by decoding the specified array of bytes using the specified charset.
+                if (tags.has("operator")) lavatory.setOperator(new String(tags.getString("operator").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+                if (tags.has("opening_hours")) lavatory.setOpeningHours(tags.getString("opening_hours"));
+                if (tags.has("access") && tags.getString(("access")).contains("private"))
+                    return null;
+                lavatory.setWheelchair(tags.has("wheelchair") && !tags.getString(("wheelchair")).equals("no"));
+                lavatory.setBabyChanging(tags.has("changing_table") && !tags.getString(("changing_table")).equals("no"));
+                lavatory.setPaid(tags.has("fee") && !tags.getString(("fee")).equals("no"));
+                return lavatory;
+            } else if (tags.has("toilets") && tags.getString("toilets").contains("yes")){
+                if (tags.has("name")) lavatory.setOperator(new String(tags.getString("name").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+                if (tags.has("opening_hours")) lavatory.setOpeningHours(tags.getString("opening_hours"));
+                if (tags.has("toilets:access") && (tags.getString(("toilets:access")).contains("customers") || tags.getString(("toilets:access")).contains("no")))
+                    return null;
+                lavatory.setBabyChanging(tags.has("changing_table") && !tags.getString(("changing_table")).equals("no"));
+                lavatory.setWheelchair(tags.has("toilets:wheelchair") && !tags.getString(("toilets:wheelchair")).equals("no"));
+                lavatory.setPaid(tags.has("toilets:fee") && !tags.getString(("toilets:fee")).equals("no"));
+                return lavatory;
+            } else {
+                return null;
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
