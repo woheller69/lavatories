@@ -1,0 +1,3 @@
+Zeigt aktuelle Position auf der Karte
+Ein Klick auf eine Toilette auf der Karte scrollt zu den Details
+Findet mehr Toiletten

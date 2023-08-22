@@ -1,0 +1,3 @@
+Shows current position on map
+A click on a lavatory on the map scrolls to details
+Finds more lavatories
