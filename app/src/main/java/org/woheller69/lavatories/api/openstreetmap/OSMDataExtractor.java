@@ -29,6 +29,7 @@ public class OSMDataExtractor implements IDataExtractor {
             lavatory.setTimestamp((long) ((System.currentTimeMillis())/ 1000));
 
             JSONObject json = new JSONObject(data);
+            if (!json.has("tags")) return null;
 
             lavatory.setOperator(" ");
             lavatory.setOpeningHours(" ");

@@ -84,7 +84,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
 
                     //fix issues with Ã¼ instead of ü, etc. OSM data is UTF-8 encoded
                     //String(byte[] bytes, Charset charset) constructs a new String by decoding the specified array of bytes using the specified charset.
-                    address = new String(address.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                    //address = new String(address.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
                     //remove backslashes in address fields and spaces at end
                     //e.g. for Dublin JSONArray(response) adds \  in Eire \/ Ireland
