@@ -25,6 +25,10 @@ public class OSMDataExtractor implements IDataExtractor {
     @Override
     public Lavatory extractLavatory(String data, int cityId, Context context) {
         try {
+            //fix issues with Ã¼ instead of ü, etc. OSM data is UTF-8 encoded
+            //Overpass-API does not provide info about utf-8 charset in header
+            //String(byte[] bytes, Charset charset) constructs a new String by decoding the specified array of bytes using the specified charset.
+            data = (new String(data.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
             Lavatory lavatory = new Lavatory();
             lavatory.setTimestamp((long) ((System.currentTimeMillis())/ 1000));
 
@@ -38,9 +42,7 @@ public class OSMDataExtractor implements IDataExtractor {
             lavatory.setUuid(json.getString("type").equals("node") ? "N" + json.getString("id") : "W" + json.getString("id"));
             JSONObject tags = json.getJSONObject("tags");
             if (tags.has("amenity") && tags.getString("amenity").contains("toilets")) {
-                //fix issues with Ã¼ instead of ü, etc. OSM data is UTF-8 encoded
-                //String(byte[] bytes, Charset charset) constructs a new String by decoding the specified array of bytes using the specified charset.
-                if (tags.has("operator")) lavatory.setOperator(new String(tags.getString("operator").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+                if (tags.has("operator")) lavatory.setOperator(tags.getString("operator"));
                 if (tags.has("opening_hours")) lavatory.setOpeningHours(tags.getString("opening_hours"));
                 if (tags.has("access") && tags.getString(("access")).contains("private"))
                     return null;
@@ -49,7 +51,7 @@ public class OSMDataExtractor implements IDataExtractor {
                 lavatory.setPaid(tags.has("fee") && !tags.getString(("fee")).equals("no"));
                 return lavatory;
             } else if (tags.has("toilets") && tags.getString("toilets").contains("yes")){
-                if (tags.has("name")) lavatory.setOperator(new String(tags.getString("name").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+                if (tags.has("name")) lavatory.setOperator(tags.getString("name"));
                 if (tags.has("opening_hours")) lavatory.setOpeningHours(tags.getString("opening_hours"));
                 if (tags.has("toilets:access") && (tags.getString(("toilets:access")).contains("customers") || tags.getString(("toilets:access")).contains("no")))
                     return null;
