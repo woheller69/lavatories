@@ -85,5 +85,6 @@
     <string name="settings_GPS_manual">Manual update only</string>
     <string name="error_no_gps">Please turn on GPS</string>
     <string name="settings_map">Show map</string>
+    <string name="github" translatable="false">GitHub</string>
 
 </resources>
