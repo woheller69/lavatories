@@ -1,7 +1,6 @@
 package org.woheller69.lavatories.activities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AlertDialog;
@@ -10,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
-import androidx.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -49,8 +46,6 @@ public class ManageLocationsActivity extends NavigationActivity {
         overridePendingTransition(0, 0);
         context=this;
         database = SQLiteHelper.getInstance(getApplicationContext());
-
-        //cities = new ArrayList<>();
 
         try {
             cities = database.getAllCitiesToWatch();
@@ -108,8 +103,6 @@ public class ManageLocationsActivity extends NavigationActivity {
         touchHelper.attachToRecyclerView(recyclerView);
 
         FloatingActionButton addFab1 = (FloatingActionButton) findViewById(R.id.fabAddLocation);
-
-        SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             if (addFab1 != null) {
 
