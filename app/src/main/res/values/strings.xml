@@ -6,7 +6,6 @@
     <string name="lavatories">Lavatories</string>
     <string name="activity_manage">Manage locations</string>
     <string name="action_refresh">Refresh</string>
-    <string name="action_rainviewer" translatable="false">Rain Viewer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="next">Next</string>
@@ -29,9 +28,7 @@
     <string name="about_github" translatable="false"><a href="https://github.com/woheller69/lavatories">Github-Repo</a></string>
     <string name="about_openstreetmap" translatable="false"><a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></string>
     <string name="activity_settings_title">Settings</string>
-   <string name="settings_title_API">API Key</string>
     <string name="settings_description_API">LavSeeker receives data from OpenStreetMap</string>
-    <string name="settings_title_API_key">Enter API Key</string>
     <string name="dialog_add_label">Enter the location to add:</string>
     <string name="dialog_add_no_city_found">No location was found that matches your input. It is recommended to select one of the items from the dropdown list.  </string>
     <string name="dialog_add_close_button">Close</string>
@@ -43,13 +40,6 @@
     <string name="error_no_radius_search_result">No city found. Increase search radius</string>
     <string name="error_no_map_app">No map application installed</string>
     <string name="settings_search_radius">Search radius</string>
-    <string name="settings_interval_5" translatable="false">5 min</string>
-    <string name="settings_interval_10" translatable="false">10 min</string>
-    <string name="settings_interval_15" translatable="false">15 min</string>
-    <string name="settings_interval_30" translatable="false">30 min</string>
-    <string name="settings_intervals">Intervals</string>
-    <string name="settings_update_interval">Update interval</string>
-    <string name="settings_interval_summary">Set the interval of automatic updates</string>
     <string name="about_privacy_answer">LavSeeker only uses the permission \"Internet\" to retrieve price data. It further does not include any tracking mechanisms or advertisement.</string>
     <string name="about_where_from">Where does the information come from?</string>
     <string name="about_where_from_answer">Information is fetched from</string>
@@ -57,11 +47,9 @@
     <string name="long_press_text">Hold and drag to sort.</string>
     <string name="swipe_to_delete">Swipe to delete</string>
     <string name="settings_title_display_options">Display options</string>
-    <string name="registerTK">Information is fetched from OpenStreetMap</string>
-    <string name="registerTKbutton">Register for free</string>
+    <string name="infoOpenStreetMap">Information is fetched from OpenStreetMap</string>
     <string name="dialog_edit_change_button">Modify</string>
     <string name="edit_location_hint_name">Name</string>
-    <string name="edit_location_hint_ID" translatable="false">ID</string>
     <string name="settings_darkmode">Android 10+ Dark Mode</string>
     <string name="settings_position">Position</string>
     <string name="settings_GPS_summary">Allow usage of current GPS position in first TAB and in the widget. Position update is triggered automatically by widget.</string>
@@ -73,14 +61,7 @@
     <string name="dialog_NO_button">No</string>
     <string name="dialog_Later_button">Maybe later</string>
     <string name="dialog_StarOnGitHub">Do you like this app? Please give a star on GitHub or buy the developer a coffee via PayPal.</string>
-    <string name="closed">Closed</string>
-    <string name="open">Open</string>
     <string name="error_no_lavatory_found">No lavatories found</string>
-    <string name="preferred_brands">Preferred brands (comma separated)</string>
-    <string name="settings_type">Type</string>
-    <string name="settings_type_all">All</string>
-    <string name="settings_sort">Sort by price</string>
-    <string name="settings_sort_summary">Only if single type selected</string>
     <string name="action_position">Update Location</string>
     <string name="settings_GPS_manual">Manual update only</string>
     <string name="error_no_gps">Please turn on GPS</string>

@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="refreshIntervalArray">
-        <item>@string/settings_interval_5</item>
-        <item>@string/settings_interval_10</item>
-        <item>@string/settings_interval_15</item>
-        <item>@string/settings_interval_30</item>
-    </string-array>
-
-    <string-array name="refreshIntervalValues">
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>30</item>
-    </string-array>
-
     <string-array name="searchRadiusArray">
         <item>1 km</item>
         <item>2 km</item>
@@ -31,20 +17,6 @@
         <item>4000</item>
         <item>5000</item>
         <item>10000</item>
-    </string-array>
-
-    <string-array name="types">
-        <item>@string/settings_type_all</item>
-        <item>E5</item>
-        <item>E10</item>
-        <item>Diesel</item>
-    </string-array>
-
-    <string-array name="typesValues">
-        <item>all</item>
-        <item>e5</item>
-        <item>e10</item>
-        <item>diesel</item>
     </string-array>
 
     <!-- dots inactive colors -->

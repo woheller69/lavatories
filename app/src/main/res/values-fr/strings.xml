@@ -25,9 +25,7 @@
     <string name="about_license_text">Cette application est dérivée de Privacy Friendly Weather, développée par le groupe de recherche SECUSO. Code source sous licence GPLv3. Cette application utilise des icônes Google Material Design Icons sous licence Apache License Version 2.0, Android Volley sous licence Apache License Version 2.0, des librairies AndroidX sous licence Apache License Version 2.0, AutoSuggestTextViewAPICall sous licence Apache License Version 2.0, osmdroid sous licence Apache License Version 2.0, et AndroidAddressFormatter sous licence MIT</string>
     <string name="about_more_info">Plus d’informations sont disponibles sur:</string>
     <string name="activity_settings_title">Paramètres</string>
-    <string name="settings_title_API">Clé API</string>
     <string name="settings_description_API">LavSeeker utilise des données OpenStreetMap</string>
-    <string name="settings_title_API_key">Entrer la clé API</string>
     <string name="dialog_add_label">Entrer le nom du lieu à ajouter:</string>
     <string name="dialog_add_no_city_found">Aucun lieu correspondant n’a été trouvé. Nous recommandons d’en choisir un dans la liste déroulante.</string>
     <string name="dialog_add_close_button">Fermer</string>
@@ -39,9 +37,6 @@
     <string name="error_no_radius_search_result">Pas de lieu trouvé. Augmenter le rayon de recherche.</string>
     <string name="error_no_map_app">Pas d’application carte détectée</string>
     <string name="settings_search_radius">Rayon de recherche</string>
-    <string name="settings_intervals">Intervalles</string>
-    <string name="settings_update_interval">Intervalle de mise à jour</string>
-    <string name="settings_interval_summary">Définit l’intervalle de mises à jour automatiques.</string>
     <string name="about_privacy_answer">LavSeeker utilise l’accès à Internet uniquement pour afficher les prix et n’inclut ni mécanismes de traçage ou de publicités.</string>
     <string name="about_where_from">D’où viennent les informations?</string>
     <string name="about_where_from_answer">Les informations proviennent de</string>
@@ -49,8 +44,7 @@
     <string name="long_press_text">Maintenir et glisser pour trier.</string>
     <string name="swipe_to_delete">Glisser pour supprimer</string>
     <string name="settings_title_display_options">Option d’affichage</string>
-    <string name="registerTK">Les données proviennent d’OpenStreetMap</string>
-    <string name="registerTKbutton">Inscription gratuite</string>
+     <string name="infoOpenStreetMap">Les données proviennent d’OpenStreetMap</string>
     <string name="dialog_edit_change_button">Modifier</string>
     <string name="edit_location_hint_name">Nom</string>
     <string name="settings_darkmode">Android 10+ Mode Sombre</string>
@@ -64,17 +58,10 @@
     <string name="dialog_NO_button">Non</string>
     <string name="dialog_Later_button">Plus tard</string>
     <string name="dialog_StarOnGitHub">Aimez-vous cette application? Veuillez donner une étoile sur GitHub ou acheter un café au développeur via PayPal.</string>
-    <string name="closed">Fermée</string>
-    <string name="open">Ouverte</string>
     <string name="error_no_lavatory_found">Pas de toilettes à proximité</string>
-    <string name="preferred_brands">Marques préférée (séparées par des virgules)</string>
-    <string name="settings_type">Type</string>
-    <string name="settings_type_all">Toutes</string>
-    <string name="settings_sort">Trier par prix</string>
-    <string name="settings_sort_summary">Seulement pour le type défini</string>
     <string name="action_position">Rafraîchir la position</string>
     <string name="settings_GPS_manual">Mises à jour manuelles uniquement</string>
-     <string name="error_no_gps">Veuillez activer le GPS</string>
-     <string name="settings_map">Afficher la carte</string>
+    <string name="error_no_gps">Veuillez activer le GPS</string>
+    <string name="settings_map">Afficher la carte</string>
 
  </resources>
