@@ -77,15 +77,20 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
             if (NavigationActivity.isVisible)
                 Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
         }
-        Collections.sort(lavatories,(o1, o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
-        lavatories = lavatories.stream().limit(49).collect(Collectors.toList());  //limit to 49 lavatories. Max for Nominatim API call
-        for (Lavatory lavatory : lavatories) {
-            // add lavatories to the database (after sorting and limiting)
-            dbHelper.addLavatory(lavatory);
-        }
 
+        List<Lavatory> lavatoriesBatch = new ArrayList<>();
+        for (Lavatory lavatory : lavatories){  //split into batches of 49 lavatories, which is the max for Nominatim API calls
+            if (lavatoriesBatch.size()<49){
+                lavatoriesBatch.add(lavatory);
+            }
+            if (lavatoriesBatch.size()==49){
+                OSMHttpRequestForAddress addressRequest = new OSMHttpRequestForAddress(context);
+                addressRequest.perform(cityId, lavatoriesBatch);
+                lavatoriesBatch = new ArrayList<>();
+            }
+        }
         OSMHttpRequestForAddress addressRequest = new OSMHttpRequestForAddress(context);
-        addressRequest.perform(cityId, lavatories);
+        addressRequest.perform(cityId, lavatoriesBatch);
     }
 
     /**

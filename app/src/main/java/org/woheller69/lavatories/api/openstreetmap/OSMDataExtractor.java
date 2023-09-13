@@ -43,6 +43,7 @@ public class OSMDataExtractor implements IDataExtractor {
             JSONObject tags = json.getJSONObject("tags");
             if (tags.has("amenity") && tags.getString("amenity").contains("toilets")) {
                 if (tags.has("operator")) lavatory.setOperator(tags.getString("operator"));
+                else if (tags.has("name")) lavatory.setOperator(tags.getString("name"));
                 if (tags.has("opening_hours")) lavatory.setOpeningHours(tags.getString("opening_hours"));
                 if (tags.has("access") && tags.getString(("access")).contains("private"))
                     return null;

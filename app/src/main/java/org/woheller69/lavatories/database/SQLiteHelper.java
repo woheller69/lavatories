@@ -341,18 +341,4 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return cityID;
     }
 
-    public synchronized void updateLavatoryAddress(Lavatory lavatory) {
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(LAVATORY_ADDRESS1, lavatory.getAddress1());
-        values.put(LAVATORY_ADDRESS2, lavatory.getAddress2());
-        values.put(LAVATORY_LATITUDE, lavatory.getLatitude());
-        values.put(LAVATORY_LONGITUDE, lavatory.getLongitude());
-        values.put(LAVATORY_DISTANCE, lavatory.getDistance());
-
-        database.update(TABLE_LAVATORIES, values, LAVATORY_UUID + " = ?",
-                new String[]{String.valueOf(lavatory.getUuid())});
-        database.close();
-    }
 }

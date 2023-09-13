@@ -1,5 +1,5 @@
-LavSeeker shows toilets listed inOpenStreetMap.
-Clicking on a toilet in the list will show the toilet in a map application.
+LavSeeker shows toilets listed in OpenStreetMap.
+A long click on a toilet in the list will show the toilet in a map application.
 You can also allow the app to use GPS.
 The toilets for your current location are then displayed in the first tab in the app.
 (This will overwrite the city in your first tab.)
@@ -7,6 +7,6 @@ The toilets for your current location are then displayed in the first tab in the
 The data is provided by OpenStreetMap under the Open Database License (ODbL).
 
 Minimum permissions:
-LavSeeker Germany only requires a minimum of permissions, namely only the INTERNET permission.
+LavSeeker only requires a minimum of permissions, namely only the INTERNET permission.
 This is necessary to make HTTP requests to remote servers to receive data.
 Optional: Authorization for GPS.

@@ -105,7 +105,6 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
                             lavatory.setDistance(Math.round(cityLocation.distanceTo(toiletLocation)/10)/100.0);
                             lavatory.setAddress1(address1);
                             lavatory.setAddress2(address2);
-                            dbHelper.updateLavatoryAddress(lavatory);
                         }
                     }
                 }
@@ -114,6 +113,13 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
             }
 
         Collections.sort(lavatories,(o1, o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
+
+        for (Lavatory lavatory : lavatories) {
+            // add lavatories to the database (after sorting and removing entries with no position)
+            if (lavatory.getDistance() != 0 && lavatory.getLongitude() !=0 && lavatory.getLatitude() !=0)  dbHelper.addLavatory(lavatory);
+        }
+
+        lavatories = dbHelper.getLavatoriesByCityId(cityId);
         ViewUpdater.updateLavatories(lavatories,cityId);
     }
 
