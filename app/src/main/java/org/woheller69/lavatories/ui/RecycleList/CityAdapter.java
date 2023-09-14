@@ -196,11 +196,21 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
                 @Override
                 public void onLongItemClick(View view, int position) {
-                    String loc = lavatoryList.get(position).getLatitude() + "," + lavatoryList.get(position).getLongitude();
-                    try {
-                        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc)));
-                    } catch (ActivityNotFoundException ignored) {
-                        Toast.makeText(context,R.string.error_no_map_app, Toast.LENGTH_LONG).show();
+                    SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
+                    if (prefManager.getBoolean("pref_Debug",false)){
+                        String osmid_path = lavatoryList.get(position).getUuid();
+                        osmid_path = osmid_path.replace("N","node/");
+                        osmid_path = osmid_path.replace("W","way/");
+                        try {
+                            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.openstreetmap.org/"+osmid_path)));
+                        } catch (ActivityNotFoundException ignored) {}
+                    } else {
+                        String loc = lavatoryList.get(position).getLatitude() + "," + lavatoryList.get(position).getLongitude();
+                        try {
+                            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc)));
+                        } catch (ActivityNotFoundException ignored) {
+                            Toast.makeText(context,R.string.error_no_map_app, Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }));
