@@ -47,7 +47,7 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
         holder.dist.setText(lavatoryList.get(position).getDistance()+" km");
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
         if (prefManager.getBoolean("pref_Debug",false)){
-            holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase()+"\nOSM_ID: "+lavatoryList.get(position).getUuid()+"\n"+position+"/"+lavatoryList.size());
+            holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase()+"\nOSM_ID: "+lavatoryList.get(position).getUuid()+"\n"+(position+1)+"/"+lavatoryList.size());
         }else{
             holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase());
         }
