@@ -64,4 +64,6 @@
     <string name="settings_GPS_manual">Nur manuell aktualisieren</string>
     <string name="error_no_gps">Bitte GPS einschalten</string>
     <string name="settings_map">Karte anzeigen</string>
+    <string name="settings_server_urls">Server URLs</string>
+    <string name="settings_server_summary">Nur ändern, wenn Sie Ihre eigenen Server betreiben wollen</string>
 </resources>

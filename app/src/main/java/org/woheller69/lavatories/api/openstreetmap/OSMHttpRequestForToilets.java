@@ -44,7 +44,7 @@ public class OSMHttpRequestForToilets implements IHttpRequest {
 
         return String.format(
                 "%s?data=[out:json][timeout:5];(node[\"amenity\"=\"toilets\"](around:%s,%s,%s);node[\"toilets\"=\"yes\"](around:%s,%s,%s);way[\"amenity\"=\"toilets\"](around:%s,%s,%s);way[\"toilets\"=\"yes\"](around:%s,%s,%s););out;>;out skel qt;",
-                BuildConfig.BASE_URL,
+                sharedPreferences.getString("pref_Overpass_URL", BuildConfig.BASE_URL),
                 sharedPreferences.getString("pref_searchRadius","3000"),
                 lat,
                 lon,

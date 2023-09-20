@@ -47,5 +47,26 @@
 
     </PreferenceCategory>
 
-
+    <PreferenceCategory android:title="@string/settings_server_urls" android:summary="@string/settings_server_summary">
+        <EditTextPreference
+            android:title="Nominatim API"
+            android:key="pref_Nominatim_URL"
+            android:defaultValue="https://nominatim.openstreetmap.org/"
+            />
+        <EditTextPreference
+            android:title="Overpass API"
+            android:key="pref_Overpass_URL"
+            android:defaultValue="https://overpass-api.de/api/interpreter"
+            />
+        <EditTextPreference
+            android:title="OpenStreetMap API"
+            android:key="pref_OsmTiles_URL"
+            android:defaultValue="https://tile.openstreetmap.org/"
+            />
+        <EditTextPreference
+            android:title="Open-Meteo Geocoding API"
+            android:key="pref_OMGEO_URL"
+            android:defaultValue="https://geocoding-api.open-meteo.com/"
+            />
+    </PreferenceCategory>
 </PreferenceScreen>

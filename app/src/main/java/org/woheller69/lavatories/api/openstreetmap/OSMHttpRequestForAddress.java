@@ -1,8 +1,10 @@
 package org.woheller69.lavatories.api.openstreetmap;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.preference.PreferenceManager;
 import org.woheller69.lavatories.BuildConfig;
 import org.woheller69.lavatories.api.IHttpRequest;
 import org.woheller69.lavatories.database.Lavatory;
@@ -40,18 +42,19 @@ public class OSMHttpRequestForAddress  {
     }
 
     protected String getUrlForQueryingAddress(List<Lavatory> lavatories) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String idString="";
         for (Lavatory lavatory : lavatories){
             idString=idString + lavatory.getUuid()+",";
         }
         Log.d("Request",String.format(
                 "%slookup?format=json&osm_ids=%s",
-                BuildConfig.BASE_URL2,
+                sharedPreferences.getString("pref_Nominatim_URL", BuildConfig.BASE_URL2),
                 idString
         ));
         return String.format(
                 "%slookup?format=json&osm_ids=%s",
-                BuildConfig.BASE_URL2,
+                sharedPreferences.getString("pref_Nominatim_URL", BuildConfig.BASE_URL2),
                 idString
         );
     }

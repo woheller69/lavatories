@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ConfigurationCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.preference.PreferenceManager;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -62,7 +64,8 @@ public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
     private static final long AUTO_COMPLETE_DELAY = 300;
     private Handler handler;
     private AutoSuggestAdapter autoSuggestAdapter;
-    String url="https://geocoding-api.open-meteo.com/v1/search?name=";
+    String urlSuffix="v1/search?name=";
+    String url="";
     String lang="en";
 
     @Override
@@ -83,7 +86,9 @@ public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        url = sp.getString("pref_OMGEO_URL",BuildConfig.GEOCODING_URL);
+        url = url + urlSuffix;
         Locale locale = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0);
         if (locale != null) lang=locale.getLanguage();
 
@@ -124,7 +129,8 @@ public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
                         final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
                         //Show city on map
-                        webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude());
+                        String osmTiles = sp.getString("pref_OsmTiles_URL", BuildConfig.TILES_URL);
+                        webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude() + "&tiles=" + osmTiles);
                     }
                 });
 

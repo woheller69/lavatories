@@ -31,12 +31,14 @@ import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.ITileSource;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.CopyrightOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
+import org.woheller69.lavatories.BuildConfig;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.activities.LavSeekerActivity;
 import org.woheller69.lavatories.database.Lavatory;
@@ -221,7 +223,9 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                 holder.map.setVisibility(View.VISIBLE);
 
                 Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
-                holder.map.setTileSource(TileSourceFactory.MAPNIK);
+                final ITileSource tileSource = new XYTileSource( "", 1, 20, 256, ".png",
+                        new String[] {sp.getString("pref_OsmTiles_URL", BuildConfig.TILES_URL)},"© OpenStreetMap contributors");
+                holder.map.setTileSource(tileSource);
                 holder.map.setTilesScaledToDpi(true);
 
                 int nightmodeflag = context.getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;

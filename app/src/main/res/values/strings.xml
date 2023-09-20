@@ -67,5 +67,6 @@
     <string name="error_no_gps">Please turn on GPS</string>
     <string name="settings_map">Show map</string>
     <string name="github" translatable="false">GitHub</string>
-
+    <string name="settings_server_urls">Server URLs</string>
+    <string name="settings_server_summary">Only change if you want to host your own servers</string>
 </resources>

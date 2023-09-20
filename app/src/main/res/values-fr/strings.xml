@@ -63,5 +63,6 @@
     <string name="settings_GPS_manual">Mises à jour manuelles uniquement</string>
     <string name="error_no_gps">Veuillez activer le GPS</string>
     <string name="settings_map">Afficher la carte</string>
-
+     <string name="settings_server_urls">URL du serveur</string>
+     <string name="settings_server_summary">Changez uniquement si vous souhaitez héberger vos propres serveurs</string>
  </resources>
