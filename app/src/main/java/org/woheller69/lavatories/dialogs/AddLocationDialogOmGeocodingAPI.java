@@ -56,6 +56,7 @@ public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
     Activity activity;
     View rootView;
     SQLiteHelper database;
+    private WebView webview;
 
     private AutoCompleteTextView autoCompleteTextView;
     City selectedCity;
@@ -69,6 +70,10 @@ public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
     String urlSuffix="v1/search?name=";
     String url="";
     String lang="en";
+
+    public AddLocationDialogOmGeocodingAPI() {
+        setRetainInstance(true);
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -84,6 +89,15 @@ public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
         if (savedInstanceState != null) dismiss();
     }
 
+    public void onResume() {
+        super.onResume();
+        handler.removeMessages(TRIGGER_HIDE_KEYBOARD);
+        if (selectedCity != null && webview != null) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+            String osmTiles = sp.getString("pref_OsmTiles_URL", BuildConfig.TILES_URL);
+            webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude() + "&tiles=" + osmTiles);
+        }
+    }
     @NonNull
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -106,7 +120,7 @@ public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
         this.database = SQLiteHelper.getInstance(activity);
 
 
-        final WebView webview= rootView.findViewById(R.id.webViewAddLocation);
+        webview = rootView.findViewById(R.id.webViewAddLocation);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString(BuildConfig.APPLICATION_ID+"/"+BuildConfig.VERSION_NAME);
         webview.setBackgroundColor(0x00000000);
