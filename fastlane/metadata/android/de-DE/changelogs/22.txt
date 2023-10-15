@@ -1,0 +1,3 @@
+Begrenzung auf 50 Toiletten aufgehoben
+Neu Option um eigene Server für APIs zu ermöglichen
+Fehlerbehebung
