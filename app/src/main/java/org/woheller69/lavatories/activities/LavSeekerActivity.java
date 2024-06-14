@@ -95,7 +95,6 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         super.onCreate(savedInstanceState);
         context=this;
         setContentView(R.layout.activity_lav_seeker);
-        overridePendingTransition(0, 0);
 
         initResources();
 
