@@ -40,15 +40,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class LavSeekerActivity extends NavigationActivity implements IUpdateableCityUI {
-    private CityPagerAdapter pagerAdapter;
+    private static CityPagerAdapter pagerAdapter;
     private static LocationListener locationListenerGPS;
     private LocationManager locationManager;
     private static MenuItem updateLocationButton;
     private static MenuItem refreshActionButton;
 
     private int cityId = -1;
-    private ViewPager2 viewPager2;
-    private TabLayout tabLayout;
+    private static ViewPager2 viewPager2;
+    private static TabLayout tabLayout;
     private TextView noCityText;
     private static Boolean isRefreshing = false;
     Context context;
@@ -74,8 +74,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         } else {
             noCityText.setVisibility(View.GONE);
             viewPager2.setVisibility(View.VISIBLE);
-            pagerAdapter.loadCities();
-            viewPager2.setAdapter(pagerAdapter);
+            initPagerAdapter();
             TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,false,false, (tab, position) -> tab.setText(pagerAdapter.getPageTitle(position)));
             tabLayoutMediator.attach();
         }
@@ -321,9 +320,8 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                 db.updateCityToWatch(city);
                 db.deleteLavatoriesByCityId(getWidgetCityID(context));
-                pagerAdapter.loadCities();
-                viewPager2.setAdapter(pagerAdapter);
-                tabLayout.getTabAt(0).setText(city.getCityName());
+                initPagerAdapter();
+                refreshTab0Header(city.getCityName());
                 removeLocationListener();
                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                     updateLocationButton.getActionView().clearAnimation();
@@ -353,5 +351,13 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         locationListenerGPS=null;
     }
 
+    public static void initPagerAdapter(){
+        pagerAdapter.loadCities();
+        viewPager2.setAdapter(pagerAdapter);
+    }
+
+    public static void refreshTab0Header(String name){
+        tabLayout.getTabAt(0).setText(name);
+    }
 }
 

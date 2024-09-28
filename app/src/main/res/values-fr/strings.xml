@@ -1,4 +1,4 @@
- <resources>
+<resources>
     <string name="app_name">LavSeeker</string>
     <string name="app_name_long">LavSeeker</string>
     <string name="activity_about">À propos</string>
@@ -20,7 +20,7 @@
     <string name="about_privacy_heading">Vie privée</string>
     <string name="about_permission_internet_description">Accès au réseau: Cette autorisation est nécessaire pour les requêtes de données. Sans elle, aucune information ne peut être reçue. Facultative: Accès à la localisation GPS.</string>
     <string name="about">À propos</string>
-     <string name="version_number">Version</string>
+    <string name="version_number">Version</string>
     <string name="about_license">Licence</string>
     <string name="about_license_text">Cette application est dérivée de Privacy Friendly Weather, développée par le groupe de recherche SECUSO. Code source sous licence GPLv3. Cette application utilise des icônes Google Material Design Icons sous licence Apache License Version 2.0, Android Volley sous licence Apache License Version 2.0, des librairies AndroidX sous licence Apache License Version 2.0, AutoSuggestTextViewAPICall sous licence Apache License Version 2.0, osmdroid sous licence Apache License Version 2.0, et AndroidAddressFormatter sous licence MIT</string>
     <string name="about_more_info">Plus d’informations sont disponibles sur:</string>
@@ -44,7 +44,7 @@
     <string name="long_press_text">Maintenir et glisser pour trier.</string>
     <string name="swipe_to_delete">Glisser pour supprimer</string>
     <string name="settings_title_display_options">Option d’affichage</string>
-     <string name="infoOpenStreetMap">Les données proviennent d’OpenStreetMap</string>
+    <string name="infoOpenStreetMap">Les données proviennent d’OpenStreetMap</string>
     <string name="dialog_edit_change_button">Modifier</string>
     <string name="edit_location_hint_name">Nom</string>
     <string name="settings_darkmode">Android 10+ Mode Sombre</string>
@@ -63,6 +63,7 @@
     <string name="settings_GPS_manual">Mises à jour manuelles uniquement</string>
     <string name="error_no_gps">Veuillez activer le GPS</string>
     <string name="settings_map">Afficher la carte</string>
-     <string name="settings_server_urls">URL du serveur</string>
-     <string name="settings_server_summary">Changez uniquement si vous souhaitez héberger vos propres serveurs</string>
+    <string name="settings_server_urls">URL du serveur</string>
+    <string name="settings_server_summary">Changez uniquement si vous souhaitez héberger vos propres serveurs</string>
+    <string name="dialog_search_here">Changer de poste ?</string>
  </resources>

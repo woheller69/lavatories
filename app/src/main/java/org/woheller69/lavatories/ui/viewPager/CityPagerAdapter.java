@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.database.CityToWatch;
 import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
@@ -20,11 +19,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
-import static org.woheller69.lavatories.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 public class CityPagerAdapter extends FragmentStateAdapter implements IUpdateableCityUI {
-
-    private Context mContext;
 
     private SQLiteHelper database;
 
@@ -33,7 +29,6 @@ public class CityPagerAdapter extends FragmentStateAdapter implements IUpdateabl
     //Adapter for the Viewpager switching between different locations
     public CityPagerAdapter(Context context, @NonNull FragmentManager supportFragmentManager, @NonNull Lifecycle lifecycle) {
         super(supportFragmentManager,lifecycle);
-        this.mContext = context;
         this.database = SQLiteHelper.getInstance(context);
         loadCities();
     }
