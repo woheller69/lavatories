@@ -18,6 +18,7 @@
     <string name="activity_manage">Orte verwalten</string>
     <string name="activity_settings">Einstellungen</string>
     <string name="action_refresh">Aktualisieren</string>
+    <string name="action_baby">Baby</string>
     <string name="activity_settings_title">Einstellungen</string>
     <string name="card_lavatories_heading">Letzte Abfrage</string>
     <string name="error_convert_to_json">Die erhaltenen Daten entsprachen nicht dem erwarteten Format.</string>
@@ -55,6 +56,8 @@
     <string name="error_no_position">Keine Position verfügbar</string>
     <string name="settings_time24h">24-Stunden-Format</string>
     <string name="summary_time24h">Systemeinstellung überschreiben</string>
+    <string name="settings_babyprio">Nach Wickelmöglichkeit sortieren</string>
+    <string name="summary_babyprio">Toiletten mit Wickeltisch zuerst zeigen</string>
     <string name="dialog_OK_button">OK</string>
     <string name="dialog_NO_button">Nein</string>
     <string name="dialog_Later_button">Vielleicht später</string>

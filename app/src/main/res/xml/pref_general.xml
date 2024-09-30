@@ -23,6 +23,12 @@
             android:summary="@string/summary_time24h"
             android:defaultValue="true"
             />
+        <SwitchPreference
+            android:key="pref_BabyPrio"
+            android:title="@string/settings_babyprio"
+            android:summary="@string/summary_babyprio"
+            android:defaultValue="false"
+            />
 
         <SwitchPreference
             android:key="pref_map"

@@ -45,6 +45,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
     private LocationManager locationManager;
     private static MenuItem updateLocationButton;
     private static MenuItem refreshActionButton;
+    private static MenuItem babyPrioButton;
 
     private int cityId = -1;
     private static ViewPager2 viewPager2;
@@ -182,6 +183,26 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         refreshActionButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(refreshActionButton.getItemId(), 0));
         if (isRefreshing) startRefreshAnimation();
 
+        babyPrioButton = menu.findItem(R.id.menu_baby);
+        babyPrioButton.setActionView(R.layout.menu_baby_prio_action_view);
+        if (prefManager.getBoolean("pref_BabyPrio", true)) {
+            babyPrioButton.getActionView().setAlpha(1);
+        } else {
+            babyPrioButton.getActionView().setAlpha(0.5F);
+        }
+        babyPrioButton.getActionView().setOnClickListener(v -> {
+            SharedPreferences.Editor editor = prefManager.edit();
+            boolean on = prefManager.getBoolean("pref_BabyPrio", true);
+            if (!on) {
+                babyPrioButton.getActionView().setAlpha(1);
+            } else {
+                babyPrioButton.getActionView().setAlpha(0.5F);
+            }
+            editor.putBoolean("pref_BabyPrio",!on);
+            editor.apply();
+            m.performIdentifierAction(babyPrioButton.getItemId(), 0);
+        });
+
         return true;
     }
 
@@ -197,6 +218,12 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
                 LavSeekerActivity.startRefreshAnimation();
             }
+        }else if (id==R.id.menu_baby) {
+            if (!db.getAllCitiesToWatch().isEmpty()) {
+                List<Lavatory> lavatories = db.getLavatoriesByCityId(pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
+                ViewUpdater.updateLavatories(lavatories,pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
+            }
+
         }else if (id==R.id.menu_update_location) {
             locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){

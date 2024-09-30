@@ -6,6 +6,7 @@
     <string name="lavatories">Toilettes</string>
     <string name="activity_manage">Gérer les lieux</string>
     <string name="action_refresh">Rafraîchir</string>
+    <string name="action_baby">Bébé</string>
     <string name="navigation_drawer_open">Ouvrir l’onglet de navigation</string>
     <string name="navigation_drawer_close">Fermer l’onglet de navigation</string>
     <string name="next">Suivant</string>
@@ -54,6 +55,8 @@
     <string name="error_no_position">Pas de position disponible</string>
     <string name="settings_time24h">Format 24 heures</string>
     <string name="summary_time24h">Écraser les préférences système</string>
+    <string name="settings_babyprio">Tier par table à langer dans la liste</string>
+    <string name="summary_babyprio">Privilégier les toilettes à langer</string>
     <string name="dialog_OK_button">Oui</string>
     <string name="dialog_NO_button">Non</string>
     <string name="dialog_Later_button">Plus tard</string>

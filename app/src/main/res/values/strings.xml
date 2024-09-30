@@ -6,6 +6,7 @@
     <string name="lavatories">Lavatories</string>
     <string name="activity_manage">Manage locations</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_baby">Baby</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="next">Next</string>
@@ -57,6 +58,8 @@
     <string name="error_no_position">No position available</string>
     <string name="settings_time24h">24-hour format</string>
     <string name="summary_time24h">Override system setting</string>
+    <string name="settings_babyprio">Show baby changing first in list</string>
+    <string name="summary_babyprio">Prioritize lavatories with baby changing</string>
     <string name="dialog_OK_button">OK</string>
     <string name="dialog_NO_button">No</string>
     <string name="dialog_Later_button">Maybe later</string>
