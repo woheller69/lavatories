@@ -55,8 +55,8 @@
     <string name="error_no_position">Pas de position disponible</string>
     <string name="settings_time24h">Format 24 heures</string>
     <string name="summary_time24h">Écraser les préférences système</string>
-    <string name="settings_babyprio">Tier par table à langer dans la liste</string>
-    <string name="summary_babyprio">Privilégier les toilettes à langer</string>
+    <string name="settings_babyprio">Changer le triage à langer </string>
+    <string name="summary_babyprio">Changer la fonction de tri de l’accessibilité à langer</string>
     <string name="dialog_OK_button">Oui</string>
     <string name="dialog_NO_button">Non</string>
     <string name="dialog_Later_button">Plus tard</string>

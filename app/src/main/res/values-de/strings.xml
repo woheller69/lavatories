@@ -56,8 +56,8 @@
     <string name="error_no_position">Keine Position verfügbar</string>
     <string name="settings_time24h">24-Stunden-Format</string>
     <string name="summary_time24h">Systemeinstellung überschreiben</string>
-    <string name="settings_babyprio">Nach Wickelmöglichkeit sortieren</string>
-    <string name="summary_babyprio">Toiletten mit Wickeltisch zuerst zeigen</string>
+    <string name="settings_babyprio">Sortierung: Rollstuhl ↔ Wickeln</string>
+    <string name="summary_babyprio">Umschalten der Sortiermöglichkeit auf Wickeln</string>
     <string name="dialog_OK_button">OK</string>
     <string name="dialog_NO_button">Nein</string>
     <string name="dialog_Later_button">Vielleicht später</string>

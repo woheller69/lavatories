@@ -31,6 +31,7 @@ import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.database.CityToWatch;
 import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
+import org.woheller69.lavatories.preferences.AppPreferencesManager;
 import org.woheller69.lavatories.ui.updater.IUpdateableCityUI;
 import org.woheller69.lavatories.ui.updater.ViewUpdater;
 import org.woheller69.lavatories.ui.viewPager.CityPagerAdapter;
@@ -45,7 +46,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
     private LocationManager locationManager;
     private static MenuItem updateLocationButton;
     private static MenuItem refreshActionButton;
-    private static MenuItem babyPrioButton;
+    private static MenuItem specialSortButton;
 
     private int cityId = -1;
     private static ViewPager2 viewPager2;
@@ -151,6 +152,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
 
         final Menu m = menu;
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        AppPreferencesManager appPref = new AppPreferencesManager(prefManager);
         updateLocationButton = menu.findItem(R.id.menu_update_location);
         SQLiteHelper db = SQLiteHelper.getInstance(this);
         if(prefManager.getBoolean("pref_GPS", true)==TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
@@ -183,24 +185,27 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         refreshActionButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(refreshActionButton.getItemId(), 0));
         if (isRefreshing) startRefreshAnimation();
 
-        babyPrioButton = menu.findItem(R.id.menu_baby);
-        babyPrioButton.setActionView(R.layout.menu_baby_prio_action_view);
-        if (prefManager.getBoolean("pref_BabyPrio", true)) {
-            babyPrioButton.getActionView().setAlpha(1);
+        specialSortButton = menu.findItem(R.id.menu_baby);
+        boolean baby = prefManager.getBoolean("pref_BabyPrio", true);
+        if (baby) {
+            specialSortButton.setActionView(R.layout.menu_baby_prio_action_view);
         } else {
-            babyPrioButton.getActionView().setAlpha(0.5F);
+            specialSortButton.setActionView(R.layout.menu_wheelchair_prio_action_view);
         }
-        babyPrioButton.getActionView().setOnClickListener(v -> {
-            SharedPreferences.Editor editor = prefManager.edit();
-            boolean on = prefManager.getBoolean("pref_BabyPrio", true);
-            if (!on) {
-                babyPrioButton.getActionView().setAlpha(1);
+        if (appPref.isSpecialLavatorySort()) {
+            specialSortButton.getActionView().setAlpha(1);
+        } else {
+            specialSortButton.getActionView().setAlpha(0.5F);
+        }
+        specialSortButton.getActionView().setOnClickListener(v -> {
+            boolean sortActive = appPref.isSpecialLavatorySort();
+            if (!sortActive) {
+                specialSortButton.getActionView().setAlpha(1);
             } else {
-                babyPrioButton.getActionView().setAlpha(0.5F);
+                specialSortButton.getActionView().setAlpha(0.5F);
             }
-            editor.putBoolean("pref_BabyPrio",!on);
-            editor.apply();
-            m.performIdentifierAction(babyPrioButton.getItemId(), 0);
+            appPref.setSpecialLavatorySort(context, !sortActive);
+            m.performIdentifierAction(specialSortButton.getItemId(), 0);
         });
 
         return true;

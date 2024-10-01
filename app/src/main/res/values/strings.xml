@@ -58,8 +58,8 @@
     <string name="error_no_position">No position available</string>
     <string name="settings_time24h">24-hour format</string>
     <string name="summary_time24h">Override system setting</string>
-    <string name="settings_babyprio">Show baby changing first in list</string>
-    <string name="summary_babyprio">Prioritize lavatories with baby changing</string>
+    <string name="settings_babyprio">Sort: Wheel Chair ↔ Baby Changing</string>
+    <string name="summary_babyprio">Switch sorting feature to baby changing</string>
     <string name="dialog_OK_button">OK</string>
     <string name="dialog_NO_button">No</string>
     <string name="dialog_Later_button">Maybe later</string>
