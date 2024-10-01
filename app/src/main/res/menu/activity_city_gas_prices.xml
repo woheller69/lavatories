@@ -12,6 +12,7 @@
     <item
         android:id="@+id/menu_update_location"
         android:orderInCategory="80"
+        android:visible="false"
         android:icon="@drawable/ic_location_on_white_24dp"
         app:actionViewClass="android.widget.ImageButton"
         app:showAsAction="always"
