@@ -57,8 +57,6 @@
     <string name="error_no_position">No position available</string>
     <string name="settings_time24h">24-hour format</string>
     <string name="summary_time24h">Override system setting</string>
-    <string name="settings_babyprio">Sort: Wheel Chair ↔ Baby Changing</string>
-    <string name="summary_babyprio">Switch sorting feature to baby changing</string>
     <string name="dialog_OK_button">OK</string>
     <string name="dialog_NO_button">No</string>
     <string name="dialog_Later_button">Maybe later</string>
@@ -74,6 +72,6 @@
     <string name="dialog_search_here">Modify location?</string>
     <string name="sorting">Sorting</string>
     <string name="sorting_none">None</string>
-    <string name="sorting_baby">Baby changing</string>
+    <string name="sorting_baby">Changing table</string>
     <string name="sorting_wheelchair">Wheelchair</string>
 </resources>
