@@ -148,7 +148,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_city_gas_prices, menu);
+        getMenuInflater().inflate(R.menu.activity_lavatories, menu);
 
         final Menu m = menu;
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -185,13 +185,23 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         refreshActionButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(refreshActionButton.getItemId(), 0));
         if (isRefreshing) startRefreshAnimation();
 
-        specialSortButton = menu.findItem(R.id.menu_baby);
-        boolean baby = prefManager.getBoolean("pref_BabyPrio", true);
-        if (baby) {
-            specialSortButton.setActionView(R.layout.menu_baby_prio_action_view);
-        } else {
-            specialSortButton.setActionView(R.layout.menu_wheelchair_prio_action_view);
+        specialSortButton = menu.findItem(R.id.menu_sort);
+        String sorting = prefManager.getString("pref_sortingOption","0");
+        switch (sorting){
+            case "0":
+                specialSortButton.setVisible(false);
+                appPref.setSpecialLavatorySort(context, false);
+                break;
+            case "1":
+                specialSortButton.setActionView(R.layout.menu_baby_prio_action_view);
+                specialSortButton.setVisible(true);
+                break;
+            case "2":
+                specialSortButton.setActionView(R.layout.menu_wheelchair_prio_action_view);
+                specialSortButton.setVisible(true);
+                break;
         }
+
         if (appPref.isSpecialLavatorySort()) {
             specialSortButton.getActionView().setAlpha(1);
         } else {
@@ -223,7 +233,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
                 LavSeekerActivity.startRefreshAnimation();
             }
-        }else if (id==R.id.menu_baby) {
+        }else if (id==R.id.menu_sort) {
             if (!db.getAllCitiesToWatch().isEmpty()) {
                 List<Lavatory> lavatories = db.getLavatoriesByCityId(pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
                 ViewUpdater.updateLavatories(lavatories,pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));

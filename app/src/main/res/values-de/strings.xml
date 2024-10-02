@@ -18,7 +18,6 @@
     <string name="activity_manage">Orte verwalten</string>
     <string name="activity_settings">Einstellungen</string>
     <string name="action_refresh">Aktualisieren</string>
-    <string name="action_baby">Baby</string>
     <string name="activity_settings_title">Einstellungen</string>
     <string name="card_lavatories_heading">Letzte Abfrage</string>
     <string name="error_convert_to_json">Die erhaltenen Daten entsprachen nicht dem erwarteten Format.</string>
@@ -70,4 +69,8 @@
     <string name="settings_server_urls">Server URLs</string>
     <string name="settings_server_summary">Nur ändern, wenn Sie Ihre eigenen Server betreiben wollen</string>
     <string name="dialog_search_here">Ort ändern?</string>
+    <string name="sorting">Sortierung</string>
+    <string name="sorting_none">Keine</string>
+    <string name="sorting_baby">Wickelstation</string>
+    <string name="sorting_wheelchair">Rollstuhl</string>
 </resources>

@@ -6,7 +6,6 @@
     <string name="lavatories">Lavatories</string>
     <string name="activity_manage">Manage locations</string>
     <string name="action_refresh">Refresh</string>
-    <string name="action_baby">Baby</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="next">Next</string>
@@ -73,4 +72,8 @@
     <string name="settings_server_urls">Server URLs</string>
     <string name="settings_server_summary">Only change if you want to host your own servers</string>
     <string name="dialog_search_here">Modify location?</string>
+    <string name="sorting">Sorting</string>
+    <string name="sorting_none">None</string>
+    <string name="sorting_baby">Baby changing</string>
+    <string name="sorting_wheelchair">Wheelchair</string>
 </resources>

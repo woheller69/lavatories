@@ -6,7 +6,6 @@
     <string name="lavatories">Toilettes</string>
     <string name="activity_manage">Gérer les lieux</string>
     <string name="action_refresh">Rafraîchir</string>
-    <string name="action_baby">Bébé</string>
     <string name="navigation_drawer_open">Ouvrir l’onglet de navigation</string>
     <string name="navigation_drawer_close">Fermer l’onglet de navigation</string>
     <string name="next">Suivant</string>
@@ -69,4 +68,8 @@
     <string name="settings_server_urls">URL du serveur</string>
     <string name="settings_server_summary">Changez uniquement si vous souhaitez héberger vos propres serveurs</string>
     <string name="dialog_search_here">Changer de poste ?</string>
- </resources>
+    <string name="sorting">Tri</string>
+    <string name="sorting_none">Aucun</string>
+    <string name="sorting_baby">Changement de station</string>
+    <string name="sorting_wheelchair">Fauteuil roulant</string>
+</resources>

@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import androidx.preference.PreferenceManager;
@@ -329,15 +328,28 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             cursor.close();
         }
         Comparator<Lavatory> comparator = (o1, o2) -> {
-            int specialCompare = prefManager.getBoolean("pref_BabyPrio", true) ? Boolean.compare(o2.isBabyChanging(), o1.isBabyChanging()) : Boolean.compare(o2.isWheelchair(), o1.isWheelchair()) ;
+            int specialCompare;
+            String sortingPref = prefManager.getString("pref_sortingOption","0");
+            switch (sortingPref) {
+                case "0":
+                    specialCompare = 0;
+                    break;
+                case "1":
+                    specialCompare = Boolean.compare(o2.isBabyChanging(), o1.isBabyChanging());
+                    break;
+                case "2":
+                    specialCompare = Boolean.compare(o2.isWheelchair(), o1.isWheelchair());
+                    break;
+                default: specialCompare = 0;
+            }
+
             if (specialCompare == 0 || !appPref.isSpecialLavatorySort())
             {
-                int distCompare = (int) (o1.getDistance()*1000 - o2.getDistance()*1000);
-                return distCompare; // sort by dist
+                return (int) (o1.getDistance()*1000 - o2.getDistance()*1000); // sort by dist
             }
             return specialCompare; // sort by Baby Changing / Wheel chair
         };
-        Collections.sort(list, comparator);
+        list.sort(comparator);
         database.close();
         return list;
     }
