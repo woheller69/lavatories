@@ -19,6 +19,18 @@
         <item>10000</item>
     </string-array>
 
+    <string-array name="sortingOption">
+        <item>@string/sorting_none</item>
+        <item>@string/sorting_baby</item>
+        <item>@string/sorting_wheelchair</item>
+    </string-array>
+
+    <string-array name="sortingOptionValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <!-- dots inactive colors -->
     <color name="dot_dark_screen">#026499</color>
 

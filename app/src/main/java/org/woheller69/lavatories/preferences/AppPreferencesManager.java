@@ -37,6 +37,17 @@ public class AppPreferencesManager {
         return result;
     }
 
+    public boolean isSpecialLavatorySort() {
+        boolean result = preferences.getBoolean("specialLavatorySort", false);
+        return result;
+    }
+    public void setSpecialLavatorySort(Context context, boolean value) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("specialLavatorySort",value);
+        editor.apply();
+    }
+
 
     public boolean showStarDialog(Context context) {
         int versionCode = preferences.getInt("versionCode",BuildConfig.VERSION_CODE);

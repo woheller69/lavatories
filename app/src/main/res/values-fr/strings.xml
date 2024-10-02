@@ -54,6 +54,8 @@
     <string name="error_no_position">Pas de position disponible</string>
     <string name="settings_time24h">Format 24 heures</string>
     <string name="summary_time24h">Écraser les préférences système</string>
+    <string name="settings_babyprio">Changer le triage à langer </string>
+    <string name="summary_babyprio">Changer la fonction de tri de l’accessibilité à langer</string>
     <string name="dialog_OK_button">Oui</string>
     <string name="dialog_NO_button">Non</string>
     <string name="dialog_Later_button">Plus tard</string>
@@ -66,4 +68,8 @@
     <string name="settings_server_urls">URL du serveur</string>
     <string name="settings_server_summary">Changez uniquement si vous souhaitez héberger vos propres serveurs</string>
     <string name="dialog_search_here">Changer de poste ?</string>
- </resources>
+    <string name="sorting">Tri</string>
+    <string name="sorting_none">Aucun</string>
+    <string name="sorting_baby">Changement de station</string>
+    <string name="sorting_wheelchair">Fauteuil roulant</string>
+</resources>

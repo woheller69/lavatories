@@ -3,6 +3,7 @@ package org.woheller69.lavatories.database;
 import android.content.ContentValues;
 import android.content.Context;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,8 +11,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import androidx.preference.PreferenceManager;
+import org.woheller69.lavatories.preferences.AppPreferencesManager;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
@@ -48,6 +51,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String LAVATORY_LATITUDE = "latitude";
     private static final String LAVATORY_LONGITUDE = "longitude";
     private static final String LAVATORY_UUID = "uuid";
+
+    private SharedPreferences prefManager;
+    private AppPreferencesManager appPref;
 
     /**
      * Create Table statements for all tables
@@ -87,14 +93,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        appPref = new AppPreferencesManager(prefManager);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
         db.execSQL(CREATE_TABLE_LAVATORIES);
-
     }
 
     @Override
@@ -321,7 +327,29 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
             cursor.close();
         }
-        Collections.sort(list,(o1,o2) -> (int) (o1.getDistance()*1000 - o2.getDistance()*1000));
+        Comparator<Lavatory> comparator = (o1, o2) -> {
+            int specialCompare;
+            String sortingPref = prefManager.getString("pref_sortingOption","0");
+            switch (sortingPref) {
+                case "0":
+                    specialCompare = 0;
+                    break;
+                case "1":
+                    specialCompare = Boolean.compare(o2.isBabyChanging(), o1.isBabyChanging());
+                    break;
+                case "2":
+                    specialCompare = Boolean.compare(o2.isWheelchair(), o1.isWheelchair());
+                    break;
+                default: specialCompare = 0;
+            }
+
+            if (specialCompare == 0 || !appPref.isSpecialLavatorySort())
+            {
+                return (int) (o1.getDistance()*1000 - o2.getDistance()*1000); // sort by dist
+            }
+            return specialCompare; // sort by Baby Changing / Wheel chair
+        };
+        list.sort(comparator);
         database.close();
         return list;
     }

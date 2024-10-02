@@ -24,6 +24,14 @@
             android:defaultValue="true"
             />
 
+        <ListPreference
+            app:useSimpleSummaryProvider="true"
+            android:defaultValue="0"
+            android:entries="@array/sortingOption"
+            android:entryValues="@array/sortingOptionValues"
+            android:key="pref_sortingOption"
+            android:title="@string/sorting" />
+
         <SwitchPreference
             android:key="pref_map"
             android:title="@string/settings_map"
