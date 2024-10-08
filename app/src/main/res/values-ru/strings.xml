@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">LavSeeker</string>
     <string name="app_name_long">LavSeeker</string>
-    <string name="activity_about">Аб</string>
+    <string name="activity_about">Об</string>
     <string name="activity_settings">Натройки</string>
     <string name="lavatories">Туалеты</string>
     <string name="activity_manage">Управление местоположениями</string>
