@@ -1,0 +1,12 @@
+LavSeeker zobrazuje toalety uvedené v mapě OpenStreetMap.
+Dlouhým podržením na toaletu v seznamu zobrazíte toaletu v mapové aplikaci.
+V aplikaci můžete také povolit používání polohy.
+Toalety pro vaši aktuální polohu se pak zobrazí na první kartě aplikace.
+(Tím se přepíše město na první kartě.)
+
+Data poskytuje OpenStreetMap pod licencí ODbL (Open Database License).
+
+Minimální oprávnění:
+LavSeeker vyžaduje pouze minimum oprávnění, konkrétně pouze oprávnění INTERNET.
+To je nutné k provádění požadavků HTTP na vzdálené servery pro příjem dat.
+Volitelná: Oprávnění polohy.
