@@ -61,7 +61,7 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
 
         if (s.equals("pref_GPS")) {
-            if (sharedPreferences.getBoolean("pref_GPS", true) == TRUE) {
+            if (sharedPreferences.getBoolean("pref_GPS", false) == TRUE) {
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
