@@ -21,6 +21,7 @@ import android.os.Looper;
 import android.view.MenuItem;
 
 
+import org.woheller69.freeDroidWarn.FreeDroidWarn;
 import org.woheller69.lavatories.BuildConfig;
 import org.woheller69.lavatories.R;
 import org.woheller69.lavatories.preferences.AppPreferencesManager;
@@ -51,6 +52,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mHandler = new Handler(Looper.getMainLooper());
+        FreeDroidWarn.showWarningOnUpgrade(this, BuildConfig.VERSION_CODE);
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
         if (prefManager.showStarDialog(this)) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
