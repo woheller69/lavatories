@@ -16,13 +16,17 @@
         android:hint=">"
         android:imeOptions="actionDone"
         android:maxLines="1"
+        android:textColor="?attr/colorOnSurface"
+        android:popupBackground="?attr/colorSurfaceContainer"
         android:inputType="text" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#aad3df"
+        android:background="?attr/colorSecondaryContainer"
+        android:textColor="?attr/colorOnSecondaryContainer"
+        android:padding="6dp"
         android:gravity="center"
-        android:text="Search powered by by Open-Meteo.com"/>
+        android:text="Search powered by Open-Meteo.com"/>
     <WebView
         android:id="@+id/webViewAddLocation"
         android:layout_width="match_parent"
