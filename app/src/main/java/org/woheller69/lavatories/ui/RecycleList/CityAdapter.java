@@ -68,7 +68,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     private int cityID;
     private Context context;
     private LocationManager locationManager;
-    private static LocationListener myPositionListenerGPS;
+    private LocationListener myPositionListenerGPS;
 
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
@@ -312,6 +312,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
                 MapEventsOverlay OverlayEventos = new MapEventsOverlay(mapEventsReceiver);
                 holder.map.getOverlays().add(OverlayEventos);
+                removeMyPositionListenerGPS();  //unregister a listener from a previous bind before re-registering, otherwise GPS updates leak
                 myPositionListenerGPS = location -> {
                     if (holder.map.getOverlays().contains(positionMarker)) holder.map.getOverlays().remove(positionMarker);
                     if (location.hasBearing() && location.hasSpeed() && location.getSpeed()>0.5){
