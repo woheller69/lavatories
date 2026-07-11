@@ -91,6 +91,20 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             if (pagerAdapter.getPosForCityID(cityId)==-1) cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());
             if (viewPager2.getCurrentItem()!=pagerAdapter.getPosForCityID(cityId)) viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId),false);
         }
+
+        //Start a single background location update on entering the screen when GPS is enabled,
+        //so the first tab refreshes automatically. The null check makes sure it runs only once
+        //per entry; onLocationChanged() removes the listener again after the first fix, which
+        //avoids the continuous refresh loop that repeated starts would cause.
+        SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (prefManager.getBoolean("pref_GPS", false) == TRUE
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && locationListenerGPS == null
+                && !db.getAllCitiesToWatch().isEmpty()) {
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            locationListenerGPS = getNewLocationListener();
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListenerGPS);
+        }
     }
 
     @Override
@@ -166,14 +180,9 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
             updateLocationButton.setVisible(true);
             updateLocationButton.setActionView(R.layout.menu_update_location_view);
             updateLocationButton.getActionView().clearAnimation();
-            if (locationListenerGPS!=null) {  //GPS still trying to get new location -> stop and restart to get around problem with tablayout not updating
-                removeLocationListener();
-                if (!db.getAllCitiesToWatch().isEmpty()) {  //if city has not been removed continue location update
-                    locationListenerGPS=getNewLocationListener();
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListenerGPS);
-                    if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
-                        startUpdateLocatationAnimation();
-                    }
+            if (locationListenerGPS != null) {  //a background location update is running -> show the blinking animation
+                if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
+                    startUpdateLocatationAnimation();
                 }
             }
             updateLocationButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(updateLocationButton.getItemId(), 0));
@@ -368,9 +377,14 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 city.setLongitude((float) location.getLongitude());
                 city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                 db.updateCityToWatch(city);
-                db.deleteLavatoriesByCityId(getWidgetCityID(context));
                 initPagerAdapter();
                 refreshTab0Header(city.getCityName());
+                //Immediately fetch lavatories for the new position so the list updates live.
+                //The previous entries are intentionally NOT deleted here: on success the fetch
+                //replaces them, and on a failed/throttled request the old list stays visible
+                //instead of leaving an empty list with an error.
+                CityPagerAdapter.refreshSingleData(getApplicationContext(), getWidgetCityID(context));
+                startRefreshAnimation();
                 removeLocationListener();
                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                     updateLocationButton.getActionView().clearAnimation();
