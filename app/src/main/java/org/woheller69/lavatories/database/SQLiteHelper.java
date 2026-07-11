@@ -358,6 +358,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         SQLiteHelper db = SQLiteHelper.getInstance(context);
         int cityID=0;
         List<CityToWatch> cities = db.getAllCitiesToWatch();
+        if (cities.isEmpty()) return -1;  //no city watched -> no valid id
         int rank=cities.get(0).getRank();
         for (int i = 0; i < cities.size(); i++) {   //find cityID for first city to watch = lowest Rank
             CityToWatch city = cities.get(i);
