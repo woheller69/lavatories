@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Enforce that no application traffic is ever sent in cleartext. Every backend
+  the app talks to (Overpass, Nominatim, tile and geocoding servers, including
+  any endpoint the user configures in the settings) must use TLS.
+
+  This is already the platform default for API 28+, but is declared explicitly
+  so the guarantee is documented and stays in effect independently of the
+  targetSdk. Only the system trust store is used; user-added CAs are not
+  trusted, to reduce the risk of interception.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
