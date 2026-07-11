@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material 3 color roles (light). Brand blue #024265 as primary. -->
+<resources>
+    <color name="m3_primary">#024265</color>
+    <color name="m3_on_primary">#FFFFFF</color>
+    <color name="m3_primary_container">#C9E6FF</color>
+    <color name="m3_on_primary_container">#001E30</color>
+
+    <color name="m3_secondary">#0274B2</color>
+    <color name="m3_on_secondary">#FFFFFF</color>
+    <color name="m3_secondary_container">#CDE5FF</color>
+    <color name="m3_on_secondary_container">#001D33</color>
+
+    <color name="m3_tertiary">#48607B</color>
+    <color name="m3_on_tertiary">#FFFFFF</color>
+    <color name="m3_tertiary_container">#CFE5FF</color>
+    <color name="m3_on_tertiary_container">#001D33</color>
+
+    <color name="m3_background">#FBFCFE</color>
+    <color name="m3_on_background">#1A1C1E</color>
+    <color name="m3_surface">#FBFCFE</color>
+    <color name="m3_on_surface">#1A1C1E</color>
+    <color name="m3_surface_variant">#DDE3EA</color>
+    <color name="m3_on_surface_variant">#41474D</color>
+    <color name="m3_outline">#71787E</color>
+
+    <color name="m3_error">#BA1A1A</color>
+    <color name="m3_on_error">#FFFFFF</color>
+
+    <!-- Soft tonal surface for cards and the highlighted list row (light). -->
+    <color name="m3_surface_container">#EDF1F7</color>
+    <color name="list_highlight">#CDE5FF</color>
+</resources>

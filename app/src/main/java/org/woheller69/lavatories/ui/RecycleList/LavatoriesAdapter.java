@@ -51,8 +51,8 @@ public class LavatoriesAdapter extends RecyclerView.Adapter<LavatoriesAdapter.La
         }else{
             holder.address.setText((lavatoryList.get(position).getAddress1()).toUpperCase());
         }
-        if (position == selected) holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_highlight,null));
-        else holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_transparent,null));
+        if (position == selected) holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_highlight,context.getTheme()));
+        else holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_transparent,context.getTheme()));
 
         if (!lavatoryList.get(position).getOperator().trim().equals("")) {
             holder.operator.setText(lavatoryList.get(position).getOperator().toUpperCase());

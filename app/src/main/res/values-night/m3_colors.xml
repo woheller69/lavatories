@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material 3 color roles (dark). Lighter brand tones for dark surfaces. -->
+<resources>
+    <color name="m3_primary">#8ACEFF</color>
+    <color name="m3_on_primary">#00344F</color>
+    <color name="m3_primary_container">#024265</color>
+    <color name="m3_on_primary_container">#C9E6FF</color>
+
+    <color name="m3_secondary">#99CBFF</color>
+    <color name="m3_on_secondary">#003355</color>
+    <color name="m3_secondary_container">#004A77</color>
+    <color name="m3_on_secondary_container">#CDE5FF</color>
+
+    <color name="m3_tertiary">#B0C9E9</color>
+    <color name="m3_on_tertiary">#19324C</color>
+    <color name="m3_tertiary_container">#314863</color>
+    <color name="m3_on_tertiary_container">#CFE5FF</color>
+
+    <color name="m3_background">#1A1C1E</color>
+    <color name="m3_on_background">#E2E2E6</color>
+    <color name="m3_surface">#1A1C1E</color>
+    <color name="m3_on_surface">#E2E2E6</color>
+    <color name="m3_surface_variant">#41474D</color>
+    <color name="m3_on_surface_variant">#C1C7CE</color>
+    <color name="m3_outline">#8B9198</color>
+
+    <color name="m3_error">#FFB4AB</color>
+    <color name="m3_on_error">#690005</color>
+
+    <!-- Soft tonal surface for cards and the highlighted list row (dark). -->
+    <color name="m3_surface_container">#22262A</color>
+    <color name="list_highlight">#004A77</color>
+</resources>

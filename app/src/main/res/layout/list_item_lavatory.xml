@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="4dp">
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,22 +15,23 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="4dp"
             android:text="Aral"
-
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface" />
 
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:tint="?attr/colorPrimary"
             android:src="@drawable/ic_wc_black_24dp">
         </ImageView>
         <ImageView
@@ -37,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:tint="?attr/colorPrimary"
             android:src="@drawable/ic_accessible_black_24dp">
         </ImageView>
         <ImageView
@@ -44,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:tint="?attr/colorPrimary"
             android:src="@drawable/ic_baby_changing_station_black_24dp">
         </ImageView>
         <ImageView
@@ -51,6 +55,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:tint="?attr/colorPrimary"
             android:src="@drawable/ic_paid_black_24dp">
         </ImageView>
         <TextView
@@ -61,8 +66,9 @@
             android:gravity="end"
             android:layout_marginBottom="3dp"
             android:text="1.0 km"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
@@ -70,10 +76,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="2dp"
         android:text="24/7"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant" />
 
 
     <TextView
@@ -81,10 +87,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:text="Musterstraße 27, 12345 Musterstadt"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant" />
 
 
 </LinearLayout>
