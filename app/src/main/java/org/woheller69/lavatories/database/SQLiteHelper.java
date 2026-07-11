@@ -127,8 +127,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(CITIES_TO_WATCH_CITY_ID,id);
         database.update(TABLE_CITIES_TO_WATCH, values, CITIES_TO_WATCH_ID + " = ?",
                 new String[]{String.valueOf(id)});
-
-        database.close();
         return id;
     }
 
@@ -158,9 +156,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             cityToWatch.setRank(Integer.parseInt(cursor.getString(5)));
 
             cursor.close();
-        }
-        database.close();
-        return cityToWatch;
+        }        return cityToWatch;
     }
 
 
@@ -195,9 +191,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        cursor.close();
-        database.close();
-        return cityToWatchList;
+        cursor.close();        return cityToWatchList;
     }
 
     public synchronized void updateCityToWatch(CityToWatch cityToWatch) {
@@ -211,9 +205,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(CITIES_TO_WATCH_LONGITUDE,cityToWatch.getLongitude());
 
         database.update(TABLE_CITIES_TO_WATCH, values, CITIES_TO_WATCH_ID + " = ?",
-                new String[]{String.valueOf(cityToWatch.getId())});
-        database.close();
-    }
+                new String[]{String.valueOf(cityToWatch.getId())});    }
 
     public synchronized void deleteCityToWatch(CityToWatch cityToWatch) {
 
@@ -223,15 +215,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         //Now remove city from CITIES_TO_WATCH
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_CITIES_TO_WATCH, CITIES_TO_WATCH_ID + " = ?",
-                new String[]{Integer.toString(cityToWatch.getId())});
-        database.close();
-    }
+                new String[]{Integer.toString(cityToWatch.getId())});    }
 
     public synchronized int getWatchedCitiesCount() {
         SQLiteDatabase database = this.getWritableDatabase();
-        long count = DatabaseUtils.queryNumEntries(database, TABLE_CITIES_TO_WATCH);
-        database.close();
-        return (int) count;
+        long count = DatabaseUtils.queryNumEntries(database, TABLE_CITIES_TO_WATCH);        return (int) count;
     }
 
     public int getMaxRank() {
@@ -264,22 +252,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(LAVATORY_LATITUDE, lavatory.getLatitude());
         values.put(LAVATORY_LONGITUDE, lavatory.getLongitude());
         values.put(LAVATORY_UUID, lavatory.getUuid());
-        database.insert(TABLE_LAVATORIES, null, values);
-        database.close();
-    }
+        database.insert(TABLE_LAVATORIES, null, values);    }
 
     public synchronized void deleteAllLavatories() {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("delete from " + TABLE_LAVATORIES);
-        database.close();
-    }
+        database.execSQL("delete from " + TABLE_LAVATORIES);    }
 
     public synchronized void deleteLavatoriesByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_LAVATORIES, LAVATORY_CITY_ID + " = ?",
-                new String[]{Integer.toString(cityId)});
-        database.close();
-    }
+                new String[]{Integer.toString(cityId)});    }
 
     public synchronized List<Lavatory> getLavatoriesByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -349,9 +331,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             }
             return specialCompare; // sort by Baby Changing / Wheel chair
         };
-        list.sort(comparator);
-        database.close();
-        return list;
+        list.sort(comparator);        return list;
     }
 
     public static int getWidgetCityID(Context context) {
