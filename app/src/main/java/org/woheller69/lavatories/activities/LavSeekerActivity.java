@@ -282,6 +282,24 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
     }
 
     @Override
+    protected void onDestroy() {
+        // Release the static references held by this Activity to avoid leaking
+        // its window/views for the whole process lifetime. Only clear them when
+        // the Activity is really finishing (not on a configuration change, which
+        // recreates and reassigns them in onCreate/onResume).
+        removeLocationListener();
+        if (isFinishing()) {
+            pagerAdapter = null;
+            viewPager2 = null;
+            tabLayout = null;
+            updateLocationButton = null;
+            refreshActionButton = null;
+            specialSortButton = null;
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void processUpdateLavatories(List<Lavatory> lavatories, int cityID) {
         stopRefreshAnimation();
     }
