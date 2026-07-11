@@ -80,17 +80,19 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
 
         List<Lavatory> lavatoriesBatch = new ArrayList<>();
         for (Lavatory lavatory : lavatories){  //split into batches of 49 lavatories, which is the max for Nominatim API calls
-            if (lavatoriesBatch.size()<49){
-                lavatoriesBatch.add(lavatory);
-            }
+            lavatoriesBatch.add(lavatory);
             if (lavatoriesBatch.size()==49){
-                OSMHttpRequestForAddress addressRequest = new OSMHttpRequestForAddress(context);
-                addressRequest.perform(cityId, lavatoriesBatch);
+                new OSMHttpRequestForAddress(context).perform(cityId, lavatoriesBatch);
                 lavatoriesBatch = new ArrayList<>();
             }
         }
-        OSMHttpRequestForAddress addressRequest = new OSMHttpRequestForAddress(context);
-        addressRequest.perform(cityId, lavatoriesBatch);
+        // Flush the remaining lavatories. When the total is an exact multiple of
+        // 49 the last batch is already sent above, so only send a non-empty rest.
+        // When there are no lavatories at all, still send one (empty) request so
+        // the address processor clears the list and refreshes the UI.
+        if (!lavatoriesBatch.isEmpty() || lavatories.isEmpty()) {
+            new OSMHttpRequestForAddress(context).perform(cityId, lavatoriesBatch);
+        }
     }
 
     /**
