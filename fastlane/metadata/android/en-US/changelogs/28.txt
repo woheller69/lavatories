@@ -1,0 +1,5 @@
+Increase timeout for overpass-api to 60s
+
+RECOMMENDED: get your own API key e.g. from overpass.ch
+and add it in Settings -> Overpass API
+https://api.overpass.ch/v1/YOUR_API_KEY/interpreter

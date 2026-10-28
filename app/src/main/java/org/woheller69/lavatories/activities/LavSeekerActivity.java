@@ -118,7 +118,6 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
                 if (lavatories.size() == 0)  {
                     if (pagerAdapter.getCityIDForPos(position)!=getWidgetCityID(context)||locationListenerGPS==null) { //do not update first TAB while location is updating
                         CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(position));
-                        LavSeekerActivity.startRefreshAnimation();
                     }
                 }
 
@@ -190,7 +189,6 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         refreshActionButton = menu.findItem(R.id.menu_refresh);
         refreshActionButton.setActionView(R.layout.menu_refresh_action_view);
         refreshActionButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(refreshActionButton.getItemId(), 0));
-        if (isRefreshing) startRefreshAnimation();
 
         specialSortButton = menu.findItem(R.id.menu_sort);
         String sorting = prefManager.getString("pref_sortingOption","0");
@@ -238,7 +236,6 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         if (id==R.id.menu_refresh){
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
                 CityPagerAdapter.refreshSingleData(getApplicationContext(), pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
-                LavSeekerActivity.startRefreshAnimation();
             }
         }else if (id==R.id.menu_sort) {
             if (!db.getAllCitiesToWatch().isEmpty()) {
@@ -282,9 +279,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
     }
 
     @Override
-    public void processUpdateLavatories(List<Lavatory> lavatories, int cityID) {
-        stopRefreshAnimation();
-    }
+    public void processUpdateLavatories(List<Lavatory> lavatories, int cityID) {}
 
     public static void stopRefreshAnimation(){
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
@@ -298,7 +293,7 @@ public class LavSeekerActivity extends NavigationActivity implements IUpdateable
         if(refreshActionButton !=null && refreshActionButton.getActionView() != null) {
             RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             rotate.setDuration(500);
-            rotate.setRepeatCount(10);
+            rotate.setRepeatCount(120); //max 60s
             rotate.setInterpolator(new LinearInterpolator());
             rotate.setAnimationListener(new Animation.AnimationListener() {
                 @Override

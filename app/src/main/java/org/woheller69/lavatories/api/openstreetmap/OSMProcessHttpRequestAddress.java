@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.AndroidAddressFormatter.AndroidAddressFormatter;
 import org.woheller69.lavatories.R;
+import org.woheller69.lavatories.activities.LavSeekerActivity;
 import org.woheller69.lavatories.activities.NavigationActivity;
 
 import org.woheller69.lavatories.api.IProcessHttpRequest;
@@ -64,6 +65,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     @Override
     public void processSuccessScenario(String response, int cityId) {
+        LavSeekerActivity.stopRefreshAnimation();
         this.dbHelper = SQLiteHelper.getInstance(context);
         SQLiteHelper db = SQLiteHelper.getInstance(context);
         CityToWatch city = db.getCityToWatch(cityId);
@@ -130,6 +132,7 @@ public class OSMProcessHttpRequestAddress implements IProcessHttpRequest {
      */
     @Override
     public void processFailScenario(final VolleyError error) {
+        LavSeekerActivity.stopRefreshAnimation();
         Handler h = new Handler(this.context.getMainLooper());
         h.post(new Runnable() {
             @Override

@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.woheller69.lavatories.BuildConfig;
+import org.woheller69.lavatories.activities.LavSeekerActivity;
 import org.woheller69.lavatories.api.IProcessHttpRequest;
 
 import java.util.HashMap;
@@ -85,9 +86,10 @@ public class VolleyHttpRequest implements IHttpRequest {
                 return params;
             }
         };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,   //set timeout of 5s
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(60000,   //set timeout of 60s
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(stringRequest);
+        LavSeekerActivity.startRefreshAnimation();
     }
 }

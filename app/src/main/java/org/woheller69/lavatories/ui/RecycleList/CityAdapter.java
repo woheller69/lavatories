@@ -140,7 +140,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                         recyclerView.setOnTouchListener(new OnSwipeDownListener(context) {
                             public void onSwipeDown() {
                                 CityPagerAdapter.refreshSingleData(context,cityID);
-                                LavSeekerActivity.startRefreshAnimation();
                             }
                         });
                     }else recyclerView.setOnTouchListener(null);
@@ -295,7 +294,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                                 db.updateCityToWatch(city);
                                 db.deleteLavatoriesByCityId(getWidgetCityID(context));
                                 CityPagerAdapter.refreshSingleData(context,getWidgetCityID(context));
-                                LavSeekerActivity.startRefreshAnimation();
                                 LavSeekerActivity.initPagerAdapter();
                                 LavSeekerActivity.refreshTab0Header(city.getCityName());
                             });

@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.lavatories.R;
+import org.woheller69.lavatories.activities.LavSeekerActivity;
 import org.woheller69.lavatories.activities.NavigationActivity;
 import org.woheller69.lavatories.database.Lavatory;
 import org.woheller69.lavatories.database.SQLiteHelper;
@@ -53,6 +54,7 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
      */
     @Override
     public void processSuccessScenario(String response, int cityId) {
+        //do not perform LavSeekerActivity.stopRefreshAnimation() here. Only if also addresses are loaded sucessfully
         //Log.d("Request",response);
         IDataExtractor extractor = new OSMDataExtractor();
         dbHelper.deleteLavatoriesByCityId(cityId); //start with empty list
@@ -100,6 +102,7 @@ public class OSMProcessHttpRequestToilets implements IProcessHttpRequest {
      */
     @Override
     public void processFailScenario(final VolleyError error) {
+        LavSeekerActivity.stopRefreshAnimation();
         Log.d("Error", String.valueOf(error));
         Handler h = new Handler(this.context.getMainLooper());
         h.post(new Runnable() {
